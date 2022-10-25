@@ -1,8 +1,9 @@
 import Link from "next/link";
+import styles from "../styles/Home.module.scss";
 
 const Header = () => {
     return (
-        <header>
+        <header className={styles.header}>
             <Link href="/">
                 <a>Home</a>
             </Link>

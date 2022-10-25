@@ -1,6 +1,8 @@
+import styles from "../../styles/Home.module.scss";
+
 const Activity = () => {
     return (
-        <main>
+        <main className={styles.main}>
             <div>This is Activity Page</div>
         </main>
     );
