@@ -15,8 +15,8 @@ const Home: NextPage = () => {
             <section>
                 <div className={styles.titleSub}>
                     <h1 className={styles.title}>
-                        If it's good, it's wonderful. <br />
-                        If it's bad, it's experience.
+                        If it&apos;s good, it&apos;s wonderful. <br />
+                        If it&apos;s bad, it&apos;s experience.
                     </h1>
 
                     <p className={styles.description}>
