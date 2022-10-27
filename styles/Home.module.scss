@@ -8,6 +8,45 @@
     align-items: center;
 }
 
+.main section {
+    width: 100%;
+}
+
+.titleSub {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.downArrow {
+    position: absolute;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%, 0);
+}
+
+.downArrow button {
+    border-radius: 50%;
+    background-color: transparent;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.downArrow button svg {
+    transition: stroke 0.15s ease;
+    cursor: pointer;
+}
+
+.downArrow button svg:hover,
+.downArrow button svg:focus,
+.downArrow button svg:active {
+    stroke: $HOVER_COLOR;
+    outline: none;
+}
+
 .footer {
     display: flex;
     flex: 1;
@@ -25,7 +64,7 @@
 }
 
 .title a {
-    color: #0070f3;
+    color: $HOVER_COLOR;
     text-decoration: none;
 }
 
@@ -52,25 +91,17 @@
     font-size: 1.5rem;
 }
 
-.code {
-    background: #fafafa;
-    border-radius: 5px;
-    padding: 0.75rem;
-    font-size: 1.1rem;
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-        DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
 .grid {
-    display: flex;
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
-    max-width: 800px;
+    padding: 4rem 0;
 }
 
 .card {
-    margin: 1rem;
     padding: 1.5rem;
     text-align: left;
     color: inherit;
@@ -78,14 +109,20 @@
     border: 1px solid #eaeaea;
     border-radius: 10px;
     transition: color 0.15s ease, border-color 0.15s ease;
-    max-width: 300px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card:hover,
 .card:focus,
-.card:active {
-    color: #0070f3;
-    border-color: #0070f3;
+.card:active,
+.header a:focus,
+.header a:hover,
+.header a:active {
+    color: $HOVER_COLOR;
+    border-color: $HOVER_COLOR;
 }
 
 .card h2 {
@@ -106,8 +143,7 @@
 
 @media (max-width: 600px) {
     .grid {
-        width: 100%;
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 }
 
@@ -115,9 +151,6 @@
     .card,
     .footer {
         border-color: #222;
-    }
-    .code {
-        background: #111;
     }
     .logo img {
         filter: invert(1);
@@ -144,11 +177,4 @@
     border: 1px solid transparent;
     border-radius: 10px;
     padding: 0.5rem 1rem;
-}
-
-.header a:focus,
-.header a:hover,
-.header a:active {
-    color: #0070f3;
-    border-color: #0070f3;
 }
