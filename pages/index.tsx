@@ -1,29 +1,47 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.scss";
 
 const Home: NextPage = () => {
-    const downArrow = () => {
-        window.scrollTo({
-            left: 0,
-            top: window.innerHeight + 4.4 * 16,
-        });
-    };
+    const [titleSub, setTitleSub] = useState(false);
+    const [downButton, setDownButton] = useState(false);
+    const [grid1, setGrid1] = useState(false);
+    const [grid2, setGrid2] = useState(false);
+
+    const downArrow = () => {};
+
+    useEffect(() => {
+        setTitleSub(true);
+        setTimeout(() => {
+            setDownButton(true);
+        }, 3000);
+    }, []);
 
     return (
         <main className={styles.main}>
             <section>
-                <div className={styles.titleSub}>
-                    <h1 className={styles.title}>
-                        If it&apos;s good, it&apos;s wonderful. <br />
-                        If it&apos;s bad, it&apos;s experience.
-                    </h1>
+                <div className={styles.titleSubArrow}>
+                    <div
+                        className={`${styles.titleSub} ${
+                            titleSub && styles.show
+                        }`}
+                    >
+                        <h1 className={styles.title}>
+                            If it&apos;s good, it&apos;s wonderful. <br />
+                            If it&apos;s bad, it&apos;s experience.
+                        </h1>
 
-                    <p className={styles.description}>
-                        - by <i>Carol A. Turkington</i>
-                    </p>
+                        <p className={styles.description}>
+                            - by <i>Carol A. Turkington</i>
+                        </p>
+                    </div>
 
-                    <div className={styles.downArrow}>
+                    <div
+                        className={`${styles.downArrow} ${
+                            downButton && styles.show
+                        }`}
+                    >
                         <button onClick={downArrow}>
                             <svg
                                 width="40"
