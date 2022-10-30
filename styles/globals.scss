@@ -18,7 +18,9 @@ nav {
     transition: transform 0.5s;
     left: -300px;
     top: 0;
-    width: 300px;
+    width: 100vw;
+    min-width: 100px;
+    max-width: 300px;
     background: #20232a;
     z-index: 999;
 }
