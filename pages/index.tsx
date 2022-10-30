@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.scss";
+import Scrollbar from "smooth-scrollbar";
 
 const Home: NextPage = () => {
     const [titleSub, setTitleSub] = useState(false);
@@ -9,7 +10,11 @@ const Home: NextPage = () => {
     const [grid1, setGrid1] = useState(false);
     const [grid2, setGrid2] = useState(false);
 
-    const downArrow = () => {};
+    const downArrow = () => {
+        Scrollbar.get(
+            document.querySelector("#root") as HTMLElement
+        )?.setMomentum(0, 1000);
+    };
 
     useEffect(() => {
         setTitleSub(true);
