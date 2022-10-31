@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useEffect } from "react";
-import Scrollbar from "smooth-scrollbar";
 import styles from "../styles/Home.module.scss";
 
 const Header = () => {
