@@ -13,7 +13,7 @@ body {
 }
 
 nav {
-    position: absolute;
+    position: fixed;
     height: 100vh;
     transition: transform 0.5s;
     left: -300px;
@@ -27,6 +27,31 @@ nav {
 
 nav.active {
     transform: translate3d(0, 0, 0);
+}
+
+#navClose {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem;
+}
+
+#navClose > button {
+    cursor: pointer;
+}
+
+#navList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+hr {
+    border: 1px solid $HR_COLOR;
+    width: 100%;
+}
+
+#navList > a {
+    padding: 0.5rem 2rem;
 }
 
 a {
