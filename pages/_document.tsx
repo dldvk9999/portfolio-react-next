@@ -55,6 +55,17 @@ export default function MyDocument() {
                             </Link>
                         </div>
                     </div>
+                    <div>
+                        <p id="navMaker">
+                            made by{" "}
+                            <a
+                                href="https://github.com/dldvk9999"
+                                id="navMakerNickname"
+                            >
+                                JongGeun
+                            </a>
+                        </p>
+                    </div>
                 </nav>
 
                 <div id="root">

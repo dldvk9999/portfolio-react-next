@@ -13,6 +13,9 @@ body {
 }
 
 nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: fixed;
     height: 100vh;
     transition: transform 0.5s;
@@ -43,6 +46,14 @@ nav.active {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+#navMaker {
+    padding: 1rem 1.5rem;
+}
+
+#navMakerNickname {
+    color: $HOVER_COLOR;
 }
 
 hr {

@@ -46,12 +46,12 @@ const Header = () => {
         };
 
         document
-            .querySelector("#nav")!
+            .querySelector("#navClose")!
             .addEventListener("click", (e) => navCloseButton(e.target));
 
         return () => {
             document
-                .querySelector("#nav")!
+                .querySelector("#navClose")!
                 .removeEventListener("click", (e) => navCloseButton(e.target));
         };
     }, []);
