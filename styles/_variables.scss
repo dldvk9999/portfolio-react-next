@@ -1,3 +1,24 @@
 $HOVER_COLOR: #0070f3;
 $BORDER_COLOR: #eaeaea;
-$HR_COLOR: #4a4a4a;
+
+html.dark {
+    --DARKMODE_SWITCH_COLOR: 210 20% 98%;
+    --HTML_COLOR_SCHEME: dark;
+    --BODY_COLOR: white;
+    --BODY_BACKGROUND: black;
+    --TEXT_COLOR: #eeeeee;
+    --NAV_BACKGROUND: #20232a;
+    --NAV_CLOSE_BUTTON: white;
+    --HR_COLOR: #4a4a4a;
+}
+
+html.light {
+    --DARKMODE_SWITCH_COLOR: 215 28% 17%;
+    --HTML_COLOR_SCHEME: light;
+    --BODY_COLOR: black;
+    --BODY_BACKGROUND: white;
+    --TEXT_COLOR: #2a2a2a;
+    --NAV_BACKGROUND: #e0e0e0;
+    --NAV_CLOSE_BUTTON: black;
+    --HR_COLOR: #c0c0c0;
+}

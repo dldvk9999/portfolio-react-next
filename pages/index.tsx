@@ -13,7 +13,7 @@ const Home: NextPage = () => {
     const downArrow = () => {
         Scrollbar.get(
             document.querySelector("#root") as HTMLElement
-        )?.setMomentum(0, window.innerHeight);
+        )?.setMomentum(0, window.innerHeight + 16 * 4.5);
     };
 
     useEffect(() => {
