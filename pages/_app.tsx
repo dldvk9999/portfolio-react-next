@@ -15,6 +15,14 @@ function App({ Component, pageProps }: AppProps) {
         <>
             <Head>
                 <title>Portfolio - JongGeun</title>
+                <meta
+                    name="description"
+                    content="This page is JongGeun's portfolio made with Next.js, so please be careful as it contains personal and other sensitive information."
+                ></meta>
+                <meta
+                    name="keywords"
+                    content="portfolio,frontend,frontend,frontend,nextjs,activity,project,site,react"
+                />
             </Head>
 
             <Header />

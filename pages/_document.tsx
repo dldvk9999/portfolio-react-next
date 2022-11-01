@@ -1,10 +1,10 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import { NextStrictCSP } from "next-strict-csp";
 import Link from "next/link";
-import { useEffect } from "react";
+
+const HeadCSP = process.env.NODE_ENV === "production" ? NextStrictCSP : Head;
 
 export default function MyDocument() {
-    let isDarkMode = true;
-
     function closeNav() {
         let nav = document.querySelector("#nav");
         nav?.classList.remove("active");
@@ -25,22 +25,27 @@ export default function MyDocument() {
                 <Link href="/project">
                     <a onClick={closeNav}>Project</a>
                 </Link>
+                <Link href="/site">
+                    <a onClick={closeNav}>Site</a>
+                </Link>
             </>
         );
     }
 
-    useEffect(() => {
-        isDarkMode = localStorage.getItem("darkmode") === "true";
-    });
-
     return (
         <Html lang="ko">
-            <Head />
+            <HeadCSP>
+                {process.env.NODE_ENV === "production" && (
+                    <>
+                        <meta httpEquiv="Content-Security-Policy" />
+                    </>
+                )}
+            </HeadCSP>
             <body>
                 <nav id="nav">
                     <div>
                         <div id="navClose">
-                            <button>
+                            <button aria-label="navigation close button">
                                 <svg
                                     viewBox="0 0 120.64 122.88"
                                     width="17"

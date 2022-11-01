@@ -10,6 +10,8 @@ html.dark {
     --NAV_BACKGROUND: #20232a;
     --NAV_CLOSE_BUTTON: white;
     --HR_COLOR: #4a4a4a;
+    --CARD_IMAGE_BRIGHTNESS: 0.8;
+    --CARD_IMAGE_BRIGHTNESS_HOVER: 0.6;
 }
 
 html.light {
@@ -21,4 +23,6 @@ html.light {
     --NAV_BACKGROUND: #e0e0e0;
     --NAV_CLOSE_BUTTON: black;
     --HR_COLOR: #c0c0c0;
+    --CARD_IMAGE_BRIGHTNESS: 0.95;
+    --CARD_IMAGE_BRIGHTNESS_HOVER: 0.75;
 }

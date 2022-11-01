@@ -47,7 +47,10 @@ const Home: NextPage = () => {
                             downButton && styles.show
                         }`}
                     >
-                        <button onClick={downArrow}>
+                        <button
+                            onClick={downArrow}
+                            aria-label="scroll down button"
+                        >
                             <svg
                                 width="40"
                                 height="40"
@@ -66,43 +69,71 @@ const Home: NextPage = () => {
                 <div className={styles.grid}>
                     <Link href="/about">
                         <a className={styles.card}>
-                            <h2>About &rarr;</h2>
-                            <p>
-                                나를 소개하는 페이지입니다. 생년월일, 학력,
-                                이미지 등 기본 인적사항을 보여줍니다.
-                            </p>
+                            <img
+                                src="about.webp"
+                                alt="about"
+                                className={styles.cardImage}
+                            />
+                            <div className={styles.cardContents}>
+                                <h2>About &rarr;</h2>
+                                <p>
+                                    나를 소개하는 페이지입니다. 생년월일, 학력,
+                                    이미지 등 기본 인적사항을 보여줍니다.
+                                </p>
+                            </div>
                         </a>
                     </Link>
 
-                    <Link href="/avtivity">
+                    <Link href="/activity">
                         <a className={styles.card}>
-                            <h2>Activity &rarr;</h2>
-                            <p>
-                                수료한 활동 및 교육 내용을 소개하며 어떤 주제로
-                                활동을 했었는지, 어떤 내용을 교육들었는지
-                                구체적으로 소개합니다.
-                            </p>
+                            <img
+                                src="activity.webp"
+                                alt="activity"
+                                className={styles.cardImage}
+                            />
+                            <div className={styles.cardContents}>
+                                <h2>Activity &rarr;</h2>
+                                <p>
+                                    수료한 활동 및 교육 내용을 소개하며 어떤
+                                    주제로 활동을 했었는지, 어떤 내용을
+                                    교육들었는지 구체적으로 소개합니다.
+                                </p>
+                            </div>
                         </a>
                     </Link>
 
                     <Link href="/project">
                         <a className={styles.card}>
-                            <h2>Project &rarr;</h2>
-                            <p>
-                                참여한 프로젝트를 소개합니다. 그 곳에서 어떤
-                                포지션을 맡았는지 어떻게 개발하며 협업했는지를
-                                기술합니다.
-                            </p>
+                            <img
+                                src="project.webp"
+                                alt="project"
+                                className={styles.cardImage}
+                            />
+                            <div className={styles.cardContents}>
+                                <h2>Project &rarr;</h2>
+                                <p>
+                                    참여한 프로젝트를 소개합니다. 그 곳에서 어떤
+                                    포지션을 맡았는지 어떻게 개발하며
+                                    협업했는지를 기술합니다.
+                                </p>
+                            </div>
                         </a>
                     </Link>
 
                     <Link href="/site">
                         <a className={styles.card}>
-                            <h2>This Site &rarr;</h2>
-                            <p>
-                                이 사이트의 구조 및 설계를 소개하고 코드를
-                                공개합니다.
-                            </p>
+                            <img
+                                src="site.webp"
+                                alt="site"
+                                className={styles.cardImage}
+                            />
+                            <div className={styles.cardContents}>
+                                <h2>This Site &rarr;</h2>
+                                <p>
+                                    이 사이트의 구조 및 설계를 소개하고 코드를
+                                    공개합니다.
+                                </p>
+                            </div>
                         </a>
                     </Link>
                 </div>
