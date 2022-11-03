@@ -103,21 +103,12 @@ button {
     display: flex;
 }
 
+button:focus-visible {
+    outline: none;
+}
+
 @media (max-width: 600px) {
     nav.active {
         transform: translate3d(300px, 0, 0);
     }
 }
-
-// @media (prefers-color-scheme: dark) {
-//     html {
-//         color-scheme: dark;
-//     }
-//     body {
-//         color: white;
-//         background: black;
-//     }
-//     .header {
-//         background-color: black;
-//     }
-// }

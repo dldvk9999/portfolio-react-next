@@ -13,14 +13,14 @@ const Home: NextPage = () => {
     const downArrow = () => {
         Scrollbar.get(
             document.querySelector("#root") as HTMLElement
-        )?.setMomentum(0, window.innerHeight + 16 * 4.5);
+        )?.setMomentum(0, window.innerHeight);
     };
 
     useEffect(() => {
         setTitleSub(true);
         setTimeout(() => {
             setDownButton(true);
-        }, 3000);
+        }, 2000);
     }, []);
 
     return (

@@ -1,5 +1,6 @@
 $HOVER_COLOR: #0070f3;
 $BORDER_COLOR: #eaeaea;
+$HOVER_BORDER_WIDTH: 4px;
 
 html.dark {
     --DARKMODE_SWITCH_COLOR: 210 20% 98%;
@@ -12,6 +13,7 @@ html.dark {
     --HR_COLOR: #4a4a4a;
     --CARD_IMAGE_BRIGHTNESS: 0.8;
     --CARD_IMAGE_BRIGHTNESS_HOVER: 0.6;
+    --MAIN_BACKGROUND_COLOR: #474544;
 }
 
 html.light {
@@ -25,4 +27,5 @@ html.light {
     --HR_COLOR: #c0c0c0;
     --CARD_IMAGE_BRIGHTNESS: 0.95;
     --CARD_IMAGE_BRIGHTNESS_HOVER: 0.75;
+    --MAIN_BACKGROUND_COLOR: #d3cafa;
 }

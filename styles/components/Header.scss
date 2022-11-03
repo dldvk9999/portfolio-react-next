@@ -1,0 +1,122 @@
+/* Header */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    gap: 3rem;
+    box-shadow: 0 4px 15px -8px gray;
+    position: absolute;
+    width: 100%;
+    min-width: 15rem;
+    font-size: 1rem;
+    z-index: 10;
+}
+
+.header * {
+    outline: none;
+}
+
+.header a {
+    transition: color 0.15s ease, border-color 0.15s ease;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+}
+
+.header a:focus,
+.header a:hover,
+.header a:active {
+    border-color: $HOVER_COLOR;
+}
+
+.menudarkmode {
+    display: none;
+}
+
+.menu {
+    cursor: pointer;
+}
+
+.menu > svg {
+    fill: var(--TEXT_COLOR);
+}
+
+.headerList {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.headerRouters,
+.headerAdmin {
+    display: flex;
+    align-items: center;
+}
+
+.headerDarkmodeSwitch {
+    margin-right: 1rem;
+    cursor: pointer;
+    display: inline-grid;
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.headerDarkmodeSwitch > * {
+    width: 1.75rem;
+    height: 1.75rem;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.3s;
+    transition-property: all;
+}
+
+.headerDarkmodeCheckbox {
+    appearance: none;
+}
+
+.headerDarkmodeSwitch > svg {
+    fill: hsl(var(--DARKMODE_SWITCH_COLOR) / 1);
+}
+
+.turnOffSun {
+    opacity: 0;
+    transform: translate(0) rotate(-45deg) skew(0) skewY(0) scaleX(1) scaleY(1);
+}
+
+.turnOnSun {
+    opacity: 1;
+    transform: translate(0) rotate(0deg) skew(0) skewY(0) scaleX(1) scaleY(1);
+}
+
+.turnOffMoon {
+    opacity: 0;
+    transform: translate(0) rotate(45deg) skew(0) skewY(0) scaleX(1) scaleY(1);
+}
+
+.turnOnMoon {
+    opacity: 1;
+    transform: translate(0) rotate(0deg) skew(0) skewY(0) scaleX(1) scaleY(1);
+}
+
+@media (max-width: 1024px) {
+    .header {
+        gap: 0;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        justify-content: flex-start;
+    }
+
+    .headerList {
+        display: none;
+    }
+
+    .menudarkmode {
+        display: flex;
+    }
+}
