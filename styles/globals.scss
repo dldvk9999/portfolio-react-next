@@ -97,14 +97,47 @@ a {
     box-sizing: border-box;
 }
 
+#floating {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkslateblue;
+    position: fixed;
+    right: 5vw;
+    font-size: 2rem;
+    color: #eeeeee;
+    z-index: 100;
+    opacity: 0;
+    cursor: auto;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.floating-show {
+    cursor: pointer !important;
+    opacity: 1 !important;
+}
+
 button {
     background-color: transparent;
     border-width: 0;
     display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 button:focus-visible {
     outline: none;
+}
+
+@media (max-width: 600px) or (max-height: 700px) {
+    #floating {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 600px) {

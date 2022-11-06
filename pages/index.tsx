@@ -130,8 +130,10 @@ const Home: NextPage = () => {
                         }`}
                     >
                         <h1 className={styles.title}>
-                            If it&apos;s good, it&apos;s wonderful. <br />
-                            If it&apos;s bad, it&apos;s experience.
+                            <div>
+                                If it&apos;s good, it&apos;s wonderful. <br />
+                                If it&apos;s bad, it&apos;s experience.
+                            </div>
                         </h1>
 
                         <p className={styles.description}>

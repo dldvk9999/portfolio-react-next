@@ -6,19 +6,31 @@
     border-top: 1px solid $BORDER_COLOR;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
+    min-width: 13rem;
 }
 
 .footer a {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
+}
+
+.footerItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .logo {
     height: 1em;
-    margin-left: 0.5rem;
     filter: invert(50%);
+}
+
+@media (max-width: 400px) {
+    .footer {
+        flex-direction: column;
+    }
 }
 
 @media (prefers-color-scheme: dark) {

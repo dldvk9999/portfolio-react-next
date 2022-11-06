@@ -66,14 +66,10 @@ export default function MyDocument() {
                     </div>
                     <div id="navFooter">
                         <p id="navMaker">
-                            made by{" "}
-                            <a
-                                href="https://github.com/dldvk9999"
-                                rel="noreferrer noopener"
-                                id="navMakerNickname"
-                            >
-                                JongGeun
-                            </a>
+                            Made by{" "}
+                            <Link href={"https://github.com/dldvk9999"}>
+                                <a id="navMakerNickname">JongGeun</a>
+                            </Link>
                         </p>
                     </div>
                 </nav>

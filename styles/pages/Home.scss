@@ -58,7 +58,6 @@
 
 .downArrow button svg {
     transition: stroke 0.15s ease;
-    cursor: pointer;
 }
 
 .downArrow button svg:hover,
@@ -99,13 +98,14 @@
 /* Main */
 /* Section 2 - grid, card, cardContents */
 .grid {
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     flex-wrap: wrap;
     padding: 4rem 0;
+    overflow: hidden;
 }
 
 .card {
@@ -212,10 +212,10 @@
 }
 
 .LeftInit {
-    transform: translateX(-100%);
+    transform: translateX(-102%);
 }
 .RightInit {
-    transform: translateX(100%);
+    transform: translateX(102%);
 }
 .LeftToRight {
     animation: leftSlide 0.75s ease-out;
@@ -239,15 +239,18 @@
     }
 }
 
-@media (max-height: 600px) {
-    .grid {
-        height: 30rem;
-    }
-}
-
 @media (max-width: 600px) and (max-height: 600px) {
     .title {
         font-size: 2.7rem;
+    }
+}
+
+@media (max-width: 450px) or (max-height: 800px) {
+    .cardContents > h2 {
+        font-size: 1.15rem !important;
+    }
+    .cardContents > p {
+        font-size: 1rem !important;
     }
 }
 
@@ -257,16 +260,6 @@
     }
     .description {
         margin: 2.5rem 0;
-    }
-    .cardContents > h2,
-    .cardContents > p {
-        font-size: 1rem !important;
-    }
-}
-
-@media (max-width: 300px) {
-    .cardContents {
-        width: 20vw;
     }
 }
 
