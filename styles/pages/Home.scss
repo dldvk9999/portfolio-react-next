@@ -211,6 +211,19 @@
     background-color: $HOVER_COLOR;
 }
 
+.LeftInit {
+    transform: translateX(-100%);
+}
+.RightInit {
+    transform: translateX(100%);
+}
+.LeftToRight {
+    animation: leftSlide 0.75s ease-out;
+}
+.RightToLeft {
+    animation: rightSlide 0.75s ease-out;
+}
+
 @media (max-width: 1024px) {
     .grid {
         grid-template-columns: 1fr;
@@ -261,6 +274,30 @@
     .description,
     .downArrow {
         display: none;
+    }
+}
+
+@keyframes leftSlide {
+    0% {
+        transform: translateX(-100%);
+    }
+    40% {
+        transform: translate(-10%);
+    }
+    100% {
+        transform: translate(0%);
+    }
+}
+
+@keyframes rightSlide {
+    0% {
+        transform: translateX(100%);
+    }
+    40% {
+        transform: translate(10%);
+    }
+    100% {
+        transform: translate(0%);
     }
 }
 

@@ -7,20 +7,117 @@ import Scrollbar from "smooth-scrollbar";
 const Home: NextPage = () => {
     const [titleSub, setTitleSub] = useState(false);
     const [downButton, setDownButton] = useState(false);
-    const [grid1, setGrid1] = useState(false);
-    const [grid2, setGrid2] = useState(false);
+    const pageList = ["about", "activity", "project", "site"];
+    const pageName = ["About", "Activity", "Project", "Site"];
+    const pageDesc = [
+        "나를 소개하는 페이지입니다. 생년월일, 학력, 이미지 등 기본 인적사항을 보여줍니다.",
+        "수료한 활동 및 교육 내용을 소개하며 어떤 주제로 활동을 했었는지, 어떤 내용을 교육들었는지 구체적으로 소개합니다.",
+        "참여한 프로젝트를 소개합니다. 그 곳에서 어떤 포지션을 맡았는지 어떻게 개발하며 협업했는지를 기술합니다.",
+        "이 사이트의 구조 및 설계를 소개하고 코드를 공개합니다.",
+    ];
 
+    // ScrollBar 리스너 => 특정 스크롤에 도달하면 layout slide in 처리.
+    function scrollBarListener(
+        scrollBar: any,
+        index: number,
+        maxLength: number
+    ) {
+        if (window.innerWidth >= 1024) {
+            if (
+                scrollBar!.scrollTop >=
+                (window.innerHeight +
+                    window.innerHeight * (Math.trunc(index / 2) / maxLength)) *
+                    0.6
+            ) {
+                setStateItemsFunc(index);
+            }
+        } else {
+            if (
+                scrollBar!.scrollTop >=
+                (window.innerHeight +
+                    window.innerHeight * (index / maxLength)) *
+                    0.8
+            ) {
+                setStateItemsFunc(index);
+            }
+        }
+    }
+
+    // querySelector를 이용한 className 교체 (useState는 적용이 안됨)
+    function setStateItemsFunc(index: number) {
+        let card = document.querySelector("#card-" + index);
+        const init = index % 2 === 0 ? "LeftInit" : "RightInit";
+        const appear = index % 2 === 0 ? "LeftToRight" : "RightToLeft";
+        card?.classList.remove(styles[`${init}`]);
+        card?.classList.add(styles[`${appear}`]);
+    }
+
+    // pages layout for문 처리
+    function pages() {
+        const result = [];
+        for (let i = 0; i < pageList.length; i++) {
+            const init = i % 2 === 0 ? "LeftInit" : "RightInit";
+            result.push(
+                <Link href={"/" + pageList[i]} key={"main-router-" + i}>
+                    <a
+                        id={"card-" + i}
+                        className={`${styles.card} ${styles[`${init}`]}`}
+                    >
+                        <img
+                            src={pageList[i] + ".webp"}
+                            alt={pageList[i]}
+                            className={styles.cardImage}
+                        />
+                        <div className={styles.cardContents}>
+                            <h2>{pageName[i]} &rarr;</h2>
+                            <p>{pageDesc[i]}</p>
+                        </div>
+                    </a>
+                </Link>
+            );
+        }
+        return result;
+    }
+
+    // 아래 스크롤 버튼 클릭 시 이벤트 처리
     const downArrow = () => {
-        Scrollbar.get(
+        const scroll = Scrollbar.get(
             document.querySelector("#root") as HTMLElement
-        )?.setMomentum(0, window.innerHeight);
+        );
+        scroll?.setMomentum(0, window.innerHeight);
     };
 
     useEffect(() => {
+        // 페이지 최초 로드 시 title과 DownButton 순차적으로 출력
         setTitleSub(true);
         setTimeout(() => {
             setDownButton(true);
         }, 2000);
+
+        // ScrollBar 리스너 등록
+        const scroll = Scrollbar.get(
+            document.querySelector("#root") as HTMLElement
+        );
+        for (let i = 0; i < pageList.length; i++) {
+            scroll?.addListener(() =>
+                scrollBarListener(scroll, i, pageList.length)
+            );
+        }
+
+        // 만약 viewport 너비가 좁은 상태에서 layout을 하나씩 slide in했다가 너비가 넓어졌을 경우 다른 layout들이 알맞게 자동으로 노출되게 설정
+        window.onresize = () => {
+            for (let i = 0; i < pageList.length; i++)
+                scrollBarListener(scroll, i, pageList.length);
+        };
+
+        return () => {
+            // ScrollBar 리스너 해제
+            for (let i = 0; i < pageList.length; i++) {
+                scroll?.removeListener(() =>
+                    scrollBarListener(scroll, i, pageList.length)
+                );
+            }
+        };
     }, []);
 
     return (
@@ -66,77 +163,7 @@ const Home: NextPage = () => {
                     </div>
                 </div>
 
-                <div className={styles.grid}>
-                    <Link href="/about">
-                        <a className={styles.card}>
-                            <img
-                                src="about.webp"
-                                alt="about"
-                                className={styles.cardImage}
-                            />
-                            <div className={styles.cardContents}>
-                                <h2>About &rarr;</h2>
-                                <p>
-                                    나를 소개하는 페이지입니다. 생년월일, 학력,
-                                    이미지 등 기본 인적사항을 보여줍니다.
-                                </p>
-                            </div>
-                        </a>
-                    </Link>
-
-                    <Link href="/activity">
-                        <a className={styles.card}>
-                            <img
-                                src="activity.webp"
-                                alt="activity"
-                                className={styles.cardImage}
-                            />
-                            <div className={styles.cardContents}>
-                                <h2>Activity &rarr;</h2>
-                                <p>
-                                    수료한 활동 및 교육 내용을 소개하며 어떤
-                                    주제로 활동을 했었는지, 어떤 내용을
-                                    교육들었는지 구체적으로 소개합니다.
-                                </p>
-                            </div>
-                        </a>
-                    </Link>
-
-                    <Link href="/project">
-                        <a className={styles.card}>
-                            <img
-                                src="project.webp"
-                                alt="project"
-                                className={styles.cardImage}
-                            />
-                            <div className={styles.cardContents}>
-                                <h2>Project &rarr;</h2>
-                                <p>
-                                    참여한 프로젝트를 소개합니다. 그 곳에서 어떤
-                                    포지션을 맡았는지 어떻게 개발하며
-                                    협업했는지를 기술합니다.
-                                </p>
-                            </div>
-                        </a>
-                    </Link>
-
-                    <Link href="/site">
-                        <a className={styles.card}>
-                            <img
-                                src="site.webp"
-                                alt="site"
-                                className={styles.cardImage}
-                            />
-                            <div className={styles.cardContents}>
-                                <h2>This Site &rarr;</h2>
-                                <p>
-                                    이 사이트의 구조 및 설계를 소개하고 코드를
-                                    공개합니다.
-                                </p>
-                            </div>
-                        </a>
-                    </Link>
-                </div>
+                <div className={styles.grid}>{pages()}</div>
             </section>
         </main>
     );
