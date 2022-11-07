@@ -27,6 +27,10 @@
     filter: invert(50%);
 }
 
+.navMakerNickname {
+    color: $HOVER_COLOR;
+}
+
 @media (max-width: 400px) {
     .footer {
         flex-direction: column;

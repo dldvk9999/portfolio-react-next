@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.scss";
 import Scrollbar from "smooth-scrollbar";
+import Image from "next/image";
 
 const Home: NextPage = () => {
     const [titleSub, setTitleSub] = useState(false);
@@ -48,8 +49,11 @@ const Home: NextPage = () => {
         let card = document.querySelector("#card-" + index);
         const init = index % 2 === 0 ? "LeftInit" : "RightInit";
         const appear = index % 2 === 0 ? "LeftToRight" : "RightToLeft";
-        card?.classList.remove(styles[`${init}`]);
-        card?.classList.add(styles[`${appear}`]);
+        card!.classList.remove(styles[`${init}`]);
+        card!.classList.add(styles[`${appear}`]);
+
+        // 이미지 lazyLoading
+        // card!.children[0].setAttribute("src", "/" + pageList[index] + ".webp");
     }
 
     // pages layout for문 처리
@@ -63,10 +67,13 @@ const Home: NextPage = () => {
                         id={"card-" + i}
                         className={`${styles.card} ${styles[`${init}`]}`}
                     >
-                        <img
-                            src={pageList[i] + ".webp"}
+                        <Image
                             alt={pageList[i]}
                             className={styles.cardImage}
+                            src={"/" + pageList[i] + ".webp"}
+                            width={1000}
+                            height={1000}
+                            loading="lazy"
                         />
                         <div className={styles.cardContents}>
                             <h2>{pageName[i]} &rarr;</h2>

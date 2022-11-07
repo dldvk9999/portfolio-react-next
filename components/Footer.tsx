@@ -26,7 +26,7 @@ const Footer = () => {
             <div className={styles.footerItem}>
                 Made by{" "}
                 <Link href={"https://github.com/dldvk9999"}>
-                    <a id="navMakerNickname">JongGeun</a>
+                    <a className={styles.navMakerNickname}>JongGeun</a>
                 </Link>
             </div>
         </footer>

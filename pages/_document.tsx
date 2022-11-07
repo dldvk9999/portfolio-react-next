@@ -1,6 +1,7 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import { NextStrictCSP } from "next-strict-csp";
 import Link from "next/link";
+import { Suspense } from "react";
 
 const HeadCSP = process.env.NODE_ENV === "production" ? NextStrictCSP : Head;
 
@@ -11,26 +12,37 @@ export default function MyDocument() {
     }
 
     function routerList() {
-        return (
-            <>
-                <Link href="/">
-                    <a onClick={closeNav}>Home</a>
+        const pageList = ["", "about", "activity", "project", "site", "admin"];
+        const pageName = [
+            "Home",
+            "About",
+            "Activity",
+            "Project",
+            "Site",
+            "Admin",
+        ];
+        let result = [];
+
+        for (let i = 0; i < pageList.length; i++) {
+            if (pageList[i] === "admin") result.push(<hr />);
+            result.push(
+                <Link href={"/" + pageList[i]} key={"nav-router-" + i}>
+                    <a onClick={closeNav}>{pageName[i]}</a>
                 </Link>
-                <Link href="/about">
-                    <a onClick={closeNav}>About</a>
-                </Link>
-                <Link href="/activity">
-                    <a onClick={closeNav}>Activity</a>
-                </Link>
-                <Link href="/project">
-                    <a onClick={closeNav}>Project</a>
-                </Link>
-                <Link href="/site">
-                    <a onClick={closeNav}>Site</a>
-                </Link>
-            </>
-        );
+            );
+        }
+
+        return result;
     }
+
+    const renderLoader = () => (
+        <div id="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    );
 
     return (
         <Html lang="ko">
@@ -41,6 +53,7 @@ export default function MyDocument() {
                     </>
                 )}
             </HeadCSP>
+
             <body>
                 <nav id="nav">
                     <div>
@@ -56,13 +69,7 @@ export default function MyDocument() {
                                 </svg>
                             </button>
                         </div>
-                        <div id="navList">
-                            {routerList()}
-                            <hr />
-                            <Link href="/admin">
-                                <a onClick={closeNav}>Admin</a>
-                            </Link>
-                        </div>
+                        <div id="navList">{routerList()}</div>
                     </div>
                     <div id="navFooter">
                         <p id="navMaker">
@@ -75,8 +82,10 @@ export default function MyDocument() {
                 </nav>
 
                 <div id="root">
-                    <Main />
-                    <NextScript />
+                    <Suspense fallback={renderLoader()}>
+                        <Main />
+                        <NextScript />
+                    </Suspense>
                 </div>
             </body>
         </Html>

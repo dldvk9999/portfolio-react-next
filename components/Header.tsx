@@ -22,25 +22,19 @@ const Header = () => {
     }
 
     function routerList() {
-        return (
-            <>
-                <Link href="/">
-                    <a onClick={closeNav}>Home</a>
+        const pageList = ["", "about", "activity", "project", "site"];
+        const pageName = ["Home", "About", "Activity", "Project", "Site"];
+        let result = [];
+
+        for (let i = 0; i < pageList.length; i++) {
+            result.push(
+                <Link href={"/" + pageList[i]} key={"header-router-" + i}>
+                    <a onClick={closeNav}>{pageName[i]}</a>
                 </Link>
-                <Link href="/about">
-                    <a onClick={closeNav}>About</a>
-                </Link>
-                <Link href="/activity">
-                    <a onClick={closeNav}>Activity</a>
-                </Link>
-                <Link href="/project">
-                    <a onClick={closeNav}>Project</a>
-                </Link>
-                <Link href="/site">
-                    <a onClick={closeNav}>Site</a>
-                </Link>
-            </>
-        );
+            );
+        }
+
+        return result;
     }
 
     function darkmodeSwitch() {
