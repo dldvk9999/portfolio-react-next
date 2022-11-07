@@ -99,10 +99,9 @@ const Home: NextPage = () => {
             document.querySelector("#root") as HTMLElement
         );
         for (let i = 0; i < pageList.length; i++) {
-            scroll?.addListener(() =>
+            scroll!.addListener(() =>
                 scrollBarListener(scroll, i, pageList.length)
             );
-            alert(scroll ? i + "번째 등록 완료" : i + "번째 등록 실패");
         }
 
         // 만약 viewport 너비가 좁은 상태에서 layout을 하나씩 slide in했다가 너비가 넓어졌을 경우 다른 layout들이 알맞게 자동으로 노출되게 설정

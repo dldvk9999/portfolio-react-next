@@ -8,16 +8,10 @@ import { useEffect } from "react";
 
 function App({ Component, pageProps }: AppProps) {
     function scrollUp() {
-        // let scroll = Scrollbar.get(
-        //     document.querySelector("#root") as HTMLElement
-        // );
-        // if (scroll?.scrollTop !== 0) scroll?.setMomentum(0, -scroll.scrollTop);
-
-        let s = [];
-        for (let i = 0; i < 4; i++) {
-            s.push(document.querySelector("#card-" + i)?.classList + "\r\n");
-        }
-        alert(s);
+        let scroll = Scrollbar.get(
+            document.querySelector("#root") as HTMLElement
+        );
+        if (scroll?.scrollTop !== 0) scroll?.setMomentum(0, -scroll.scrollTop);
     }
 
     function floatingMove(scrollTop: number) {
