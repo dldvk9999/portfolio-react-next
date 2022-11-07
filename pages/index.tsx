@@ -87,6 +87,17 @@ const Home: NextPage = () => {
         scroll?.setMomentum(0, window.innerHeight);
     };
 
+    async function scrollBarListenerAsync(i: number) {
+        setTimeout(() => {
+            const scroll = Scrollbar.get(
+                document.querySelector("#root") as HTMLElement
+            );
+            scroll!.addListener(() =>
+                scrollBarListener(scroll, i, pageList.length)
+            );
+        }, 500);
+    }
+
     useEffect(() => {
         // 페이지 최초 로드 시 title과 DownButton 순차적으로 출력
         setTitleSub(true);
@@ -104,14 +115,7 @@ const Home: NextPage = () => {
                     scrollBarListener(scroll, i, pageList.length)
                 );
             } else {
-                setTimeout(() => {
-                    const scroll = Scrollbar.get(
-                        document.querySelector("#root") as HTMLElement
-                    );
-                    scroll!.addListener(() =>
-                        scrollBarListener(scroll, i, pageList.length)
-                    );
-                }, 500);
+                scrollBarListenerAsync(i);
             }
         }
 
