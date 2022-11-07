@@ -87,6 +87,7 @@ const Home: NextPage = () => {
         scroll?.setMomentum(0, window.innerHeight);
     };
 
+    // 모바일의 경우 Scrollbar.get()이 늦을 수도 있어 늦을 경우 비동기 처리로 리스너 등록
     async function scrollBarListenerAsync(i: number) {
         setTimeout(() => {
             const scroll = Scrollbar.get(

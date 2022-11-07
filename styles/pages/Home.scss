@@ -119,7 +119,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: all 0.2s ease-out;
+    transition: all 0.5s ease-out 0.2s;
+    transition: transform 0.2s ease-out;
 }
 
 .card:hover > *,
@@ -192,7 +193,7 @@
     width: 10px;
     height: $HOVER_BORDER_WIDTH;
     background-color: transparent;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out 0.2s;
 }
 
 .card > .cardContents:before {
