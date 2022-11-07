@@ -14,6 +14,7 @@ html.dark {
     --CARD_IMAGE_BRIGHTNESS: 0.8;
     --CARD_IMAGE_BRIGHTNESS_HOVER: 0.6;
     --MAIN_BACKGROUND_COLOR: #474544;
+    --IMAGE_LOADING_COLOR: white;
 }
 
 html.light {
@@ -28,4 +29,5 @@ html.light {
     --CARD_IMAGE_BRIGHTNESS: 0.95;
     --CARD_IMAGE_BRIGHTNESS_HOVER: 0.75;
     --MAIN_BACKGROUND_COLOR: #d3cafa;
+    --IMAGE_LOADING_COLOR: black;
 }

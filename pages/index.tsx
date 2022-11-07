@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.scss";
 import Scrollbar from "smooth-scrollbar";
 import Image from "next/image";
+import { Suspense } from "react";
 
 const Home: NextPage = () => {
     const [titleSub, setTitleSub] = useState(false);
@@ -56,6 +57,15 @@ const Home: NextPage = () => {
         // card!.children[0].setAttribute("src", "/" + pageList[index] + ".webp");
     }
 
+    const imageLoading = () => (
+        <div className={styles.imageLoading}>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    );
+
     // pages layout for문 처리
     function pages() {
         const result = [];
@@ -67,14 +77,16 @@ const Home: NextPage = () => {
                         id={"card-" + i}
                         className={`${styles.card} ${styles[`${init}`]}`}
                     >
-                        <Image
-                            alt={pageList[i]}
-                            className={styles.cardImage}
-                            src={"/" + pageList[i] + ".webp"}
-                            width={1000}
-                            height={1000}
-                            loading="lazy"
-                        />
+                        <Suspense fallback={imageLoading()}>
+                            <Image
+                                alt={pageList[i]}
+                                className={styles.cardImage}
+                                src={"/" + pageList[i] + ".webp"}
+                                width={1000}
+                                height={1000}
+                                loading="lazy"
+                            />
+                        </Suspense>
                         <div className={styles.cardContents}>
                             <h2>{pageName[i]} &rarr;</h2>
                             <p>{pageDesc[i]}</p>
