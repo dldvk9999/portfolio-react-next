@@ -99,9 +99,20 @@ const Home: NextPage = () => {
             document.querySelector("#root") as HTMLElement
         );
         for (let i = 0; i < pageList.length; i++) {
-            scroll!.addListener(() =>
-                scrollBarListener(scroll, i, pageList.length)
-            );
+            if (scroll) {
+                scroll.addListener(() =>
+                    scrollBarListener(scroll, i, pageList.length)
+                );
+            } else {
+                setTimeout(() => {
+                    const scroll = Scrollbar.get(
+                        document.querySelector("#root") as HTMLElement
+                    );
+                    scroll!.addListener(() =>
+                        scrollBarListener(scroll, i, pageList.length)
+                    );
+                }, 500);
+            }
         }
 
         // 만약 viewport 너비가 좁은 상태에서 layout을 하나씩 slide in했다가 너비가 넓어졌을 경우 다른 layout들이 알맞게 자동으로 노출되게 설정
