@@ -11,7 +11,8 @@ function App({ Component, pageProps }: AppProps) {
         let scroll = Scrollbar.get(
             document.querySelector("#root") as HTMLElement
         );
-        if (scroll?.scrollTop !== 0) scroll?.setMomentum(0, -scroll.scrollTop);
+        // if (scroll?.scrollTop !== 0) scroll?.setMomentum(0, -scroll.scrollTop);
+        alert(scroll!.scrollTop + "/" + window.innerHeight);
     }
 
     function floatingMove(scrollTop: number) {

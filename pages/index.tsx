@@ -24,7 +24,7 @@ const Home: NextPage = () => {
     ) {
         if (window.innerWidth >= 1024) {
             if (
-                scrollBar!.scrollTop >=
+                Number(scrollBar!.scrollTop) >=
                 (window.innerHeight +
                     window.innerHeight * (Math.trunc(index / 2) / maxLength)) *
                     0.6
@@ -33,7 +33,7 @@ const Home: NextPage = () => {
             }
         } else {
             if (
-                scrollBar!.scrollTop >=
+                Number(scrollBar!.scrollTop) >=
                 (window.innerHeight +
                     window.innerHeight * (index / maxLength)) *
                     0.8
