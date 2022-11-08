@@ -52,9 +52,6 @@ const Home: NextPage = () => {
         const appear = index % 2 === 0 ? "LeftToRight" : "RightToLeft";
         card!.classList.remove(styles[`${init}`]);
         card!.classList.add(styles[`${appear}`]);
-
-        // 이미지 lazyLoading
-        // card!.children[0].setAttribute("src", "/" + pageList[index] + ".webp");
     }
 
     const imageLoading = () => (

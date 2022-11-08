@@ -87,6 +87,8 @@ export default function MyDocument() {
                         <NextScript />
                     </Suspense>
                 </div>
+
+                <button id="floating">&uarr;</button>
             </body>
         </Html>
     );

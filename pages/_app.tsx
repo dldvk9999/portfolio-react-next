@@ -14,10 +14,8 @@ function App({ Component, pageProps }: AppProps) {
         if (scroll?.scrollTop !== 0) scroll?.setMomentum(0, -scroll.scrollTop);
     }
 
-    function floatingMove(scrollTop: number) {
+    function floatingHide(scrollTop: number) {
         let floating = document.querySelector("#floating") as HTMLElement;
-        floating.style.top = scrollTop + window.innerHeight * 0.9 + "px";
-
         if (scrollTop === 0 || window.innerHeight * 0.9 <= 460) {
             floating.classList.remove("floating-show");
         } else {
@@ -26,8 +24,9 @@ function App({ Component, pageProps }: AppProps) {
     }
 
     useEffect(() => {
-        // 플로팅 버튼 위치 초기화
-        floatingMove(0);
+        // 플로팅 버튼 함수 등록
+        let floating = document.querySelector("#floating") as HTMLElement;
+        floating.onclick = () => scrollUp();
 
         // ScrollBar 초기화
         Scrollbar.init(document.querySelector("#root") as HTMLElement);
@@ -36,16 +35,14 @@ function App({ Component, pageProps }: AppProps) {
         let scroll = Scrollbar.get(
             document.querySelector("#root") as HTMLElement
         );
-        scroll?.addListener(() => floatingMove(scroll!.scrollTop));
+        scroll?.addListener(() => floatingHide(scroll!.scrollTop));
 
-        // window resize 이벤트 감지 시 플로팅 버튼 위치 재변경
-        window.onresize = () => {
-            floatingMove(scroll!.scrollTop);
-        };
+        // viewport 크기 변화 시 floating 버튼 처리
+        window.onresize = () => floatingHide(scroll!.scrollTop);
 
         return () => {
             // ScrollBar 이벤트 리스너 해제
-            scroll?.removeListener(() => floatingMove(scroll!.scrollTop));
+            scroll?.removeListener(() => floatingHide(scroll!.scrollTop));
         };
     }, []);
 
@@ -68,10 +65,6 @@ function App({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
 
             <Footer />
-
-            <button id="floating" onClick={scrollUp}>
-                &uarr;
-            </button>
         </>
     );
 }
