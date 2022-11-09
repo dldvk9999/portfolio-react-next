@@ -17,6 +17,8 @@ html.dark {
     --IMAGE_LOADING_COLOR: white;
     --FLOATING_BACKGROUND_COLOR: #3a316f;
     --FLOATING_BACKGROUND_COLOR_HOVER: #5a518f;
+    --PAGE_TITLE_BACKGROUND_COLOR: black;
+    --PAGE_TITLE_COLOR: white;
 }
 
 html.light {
@@ -34,4 +36,6 @@ html.light {
     --IMAGE_LOADING_COLOR: black;
     --FLOATING_BACKGROUND_COLOR: #5a518f;
     --FLOATING_BACKGROUND_COLOR_HOVER: #7a71af;
+    --PAGE_TITLE_BACKGROUND_COLOR: white;
+    --PAGE_TITLE_COLOR: black;
 }

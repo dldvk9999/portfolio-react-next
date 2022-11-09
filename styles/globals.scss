@@ -169,6 +169,23 @@ button:focus-visible {
     animation-delay: -0.15s;
 }
 
+#pageTitle {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    font-size: 14rem;
+    background-color: var(--PAGE_TITLE_BACKGROUND_COLOR);
+    color: var(--PAGE_TITLE_COLOR);
+    opacity: 1;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease-out;
+}
+
 @media (max-width: 600px) or (max-height: 700px) {
     #floating {
         width: 3rem;
