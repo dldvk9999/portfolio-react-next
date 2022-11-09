@@ -1,6 +1,7 @@
 import styles from "../../styles/Home.module.scss";
 import Image from "next/image";
 import { useEffect } from "react";
+import Link from "next/link";
 
 const About = () => {
     const header = [
@@ -89,14 +90,53 @@ const About = () => {
 
         for (let i = 0; i < header.length; i++) {
             result.push(
-                <>
+                <div key={"about-info-" + i}>
                     <h2>{header[i]}</h2>
-                    <p>{content[i]}</p>
-                </>
+                    <p>{isLink(i, content[i])}</p>
+                </div>
             );
         }
         return result;
     }
+
+    const isLink = (index: number, item: string) => {
+        let result = [];
+        // 블로그, 깃허브 주소일 경우
+        if (index >= header.length - 2) {
+            result.push(
+                <Link href={item} key={"about-info-blog-" + index}>
+                    {item}
+                </Link>
+            );
+        }
+        // 이메일 주소일 경우
+        else if (index == 5) {
+            result.push(
+                <Link href={"mailto:" + item} key={"about-info-email-" + index}>
+                    {item}
+                </Link>
+            );
+        }
+        // 전화번호일 경우
+        else if (index == 4) {
+            result.push(
+                <Link href={"tel:" + item} key={"about-info-tel-" + index}>
+                    {item}
+                </Link>
+            );
+        }
+        // 출생일 경우 (끝에 현재 나이 추가)
+        else if (index == 1) {
+            const age = new Date().getFullYear() - Number(item.slice(0, 4)) + 1;
+            item = item + " (" + age.toString() + "세)";
+            result.push(item);
+        }
+        // 그 외
+        else {
+            result.push(item);
+        }
+        return result;
+    };
 
     function skills() {
         let result = [];
@@ -117,7 +157,7 @@ const About = () => {
         let result = [];
         for (let i = 0; i < skillArea[index].length; i++) {
             result.push(
-                <ul>
+                <ul key={"about-skillItems-" + i}>
                     <li>{skillArea[index][i]}</li>
                 </ul>
             );
