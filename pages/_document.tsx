@@ -24,7 +24,8 @@ export default function MyDocument() {
         let result = [];
 
         for (let i = 0; i < pageList.length; i++) {
-            if (pageList[i] === "admin") result.push(<hr />);
+            if (pageList[i] === "admin")
+                result.push(<hr key={"nav-router-hr"} />);
             result.push(
                 <Link href={"/" + pageList[i]} key={"nav-router-" + i}>
                     <a onClick={closeNav}>{pageName[i]}</a>
