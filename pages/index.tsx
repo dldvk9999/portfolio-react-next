@@ -78,7 +78,7 @@ const Home: NextPage = () => {
                             <Image
                                 alt={pageList[i]}
                                 className={styles.cardImage}
-                                src={"/" + pageList[i] + ".webp"}
+                                src={"/home/" + pageList[i] + ".webp"}
                                 width={1000}
                                 height={1000}
                                 loading="lazy"
