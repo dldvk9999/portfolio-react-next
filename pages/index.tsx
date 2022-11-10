@@ -50,8 +50,8 @@ const Home: NextPage = () => {
         let card = document.querySelector("#card-" + index);
         const init = index % 2 === 0 ? "LeftInit" : "RightInit";
         const appear = index % 2 === 0 ? "LeftToRight" : "RightToLeft";
-        card!.classList.remove(styles[`${init}`]);
-        card!.classList.add(styles[`${appear}`]);
+        card?.classList.remove(styles[`${init}`]);
+        card?.classList.add(styles[`${appear}`]);
     }
 
     const imageLoading = () => (

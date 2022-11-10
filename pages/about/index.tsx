@@ -48,8 +48,8 @@ const About = () => {
     const skillBackend = ["Nodejs", "Django", "Mysql", "MariaDB", "PostgreSQL"];
     const skillPlatform = [
         "PC Software",
-        "Frontend",
-        "Backend",
+        "Web.Frontend",
+        "Web.Backend",
         "Chrome Extension",
         "Android App",
         "IOS App",
