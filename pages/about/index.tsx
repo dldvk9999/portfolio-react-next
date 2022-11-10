@@ -114,7 +114,7 @@ const About = () => {
             );
         }
         // 이메일 주소일 경우
-        else if (index == 5) {
+        else if (index === 5) {
             result.push(
                 <a href={"mailto:" + item} key={"about-info-email-" + index}>
                     {item}
@@ -122,7 +122,7 @@ const About = () => {
             );
         }
         // 전화번호일 경우
-        else if (index == 4) {
+        else if (index === 4) {
             result.push(
                 <a href={"tel:" + item} key={"about-info-tel-" + index}>
                     {item}
@@ -130,7 +130,7 @@ const About = () => {
             );
         }
         // 출생일 경우 (끝에 현재 나이 추가)
-        else if (index == 1) {
+        else if (index === 1) {
             const age = new Date().getFullYear() - Number(item.slice(0, 4)) + 1;
             item = item + " (" + age.toString() + "세)";
             result.push(item);
@@ -183,8 +183,9 @@ const About = () => {
 
     return (
         <main className={styles.main}>
-            <h1 id="pageTitle">About</h1>
+            <div id="pageTitle">About</div>
             <section className={styles.profile}>
+                <h1 className={styles.profileTitle}>Profile</h1>
                 <Image
                     alt="profile image"
                     className={styles.profileImage}
@@ -195,7 +196,10 @@ const About = () => {
                 />
                 <div className={styles.profileInfo}>{info()}</div>
             </section>
-            <section className={styles.skills}>{skills()}</section>
+            <section className={styles.skills}>
+                <h1 className={styles.skillsTitle}>Skills</h1>
+                {skills()}
+            </section>
         </main>
     );
 };
