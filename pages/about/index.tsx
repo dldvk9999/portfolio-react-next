@@ -1,7 +1,6 @@
 import styles from "../../styles/Home.module.scss";
 import Image from "next/image";
 import { useEffect } from "react";
-import Link from "next/link";
 
 const About = () => {
     const header = [
@@ -104,25 +103,30 @@ const About = () => {
         // 블로그, 깃허브 주소일 경우
         if (index >= header.length - 2) {
             result.push(
-                <Link href={item} key={"about-info-blog-" + index}>
+                <a
+                    href={item}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={"about-info-blog-" + index}
+                >
                     {item}
-                </Link>
+                </a>
             );
         }
         // 이메일 주소일 경우
         else if (index == 5) {
             result.push(
-                <Link href={"mailto:" + item} key={"about-info-email-" + index}>
+                <a href={"mailto:" + item} key={"about-info-email-" + index}>
                     {item}
-                </Link>
+                </a>
             );
         }
         // 전화번호일 경우
         else if (index == 4) {
             result.push(
-                <Link href={"tel:" + item} key={"about-info-tel-" + index}>
+                <a href={"tel:" + item} key={"about-info-tel-" + index}>
                     {item}
-                </Link>
+                </a>
             );
         }
         // 출생일 경우 (끝에 현재 나이 추가)
