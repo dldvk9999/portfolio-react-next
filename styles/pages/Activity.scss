@@ -1,0 +1,70 @@
+.activity {
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.activityTitle {
+    margin: 26.56px auto;
+    font-size: 2rem;
+}
+
+.activityItem {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-items: center;
+    align-items: center;
+    padding: 0 5rem;
+    margin-bottom: 3rem;
+}
+
+.activityImage {
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.activityInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .activityTitle {
+        grid-column: 1 / 2;
+    }
+
+    .activityItem {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .activityItem {
+        padding: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .activity {
+        padding: 1rem;
+    }
+
+    .activityItem {
+        padding: 0 2rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .activityInfo {
+        gap: 1rem;
+    }
+
+    .activityInfo > h2 {
+        font-size: 1rem;
+    }
+
+    .activityInfo > div {
+        font-size: 0.8rem;
+    }
+}
