@@ -32,6 +32,7 @@
     background-color: white;
     border-radius: 15px;
     font-size: 1.5rem;
+    box-shadow: 10px 10px 20px 0px #565656;
 }
 
 .modal > * {
@@ -39,7 +40,7 @@
 }
 
 .modalOverlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -49,4 +50,9 @@
     align-items: center;
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.5s ease-in-out;
+}
+
+.modalShow {
+    opacity: 1 !important;
 }

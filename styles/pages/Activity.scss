@@ -14,8 +14,10 @@
     grid-template-columns: 1fr 2fr;
     justify-items: center;
     align-items: center;
-    padding: 0 5rem;
+    padding: 2rem 3rem;
     margin-bottom: 3rem;
+    box-shadow: 10px 10px 20px 3px gray;
+    border-radius: 1rem;
 }
 
 .activityImage {
@@ -41,17 +43,13 @@
 
 @media (max-width: 700px) {
     .activityItem {
-        padding: 0;
+        padding: 2rem;
     }
 }
 
 @media (max-width: 600px) {
     .activity {
         padding: 1rem;
-    }
-
-    .activityItem {
-        padding: 0 2rem;
     }
 }
 
