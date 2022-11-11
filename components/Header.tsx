@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "../styles/Home.module.scss";
 
 const Header = () => {
@@ -18,11 +18,11 @@ const Header = () => {
         isOpen = false;
     }
 
-    function navCloseButton(event: any) {
+    const navCloseButton = useCallback(async (event: any) => {
         if (event.tagName === "svg" || event.tagName === "path") {
             closeNav();
         }
-    }
+    }, []);
 
     function routerList() {
         const pageList = ["", "about", "activity", "project", "site"];
@@ -119,12 +119,12 @@ const Header = () => {
         // close button 이벤트 리스너 설정
         document
             .querySelector("#navClose")!
-            .addEventListener("click", (e) => navCloseButton(e.target));
+            .addEventListener("click", (e) => navCloseButton(e.target!));
 
         return () => {
             document
                 .querySelector("#navClose")!
-                .removeEventListener("click", (e) => navCloseButton(e.target));
+                .removeEventListener("click", (e) => navCloseButton(e.target!));
         };
     }, [navCloseButton]);
 

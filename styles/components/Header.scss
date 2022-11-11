@@ -19,7 +19,8 @@
 }
 
 .header a {
-    transition: color 0.15s ease, border-color 0.15s ease;
+    transition: color 0.15s ease, border-color 0.15s ease,
+        background-color 0.15s ease;
     border: 1px solid transparent;
     border-radius: 10px;
     padding: 0.5rem 1rem;
@@ -29,6 +30,7 @@
 .header a:hover,
 .header a:active {
     border-color: $HOVER_COLOR;
+    background-color: $HOVER_COLOR;
 }
 
 .menudarkmode {

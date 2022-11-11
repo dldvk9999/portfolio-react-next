@@ -58,9 +58,10 @@ const Activity = () => {
                         }}
                         show={showModal[i]}
                         title={data[i].title}
-                        children={data[i].introduce}
                         image={"/activity/" + data[i].image + ".webp"}
-                    ></Modal>
+                    >
+                        {data[i].introduce}
+                    </Modal>
                     <div className={styles.activityInfo}>
                         <h2>{data[i].title}</h2>
                         <div>
@@ -96,7 +97,7 @@ const Activity = () => {
         for (let i = 0; i < data.length; i++) tmp.push(false);
         if (showModal === tmp) return;
         setShowModal(tmp);
-    }, [data]);
+    }, [data, setShowModal]);
 
     return (
         <main className={styles.main}>
