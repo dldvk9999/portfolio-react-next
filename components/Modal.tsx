@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import Image from "next/image";
 import styles from "../styles/Home.module.scss";
 
@@ -48,6 +47,7 @@ const Modal = ({
                     {image && (
                         <Image
                             src={image}
+                            alt={image}
                             width={
                                 window.innerWidth > 700
                                     ? window.innerWidth * 0.6

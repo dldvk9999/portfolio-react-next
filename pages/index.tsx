@@ -6,17 +6,18 @@ import Scrollbar from "smooth-scrollbar";
 import Image from "next/image";
 import { Suspense } from "react";
 
+const pageList = ["about", "activity", "project", "site"];
+const pageName = ["About", "Activity", "Project", "Site"];
+const pageDesc = [
+    "나를 소개하는 페이지입니다. 생년월일, 학력, 이미지 등 기본 인적사항을 보여줍니다.",
+    "수료한 활동 및 교육 내용을 소개하며 어떤 주제로 활동을 했었는지, 어떤 내용을 교육들었는지 구체적으로 소개합니다.",
+    "참여한 프로젝트를 소개합니다. 그 곳에서 어떤 포지션을 맡았는지 어떻게 개발하며 협업했는지를 기술합니다.",
+    "이 사이트의 구조 및 설계를 소개하고 코드를 공개합니다.",
+];
+
 const Home: NextPage = () => {
     const [titleSub, setTitleSub] = useState(false);
     const [downButton, setDownButton] = useState(false);
-    const pageList = ["about", "activity", "project", "site"];
-    const pageName = ["About", "Activity", "Project", "Site"];
-    const pageDesc = [
-        "나를 소개하는 페이지입니다. 생년월일, 학력, 이미지 등 기본 인적사항을 보여줍니다.",
-        "수료한 활동 및 교육 내용을 소개하며 어떤 주제로 활동을 했었는지, 어떤 내용을 교육들었는지 구체적으로 소개합니다.",
-        "참여한 프로젝트를 소개합니다. 그 곳에서 어떤 포지션을 맡았는지 어떻게 개발하며 협업했는지를 기술합니다.",
-        "이 사이트의 구조 및 설계를 소개하고 코드를 공개합니다.",
-    ];
 
     // ScrollBar 리스너 => 특정 스크롤에 도달하면 layout slide in 처리.
     function scrollBarListener(
@@ -121,7 +122,9 @@ const Home: NextPage = () => {
         setTimeout(() => {
             setDownButton(true);
         }, 2000);
+    }, []);
 
+    useEffect(() => {
         // ScrollBar 리스너 등록
         const scroll = Scrollbar.get(
             document.querySelector("#root") as HTMLElement
@@ -150,7 +153,7 @@ const Home: NextPage = () => {
                 );
             }
         };
-    }, []);
+    }, [scrollBarListener, scrollBarListenerAsync, pageList]);
 
     return (
         <main className={styles.main}>

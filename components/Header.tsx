@@ -4,15 +4,18 @@ import styles from "../styles/Home.module.scss";
 
 const Header = () => {
     const [isDarkMode, setChecked] = useState(true);
+    let isOpen = false;
 
     function openNav() {
         let nav = document.querySelector("#nav");
         nav?.classList.add("active");
+        isOpen = true;
     }
 
     function closeNav() {
         let nav = document.querySelector("#nav");
         nav?.classList.remove("active");
+        isOpen = false;
     }
 
     function navCloseButton(event: any) {
@@ -92,6 +95,28 @@ const Header = () => {
             }
         };
 
+        window.onclick = (e) => {
+            if (isOpen) {
+                const id = e.target as HTMLButtonElement;
+                const nav = [
+                    "nav",
+                    "navClose",
+                    "navFooter",
+                    "navList",
+                    "nav-hr",
+                    "navMenu",
+                    "navMenuSvg",
+                    "navMenuPath",
+                ];
+                if (nav.indexOf(id.id) === -1) {
+                    closeNav();
+                }
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        // close button 이벤트 리스너 설정
         document
             .querySelector("#navClose")!
             .addEventListener("click", (e) => navCloseButton(e.target));
@@ -101,7 +126,7 @@ const Header = () => {
                 .querySelector("#navClose")!
                 .removeEventListener("click", (e) => navCloseButton(e.target));
         };
-    }, []);
+    }, [navCloseButton]);
 
     useEffect(() => {
         // dark mode 적용
@@ -114,17 +139,22 @@ const Header = () => {
         <header className={styles.header}>
             <div className={styles.menudarkmode}>
                 <button
+                    id="navMenu"
                     className={styles.menu}
                     onClick={openNav}
                     aria-label="menu"
                 >
                     <svg
+                        id="navMenuSvg"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         width="24px"
                         height="24px"
                     >
-                        <path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z" />
+                        <path
+                            id="navMenuPath"
+                            d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"
+                        />
                     </svg>
                 </button>
                 {darkmodeSwitch()}

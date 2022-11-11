@@ -1,5 +1,6 @@
 import styles from "../styles/Home.module.scss";
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
     return (
@@ -13,11 +14,12 @@ const Footer = () => {
                 >
                     <a>
                         <span className={styles.logo}>
-                            <img
+                            <Image
                                 src="/vercel.svg"
                                 alt="Vercel Logo"
-                                width="72"
-                                height="16"
+                                width={72}
+                                height={16}
+                                loading="lazy"
                             />
                         </span>
                     </a>
