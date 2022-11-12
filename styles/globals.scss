@@ -13,7 +13,8 @@ body {
 
 body {
     color: var(--BODY_COLOR);
-    background: var(--BODY_BACKGROUND);
+    background-color: var(--BODY_BACKGROUND);
+    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
 }
 
 #root {
