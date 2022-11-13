@@ -1,13 +1,9 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import { NextStrictCSP } from "next-strict-csp";
 import Link from "next/link";
-import { useEffect } from "react";
-
-const HeadCSP = process.env.NODE_ENV === "production" ? NextStrictCSP : Head;
 
 export default function MyDocument() {
     function closeNav() {
-        let nav = document.getElementById("#nav");
+        let nav = document.querySelector("#nav");
         nav?.classList.remove("active");
     }
 
@@ -38,7 +34,7 @@ export default function MyDocument() {
 
     return (
         <Html lang="ko">
-            <HeadCSP>
+            <Head>
                 {process.env.NODE_ENV === "production" && (
                     <>
                         <meta httpEquiv="Content-Security-Policy" />
@@ -48,7 +44,7 @@ export default function MyDocument() {
                         />
                     </>
                 )}
-            </HeadCSP>
+            </Head>
 
             <body>
                 <nav id="nav">

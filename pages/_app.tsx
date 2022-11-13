@@ -9,13 +9,13 @@ import { useEffect } from "react";
 function App({ Component, pageProps }: AppProps) {
     function scrollUp() {
         let scroll = Scrollbar.get(
-            document.getElementById("#root") as HTMLElement
+            document.querySelector("#root") as HTMLElement
         );
         if (scroll?.scrollTop !== 0) scroll?.setMomentum(0, -scroll.scrollTop);
     }
 
     function floatingHide(scrollTop: number) {
-        let floating = document.getElementById("#floating") as HTMLElement;
+        let floating = document.querySelector("#floating") as HTMLElement;
         if (scrollTop === 0 || window.innerHeight * 0.9 <= 460) {
             floating.classList.remove("floating-show");
         } else {
@@ -25,15 +25,15 @@ function App({ Component, pageProps }: AppProps) {
 
     useEffect(() => {
         // 플로팅 버튼 함수 등록
-        let floating = document.getElementById("#floating") as HTMLElement;
+        let floating = document.querySelector("#floating") as HTMLElement;
         floating.onclick = () => scrollUp();
 
         // ScrollBar 초기화
-        Scrollbar.init(document.getElementById("#root") as HTMLElement);
+        Scrollbar.init(document.querySelector("#root") as HTMLElement);
 
         // ScrollBar 이벤트 리스너 등록
         let scroll = Scrollbar.get(
-            document.getElementById("#root") as HTMLElement
+            document.querySelector("#root") as HTMLElement
         );
         scroll?.addListener(() => floatingHide(scroll!.scrollTop));
 

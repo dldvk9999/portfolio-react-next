@@ -37,7 +37,7 @@ const Modal = ({
     useEffect(() => {
         setIsBrowser(true);
 
-        scroll = Scrollbar.get(document.getElementById("root") as HTMLElement);
+        scroll = Scrollbar.get(document.querySelector("root") as HTMLElement);
         scroll?.addListener(() => modalScroller());
 
         return scroll?.removeListener(() => modalScroller());
