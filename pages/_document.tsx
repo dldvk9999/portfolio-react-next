@@ -36,10 +36,6 @@ export default function MyDocument() {
         return result;
     }
 
-    useEffect(() => {
-        alert("_document");
-    }, []);
-
     return (
         <Html lang="ko">
             <HeadCSP>
@@ -48,7 +44,7 @@ export default function MyDocument() {
                         <meta httpEquiv="Content-Security-Policy" />
                         <meta
                             name="viewport"
-                            content="width=device-width, initial-scale=1.0"
+                            content="width=device-width,initial-scale=1.0"
                         />
                     </>
                 )}
