@@ -1,17 +1,10 @@
 import "../styles/globals.scss";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Head from "next/head";
 import type { AppProps } from "next/app";
 import Scrollbar from "smooth-scrollbar";
 import { useEffect } from "react";
-import dynamic from "next/dynamic";
-const Header = dynamic(() => import("../components/Header"), {
-    ssr: false,
-});
-const Footer = dynamic(() => import("../components/Footer"), {
-    ssr: false,
-});
-const Head = dynamic(() => import("next/head"), {
-    ssr: false,
-});
 
 function App({ Component, pageProps }: AppProps) {
     function scrollUp() {

@@ -1,8 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import dynamic from "next/dynamic";
-const Link = dynamic(() => import("next/link"), {
-    ssr: false,
-});
+import Link from "next/link";
 
 export default function MyDocument() {
     function closeNav() {
