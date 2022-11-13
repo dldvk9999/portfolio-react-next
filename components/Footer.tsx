@@ -1,6 +1,11 @@
+import dynamic from "next/dynamic";
 import styles from "../styles/Home.module.scss";
-import Link from "next/link";
-import Image from "next/image";
+const Image = dynamic(() => import("next/image"), {
+    ssr: false,
+});
+const Link = dynamic(() => import("next/link"), {
+    ssr: false,
+});
 
 const Footer = () => {
     return (

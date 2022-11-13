@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import Modal from "../../components/Modal";
 import styles from "../../styles/Home.module.scss";
+import dynamic from "next/dynamic";
+const Image = dynamic(() => import("next/image"), {
+    ssr: false,
+});
+const Modal = dynamic(() => import("../../components/Modal"), {
+    ssr: false,
+});
 
 const data = [
     {

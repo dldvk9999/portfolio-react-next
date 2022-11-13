@@ -1,6 +1,9 @@
-import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 import styles from "../styles/Home.module.scss";
+const Link = dynamic(() => import("next/link"), {
+    ssr: false,
+});
 
 const Header = () => {
     const [isDarkMode, setChecked] = useState(true);

@@ -1,7 +1,10 @@
+import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Scrollbar from "smooth-scrollbar";
 import styles from "../styles/Home.module.scss";
+const Image = dynamic(() => import("next/image"), {
+    ssr: false,
+});
 
 type modal = {
     show: boolean;
@@ -28,7 +31,6 @@ const Modal = ({
         let modal = document.querySelectorAll("." + styles.modalOverlay)[
             index
         ] as HTMLElement;
-        console.log(modal, scroll.scrollTop);
         if (modal && scroll!.scrollTop >= headerHeight)
             modal.style.top = scroll!.scrollTop + "px";
         else if (modal && scroll!.scrollTop < headerHeight)

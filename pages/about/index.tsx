@@ -1,6 +1,9 @@
 import styles from "../../styles/Home.module.scss";
-import Image from "next/image";
 import { useEffect } from "react";
+import dynamic from "next/dynamic";
+const Image = dynamic(() => import("next/image"), {
+    ssr: false,
+});
 
 const About = () => {
     const header = [
