@@ -23,6 +23,12 @@ function App({ Component, pageProps }: AppProps) {
         }
     }
 
+    // 모바일 브라우저의 주소창이 보일시 뷰포트 vh길이 재조정
+    function setScreenSize() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+    }
+
     useEffect(() => {
         // 플로팅 버튼 함수 등록
         let floating = document.querySelector("#floating") as HTMLElement;
@@ -38,13 +44,20 @@ function App({ Component, pageProps }: AppProps) {
         scroll?.addListener(() => floatingHide(scroll!.scrollTop));
 
         // viewport 크기 변화 시 floating 버튼 처리
-        window.onresize = () => floatingHide(scroll!.scrollTop);
+        window.onresize = () => {
+            floatingHide(scroll!.scrollTop);
+            setScreenSize();
+        };
 
         return () => {
             // ScrollBar 이벤트 리스너 해제
             scroll?.removeListener(() => floatingHide(scroll!.scrollTop));
         };
     }, []);
+
+    useEffect(() => {
+        setScreenSize();
+    });
 
     return (
         <>
