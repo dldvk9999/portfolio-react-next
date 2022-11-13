@@ -78,8 +78,8 @@ const Modal = ({
                             src={image}
                             alt={image}
                             className={styles.modalImage}
-                            width="100%"
-                            height="100%"
+                            width={800}
+                            height={400}
                         ></Image>
                     )}
                 </div>
