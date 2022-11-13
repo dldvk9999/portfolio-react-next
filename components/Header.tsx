@@ -84,69 +84,55 @@ const Header = () => {
     };
 
     useEffect(() => {
-        try {
-            // dark mode 설정. localstorage 값으로 초기화
-            if (localStorage.getItem("darkmode") === null)
-                localStorage.setItem("darkmode", "true");
-            setChecked(localStorage.getItem("darkmode") === "true");
+        // dark mode 설정. localstorage 값으로 초기화
+        if (localStorage.getItem("darkmode") === null)
+            localStorage.setItem("darkmode", "true");
+        setChecked(localStorage.getItem("darkmode") === "true");
 
-            window.onresize = () => {
-                if (window.innerWidth > 600) {
+        window.onresize = () => {
+            if (window.innerWidth > 600) {
+                closeNav();
+            }
+        };
+
+        window.onclick = (e) => {
+            if (isOpen) {
+                const id = e.target as HTMLButtonElement;
+                const nav = [
+                    "nav",
+                    "navClose",
+                    "navFooter",
+                    "navList",
+                    "nav-hr",
+                    "navMenu",
+                    "navMenuSvg",
+                    "navMenuPath",
+                ];
+                if (nav.indexOf(id.id) === -1) {
                     closeNav();
                 }
-            };
-
-            window.onclick = (e) => {
-                if (isOpen) {
-                    const id = e.target as HTMLButtonElement;
-                    const nav = [
-                        "nav",
-                        "navClose",
-                        "navFooter",
-                        "navList",
-                        "nav-hr",
-                        "navMenu",
-                        "navMenuSvg",
-                        "navMenuPath",
-                    ];
-                    if (nav.indexOf(id.id) === -1) {
-                        closeNav();
-                    }
-                }
-            };
-        } catch (e) {
-            alert("[]:" + e);
-        }
+            }
+        };
     }, []);
 
     useEffect(() => {
-        try {
-            // close button 이벤트 리스너 설정
+        // close button 이벤트 리스너 설정
+        document
+            .querySelector("#navClose")!
+            .addEventListener("click", (e) => navCloseButton(e.target!));
+
+        return () => {
             document
                 .querySelector("#navClose")!
-                .addEventListener("click", (e) => navCloseButton(e.target!));
-
-            return () => {
-                document
-                    .querySelector("#navClose")!
-                    .removeEventListener("click", (e) =>
-                        navCloseButton(e.target!)
-                    );
-            };
-        } catch (e) {
-            alert("navCloseButton:" + e);
-        }
+                .removeEventListener("click", (e) => navCloseButton(e.target!));
+        };
     }, [navCloseButton]);
 
     useEffect(() => {
-        try {
-            // dark mode 적용
-            document
-                .getElementsByTagName("html")[0]
-                .setAttribute("class", isDarkMode ? "dark" : "light");
-        } catch (e) {
-            alert("no" + e);
-        }
+        // dark mode 적용
+        document
+            .getElementsByTagName("html")[0]
+            .setAttribute("class", isDarkMode ? "dark" : "light");
     });
 
     return (
