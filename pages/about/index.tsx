@@ -170,6 +170,7 @@ const About = () => {
     }
 
     useEffect(() => {
+        alert("about");
         // 각 페이지에 최초로 출력되는 타이틀 자동으로 숨겨지게 처리
         setTimeout(() => {
             let pageTitle = document.querySelector("#pageTitle") as HTMLElement;
