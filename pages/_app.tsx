@@ -24,30 +24,26 @@ function App({ Component, pageProps }: AppProps) {
     }
 
     useEffect(() => {
-        try {
-            // 플로팅 버튼 함수 등록
-            let floating = document.querySelector("#floating") as HTMLElement;
-            floating.onclick = () => scrollUp();
+        // 플로팅 버튼 함수 등록
+        let floating = document.querySelector("#floating") as HTMLElement;
+        floating.onclick = () => scrollUp();
 
-            // ScrollBar 초기화
-            Scrollbar.init(document.querySelector("#root") as HTMLElement);
+        // ScrollBar 초기화
+        Scrollbar.init(document.querySelector("#root") as HTMLElement);
 
-            // ScrollBar 이벤트 리스너 등록
-            let scroll = Scrollbar.get(
-                document.querySelector("#root") as HTMLElement
-            );
-            scroll?.addListener(() => floatingHide(scroll!.scrollTop));
+        // ScrollBar 이벤트 리스너 등록
+        let scroll = Scrollbar.get(
+            document.querySelector("#root") as HTMLElement
+        );
+        scroll?.addListener(() => floatingHide(scroll!.scrollTop));
 
-            // viewport 크기 변화 시 floating 버튼 처리
-            window.onresize = () => floatingHide(scroll!.scrollTop);
+        // viewport 크기 변화 시 floating 버튼 처리
+        window.onresize = () => floatingHide(scroll!.scrollTop);
 
-            return () => {
-                // ScrollBar 이벤트 리스너 해제
-                scroll?.removeListener(() => floatingHide(scroll!.scrollTop));
-            };
-        } catch (e) {
-            alert(e);
-        }
+        return () => {
+            // ScrollBar 이벤트 리스너 해제
+            scroll?.removeListener(() => floatingHide(scroll!.scrollTop));
+        };
     }, []);
 
     return (
