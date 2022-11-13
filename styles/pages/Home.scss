@@ -21,7 +21,7 @@
 }
 
 .titleSubArrow {
-    height: calc(100vh - 4.4rem);
+    height: calc(100vh - $HEADER_HEIGHT);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,7 +39,7 @@
 .downArrow {
     opacity: 0.01;
     transform: translateY(-25%);
-    transition: all 2s ease;
+    transition: opacity 2s ease, transform 2s ease;
 }
 
 .downArrow {

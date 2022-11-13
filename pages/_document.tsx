@@ -1,7 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import { NextStrictCSP } from "next-strict-csp";
 import Link from "next/link";
-import { Suspense } from "react";
 
 const HeadCSP = process.env.NODE_ENV === "production" ? NextStrictCSP : Head;
 
@@ -35,15 +34,6 @@ export default function MyDocument() {
 
         return result;
     }
-
-    const renderLoader = () => (
-        <div id="lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    );
 
     return (
         <Html lang="ko">
@@ -83,10 +73,8 @@ export default function MyDocument() {
                 </nav>
 
                 <div id="root">
-                    <Suspense fallback={renderLoader()}>
-                        <Main />
-                        <NextScript />
-                    </Suspense>
+                    <Main />
+                    <NextScript />
                 </div>
 
                 <button id="floating">&uarr;</button>

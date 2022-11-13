@@ -21,32 +21,26 @@ const Modal = ({
     index,
 }: modal) => {
     const [isBrowser, setIsBrowser] = useState(false);
+    const headerHeight = 16 * Number(styles.headerHeight.slice(0, -3));
+    let scroll: any;
+
+    function modalScroller() {
+        let modal = document.querySelectorAll("." + styles.modalOverlay)[
+            index
+        ] as unknown as HTMLElement;
+        if (modal && scroll!.scrollTop >= headerHeight)
+            modal.style.top = scroll!.scrollTop + "px";
+        else if (modal && scroll!.scrollTop < headerHeight)
+            modal.style.top = headerHeight + "px";
+    }
 
     useEffect(() => {
         setIsBrowser(true);
 
-        let scroll = Scrollbar.get(
-            document.getElementById("root") as HTMLElement
-        );
-        scroll?.addListener(() => {
-            let modal = document.querySelectorAll("." + styles.modalOverlay)[
-                index
-            ] as unknown as HTMLElement;
-            if (modal && scroll!.scrollTop >= 16 * 4.4)
-                modal.style.top = scroll!.scrollTop + "px";
-            else if (modal && scroll!.scrollTop < 16 * 4.4)
-                modal.style.top = 16 * 4.4 + "px";
-        });
+        scroll = Scrollbar.get(document.getElementById("root") as HTMLElement);
+        scroll?.addListener(() => modalScroller());
 
-        return scroll?.removeListener(() => {
-            let modal = document.querySelectorAll("." + styles.modalOverlay)[
-                index
-            ] as unknown as HTMLElement;
-            if (modal && scroll!.scrollTop >= 16 * 4.4)
-                modal.style.top = scroll!.scrollTop + "px";
-            else if (modal && scroll!.scrollTop < 16 * 4.4)
-                modal.style.top = 16 * 4.4 + "px";
-        });
+        return scroll?.removeListener(() => modalScroller());
     }, []);
 
     useEffect(() => {
