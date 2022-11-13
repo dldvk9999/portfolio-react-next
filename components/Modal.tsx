@@ -37,18 +37,10 @@ const Modal = ({
     useEffect(() => {
         setIsBrowser(true);
 
-        scroll = Scrollbar.get(document.querySelector("root") as HTMLElement);
+        scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
         scroll?.addListener(() => modalScroller());
-
         return scroll?.removeListener(() => modalScroller());
     }, []);
-
-    useEffect(() => {
-        let modal = document.querySelector(styles.modalOverlay);
-        if (modal) {
-            setTimeout(() => modal!.classList.add(styles.modalShow), 1000);
-        }
-    });
 
     const handleCloseClick = (e: { preventDefault: () => void }) => {
         e.preventDefault();
