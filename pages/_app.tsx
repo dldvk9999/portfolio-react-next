@@ -41,6 +41,15 @@ function App({ Component, pageProps }: AppProps) {
     }
 
     useEffect(() => {
+        // 모바일 주소창 감추기
+        window.addEventListener(
+            "load",
+            function () {
+                setTimeout(scrollTo, 0, 0, 1);
+            },
+            false
+        );
+
         // 플로팅 버튼 함수 등록
         let floating = document.querySelector("#floating") as HTMLElement;
         floating.onclick = () => scrollUp();
@@ -64,6 +73,14 @@ function App({ Component, pageProps }: AppProps) {
         return () => {
             // ScrollBar 이벤트 리스너 해제
             scroll?.removeListener(() => floatingHide(scroll!.scrollTop));
+
+            window.removeEventListener(
+                "load",
+                function () {
+                    setTimeout(scrollTo, 0, 0, 1);
+                },
+                false
+            );
         };
     }, []);
 

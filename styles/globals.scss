@@ -19,7 +19,7 @@ body {
 
 #root {
     overflow-y: scroll;
-    height: calc(var(--vh, 1vh));
+    height: calc(var(--vh, 100vh));
 }
 
 nav {
