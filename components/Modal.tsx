@@ -1,10 +1,7 @@
-import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import Scrollbar from "smooth-scrollbar";
 import styles from "../styles/Home.module.scss";
-const Image = dynamic(() => import("next/image"), {
-    ssr: false,
-});
 
 type modal = {
     show: boolean;
