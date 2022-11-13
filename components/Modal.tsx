@@ -21,8 +21,6 @@ const Modal = ({
     index,
 }: modal) => {
     const [isBrowser, setIsBrowser] = useState(false);
-    const [imageWidth, setWidth] = useState(0);
-    const [imageHeight, setHeight] = useState(0);
     const headerHeight = 16 * Number(styles.headerHeight.slice(0, -3));
     let scroll: any;
 
@@ -38,9 +36,6 @@ const Modal = ({
 
     useEffect(() => {
         setIsBrowser(true);
-
-        setWidth(window.innerWidth * 0.6);
-        setHeight(window.innerHeight * 0.5);
 
         scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
         scroll?.addListener(() => modalScroller());
@@ -83,8 +78,8 @@ const Modal = ({
                             src={image}
                             alt={image}
                             className={styles.modalImage}
-                            width={imageWidth}
-                            height={imageHeight}
+                            width="100%"
+                            height="100%"
                         ></Image>
                     )}
                 </div>
