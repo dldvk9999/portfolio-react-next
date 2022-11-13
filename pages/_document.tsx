@@ -41,7 +41,6 @@ export default function MyDocument() {
             <HeadCSP>
                 {process.env.NODE_ENV === "production" && (
                     <>
-                        <meta httpEquiv="Content-Security-Policy" />
                         <meta
                             name="viewport"
                             content="width=device-width,initial-scale=1.0"
