@@ -17,6 +17,16 @@ body {
     transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
 }
 
+body {
+    min-height: 640px;
+}
+body[orient="portrait"] {
+    min-height: 640px;
+}
+body[orient="landscape"] {
+    min-height: 480px;
+}
+
 #root {
     overflow-y: scroll;
     height: calc(var(--vh, 100vh));
