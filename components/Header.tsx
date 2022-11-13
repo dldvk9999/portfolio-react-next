@@ -84,55 +84,69 @@ const Header = () => {
     };
 
     useEffect(() => {
-        // dark mode 설정. localstorage 값으로 초기화
-        if (localStorage.getItem("darkmode") === null)
-            localStorage.setItem("darkmode", "true");
-        setChecked(localStorage.getItem("darkmode") === "true");
+        try {
+            // dark mode 설정. localstorage 값으로 초기화
+            if (localStorage.getItem("darkmode") === null)
+                localStorage.setItem("darkmode", "true");
+            setChecked(localStorage.getItem("darkmode") === "true");
 
-        window.onresize = () => {
-            if (window.innerWidth > 600) {
-                closeNav();
-            }
-        };
-
-        window.onclick = (e) => {
-            if (isOpen) {
-                const id = e.target as HTMLButtonElement;
-                const nav = [
-                    "nav",
-                    "navClose",
-                    "navFooter",
-                    "navList",
-                    "nav-hr",
-                    "navMenu",
-                    "navMenuSvg",
-                    "navMenuPath",
-                ];
-                if (nav.indexOf(id.id) === -1) {
+            window.onresize = () => {
+                if (window.innerWidth > 600) {
                     closeNav();
                 }
-            }
-        };
+            };
+
+            window.onclick = (e) => {
+                if (isOpen) {
+                    const id = e.target as HTMLButtonElement;
+                    const nav = [
+                        "nav",
+                        "navClose",
+                        "navFooter",
+                        "navList",
+                        "nav-hr",
+                        "navMenu",
+                        "navMenuSvg",
+                        "navMenuPath",
+                    ];
+                    if (nav.indexOf(id.id) === -1) {
+                        closeNav();
+                    }
+                }
+            };
+        } catch (e) {
+            alert("[]:" + e);
+        }
     }, []);
 
     useEffect(() => {
-        // close button 이벤트 리스너 설정
-        document
-            .querySelector("#navClose")!
-            .addEventListener("click", (e) => navCloseButton(e.target!));
-
-        return () => {
+        try {
+            // close button 이벤트 리스너 설정
             document
                 .querySelector("#navClose")!
-                .removeEventListener("click", (e) => navCloseButton(e.target!));
-        };
+                .addEventListener("click", (e) => navCloseButton(e.target!));
+
+            return () => {
+                document
+                    .querySelector("#navClose")!
+                    .removeEventListener("click", (e) =>
+                        navCloseButton(e.target!)
+                    );
+            };
+        } catch (e) {
+            alert("navCloseButton:" + e);
+        }
     }, [navCloseButton]);
 
     useEffect(() => {
-        // dark mode 적용
-        document
-            .getElementsByTagName("html")[0]
-            .setAttribute("class", isDarkMode ? "dark" : "light");
+        try {
+            // dark mode 적용
+            document
+                .getElementsByTagName("html")[0]
+                .setAttribute("class", isDarkMode ? "dark" : "light");
+        } catch (e) {
+            alert("no" + e);
+        }
     });
 
     return (
