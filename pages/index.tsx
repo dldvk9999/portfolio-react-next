@@ -1,8 +1,9 @@
 import type { NextPage } from "next";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.scss";
 import Scrollbar from "smooth-scrollbar";
-import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const pageList = ["about", "activity", "project", "site"];
 const pageName = ["About", "Activity", "Project", "Site"];
@@ -12,12 +13,6 @@ const pageDesc = [
     "참여한 프로젝트를 소개합니다. 그 곳에서 어떤 포지션을 맡았는지 어떻게 개발하며 협업했는지를 기술합니다.",
     "이 사이트의 구조 및 설계를 소개하고 코드를 공개합니다.",
 ];
-const Image = dynamic(() => import("next/image"), {
-    ssr: false,
-});
-const Link = dynamic(() => import("next/link"), {
-    ssr: false,
-});
 
 const Home: NextPage = () => {
     const [titleSub, setTitleSub] = useState(false);
