@@ -24,14 +24,23 @@ function App({ Component, pageProps }: AppProps) {
     }
 
     function setScreenSize() {
-        let vh = window.innerHeight * 0.01;
+        let scroll = Scrollbar.get(
+            document.querySelector("#root") as HTMLElement
+        );
+        if (
+            scroll!.size.content.height <
+            window.innerHeight + scroll!.scrollTop
+        ) {
+            scroll?.setMomentum(
+                0,
+                scroll!.size.content.height - window.innerHeight
+            );
+        }
+        let vh = window.innerHeight;
         document.documentElement.style.setProperty("--vh", `${vh}px`);
     }
 
     useEffect(() => {
-        // 모바일 브라우저의 주소창이 보일시 뷰포트 vh길이 재조정
-        setScreenSize();
-
         // 플로팅 버튼 함수 등록
         let floating = document.querySelector("#floating") as HTMLElement;
         floating.onclick = () => scrollUp();
@@ -44,6 +53,7 @@ function App({ Component, pageProps }: AppProps) {
             document.querySelector("#root") as HTMLElement
         );
         scroll?.addListener(() => floatingHide(scroll!.scrollTop));
+        scroll?.scrollTo(0, 0, 1);
 
         // viewport 크기 변화 시 floating 버튼 처리
         window.onresize = () => {
@@ -56,6 +66,11 @@ function App({ Component, pageProps }: AppProps) {
             scroll?.removeListener(() => floatingHide(scroll!.scrollTop));
         };
     }, []);
+
+    useEffect(() => {
+        // 모바일 브라우저의 주소창이 보일시 뷰포트 vh길이 재조정
+        setScreenSize();
+    });
 
     return (
         <>
