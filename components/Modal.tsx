@@ -27,7 +27,8 @@ const Modal = ({
     function modalScroller() {
         let modal = document.querySelectorAll("." + styles.modalOverlay)[
             index
-        ] as unknown as HTMLElement;
+        ] as HTMLElement;
+        console.log(modal, scroll.scrollTop);
         if (modal && scroll!.scrollTop >= headerHeight)
             modal.style.top = scroll!.scrollTop + "px";
         else if (modal && scroll!.scrollTop < headerHeight)
