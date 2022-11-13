@@ -78,7 +78,7 @@
     z-index: 999 !important;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 600px) or (max-height: 600px) {
     .modalHeader {
         font-size: 1.2rem;
     }
@@ -87,7 +87,7 @@
     }
 }
 
-@media (max-width: 300px) {
+@media (max-width: 300px) or (max-height: 300px) {
     .modalHeader {
         font-size: 1rem;
     }
