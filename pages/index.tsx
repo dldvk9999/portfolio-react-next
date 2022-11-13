@@ -45,9 +45,9 @@ const Home: NextPage = () => {
         }
     }
 
-    // querySelector를 이용한 className 교체 (useState는 적용이 안됨)
+    // getElementById를 이용한 className 교체 (useState는 적용이 안됨)
     function setStateItemsFunc(index: number) {
-        let card = document.querySelector("#card-" + index);
+        let card = document.getElementById("#card-" + index);
         const init = index % 2 === 0 ? "LeftInit" : "RightInit";
         const appear = index % 2 === 0 ? "LeftToRight" : "RightToLeft";
         card?.classList.remove(styles[`${init}`]);
@@ -87,7 +87,7 @@ const Home: NextPage = () => {
     // 아래 스크롤 버튼 클릭 시 이벤트 처리
     const downArrow = () => {
         const scroll = Scrollbar.get(
-            document.querySelector("#root") as HTMLElement
+            document.getElementById("#root") as HTMLElement
         );
         scroll?.setMomentum(0, window.innerHeight);
     };
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
     async function scrollBarListenerAsync(i: number) {
         setTimeout(() => {
             const scroll = Scrollbar.get(
-                document.querySelector("#root") as HTMLElement
+                document.getElementById("#root") as HTMLElement
             );
             scroll!.addListener(() =>
                 scrollBarListener(scroll, i, pageList.length)
@@ -115,7 +115,7 @@ const Home: NextPage = () => {
     useEffect(() => {
         // ScrollBar 리스너 등록
         const scroll = Scrollbar.get(
-            document.querySelector("#root") as HTMLElement
+            document.getElementById("#root") as HTMLElement
         );
         for (let i = 0; i < pageList.length; i++) {
             if (scroll) {

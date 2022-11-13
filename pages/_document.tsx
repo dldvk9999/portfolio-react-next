@@ -7,7 +7,7 @@ const HeadCSP = process.env.NODE_ENV === "production" ? NextStrictCSP : Head;
 
 export default function MyDocument() {
     function closeNav() {
-        let nav = document.querySelector("#nav");
+        let nav = document.getElementById("#nav");
         nav?.classList.remove("active");
     }
 
@@ -41,6 +41,7 @@ export default function MyDocument() {
             <HeadCSP>
                 {process.env.NODE_ENV === "production" && (
                     <>
+                        <meta httpEquiv="Content-Security-Policy" />
                         <meta
                             name="viewport"
                             content="width=device-width,initial-scale=1.0"
