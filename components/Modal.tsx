@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Scrollbar from "smooth-scrollbar";
 import styles from "../styles/Home.module.scss";
+import { Carousel } from "react-responsive-carousel";
 
 type modal = {
     show: boolean;
     onClose: Function;
     children: string;
-    image: string;
+    image: string | Array<string>;
     title: string;
     index: number;
+    category: "activity" | "project";
 };
 
 const Modal = ({
@@ -19,11 +21,13 @@ const Modal = ({
     image = "",
     title = "",
     index,
+    category,
 }: modal) => {
     const [isBrowser, setIsBrowser] = useState(false);
     const headerHeight = 16 * Number(styles.headerHeight.slice(0, -3));
     let scroll: any;
 
+    // modal이 스크롤 할 때 fixed하게 이동시키기
     function modalScroller() {
         let modal = document.querySelectorAll("." + styles.modalOverlay)[
             index
@@ -34,6 +38,31 @@ const Modal = ({
             modal.style.top = headerHeight + "px";
     }
 
+    // modal close handler
+    const handleCloseClick = (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+        onClose();
+    };
+
+    // image가 배열로 들어올 경우 image를 carousel로 구현
+    function imageSlider(category: string, images: Array<string>) {
+        let result = [];
+        for (let i = 0; i < images.length; i++) {
+            result.push(
+                <div key={"modal-images-" + i}>
+                    <Image
+                        src={"/" + category + "/" + images[i] + ".webp"}
+                        alt={"/" + category + "/" + images[i] + ".webp"}
+                        className={styles.modalImage}
+                        width={800}
+                        height={400}
+                    ></Image>
+                </div>
+            );
+        }
+        return result;
+    }
+
     useEffect(() => {
         setIsBrowser(true);
 
@@ -41,11 +70,6 @@ const Modal = ({
         scroll?.addListener(() => modalScroller());
         return scroll?.removeListener(() => modalScroller());
     }, []);
-
-    const handleCloseClick = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
-        onClose();
-    };
 
     const modalContent = (
         <div
@@ -73,14 +97,16 @@ const Modal = ({
                     <div className={styles.modalBody}>{children}</div>
                 </div>
                 <div className={styles.modalContent}>
-                    {image && (
+                    {typeof image === "string" ? (
                         <Image
-                            src={image}
-                            alt={image}
+                            src={"/" + category + "/" + image + ".webp"}
+                            alt={"/" + category + "/" + image + ".webp"}
                             className={styles.modalImage}
                             width={800}
                             height={400}
                         ></Image>
+                    ) : (
+                        <Carousel>{imageSlider(category, image)}</Carousel>
                     )}
                 </div>
             </div>

@@ -82,7 +82,8 @@ const Project = () => {
                         show={showModal[i]}
                         title={data[i].title}
                         index={i}
-                        image={"/project/" + data[i].image + ".webp"}
+                        image={data[i].image}
+                        category="project"
                     >
                         {data[i].introduce}
                     </Modal>

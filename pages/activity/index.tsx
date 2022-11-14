@@ -62,7 +62,8 @@ const Activity = () => {
                         show={showModal[i]}
                         title={data[i].title}
                         index={i}
-                        image={"/activity/" + data[i].image + ".webp"}
+                        image={data[i].image}
+                        category="activity"
                     >
                         {data[i].introduce}
                     </Modal>
