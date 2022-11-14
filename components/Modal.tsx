@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Scrollbar from "smooth-scrollbar";
 import styles from "../styles/Home.module.scss";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
 type modal = {
@@ -45,14 +46,18 @@ const Modal = ({
     };
 
     // image가 배열로 들어올 경우 image를 carousel로 구현
-    function imageSlider(category: string, images: Array<string>) {
+    function imageSlider(
+        category: string,
+        images: Array<string>,
+        title: string
+    ) {
         let result = [];
         for (let i = 0; i < images.length; i++) {
             result.push(
                 <div key={"modal-images-" + i}>
                     <Image
                         src={"/" + category + "/" + images[i] + ".webp"}
-                        alt={"/" + category + "/" + images[i] + ".webp"}
+                        alt={title + "_" + i}
                         className={styles.modalImage}
                         width={800}
                         height={400}
@@ -100,13 +105,35 @@ const Modal = ({
                     {typeof image === "string" ? (
                         <Image
                             src={"/" + category + "/" + image + ".webp"}
-                            alt={"/" + category + "/" + image + ".webp"}
+                            alt={title + " image"}
                             className={styles.modalImage}
                             width={800}
                             height={400}
                         ></Image>
                     ) : (
-                        <Carousel>{imageSlider(category, image)}</Carousel>
+                        <Carousel
+                            showThumbs={false}
+                            autoPlay
+                            infiniteLoop
+                            dynamicHeight
+                            emulateTouch
+                            transitionTime={1000}
+                            showStatus={false}
+                            interval={4000}
+                            stopOnHover
+                            onClickItem={(index) =>
+                                window.open(
+                                    "/" +
+                                        category +
+                                        "/" +
+                                        image[index] +
+                                        ".webp",
+                                    "_blank"
+                                )
+                            }
+                        >
+                            {imageSlider(category, image, title)}
+                        </Carousel>
                     )}
                 </div>
             </div>
