@@ -17,7 +17,15 @@ const Site = () => {
     return (
         <main className={styles.main}>
             <h1 id="pageTitle">Site</h1>
-            <div>This is Site Page</div>
+            <section className={styles.site}>
+                <iframe
+                    src="https://github.com/dldvk9999/portfolio-react-next.git"
+                    frameBorder="0"
+                    className={styles.siteIframe}
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                ></iframe>
+            </section>
         </main>
     );
 };

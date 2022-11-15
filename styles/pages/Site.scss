@@ -1,0 +1,10 @@
+.site {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.siteIframe {
+    width: 90vw;
+    height: calc(100vh - $HEADER_HEIGHT);
+}
