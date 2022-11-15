@@ -2,9 +2,42 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
-.siteIframe {
-    width: 90vw;
+.siteCode {
+    width: 80vw;
     height: calc(100vh - $HEADER_HEIGHT);
+}
+
+.siteGithub {
+    width: 80vw;
+    height: 4rem;
+    font-size: 2rem;
+    border-radius: 10px;
+    border: 1px solid $HOVER_COLOR;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, transparent 30%, $HOVER_COLOR 80%);
+    background-size: 400% 100%;
+    background-position: 0% 100%;
+    transition: background-position 0.5s ease-in-out;
+}
+
+.siteGithub:hover {
+    animation: bubblepop 0.3s ease-in-out;
+    background-position: 100% 100%;
+}
+
+@keyframes bubblepop {
+    0% {
+        transform: scale(0.95);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
