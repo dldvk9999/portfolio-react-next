@@ -100,6 +100,9 @@ const Modal = ({
                         </button>
                     </div>
                     <div className={styles.modalBody}>{children}</div>
+                    <div className={styles.modalDesc}>
+                        * 이미지를 클릭하시면 새 탭에서 크게 보실 수 있습니다.
+                    </div>
                 </div>
                 <div className={styles.modalContent}>
                     {typeof image === "string" ? (
@@ -109,6 +112,12 @@ const Modal = ({
                             className={styles.modalImage}
                             width={800}
                             height={400}
+                            onClick={() =>
+                                window.open(
+                                    "/" + category + "/" + image + ".webp",
+                                    "_blank"
+                                )
+                            }
                         ></Image>
                     ) : (
                         <Carousel
@@ -131,6 +140,7 @@ const Modal = ({
                                     "_blank"
                                 )
                             }
+                            className={styles.modalCarousel}
                         >
                             {imageSlider(category, image, title)}
                         </Carousel>

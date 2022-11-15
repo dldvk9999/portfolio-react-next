@@ -1,6 +1,11 @@
 .modalBody {
-    padding: 1rem 0;
+    padding-top: 1rem;
     font-size: 1rem;
+}
+
+.modalDesc {
+    font-size: 0.8rem;
+    padding-bottom: 1rem;
 }
 
 .modalHeader {
@@ -45,6 +50,7 @@
     align-items: center;
     justify-content: center;
     max-width: 60vw;
+    margin: auto;
 }
 
 .modal {
@@ -74,6 +80,11 @@
 
 .modalImage {
     object-fit: contain;
+    cursor: pointer;
+}
+
+.modalCarousel {
+    cursor: pointer;
 }
 
 .modalShow {
