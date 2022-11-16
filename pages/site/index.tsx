@@ -12,8 +12,7 @@ const Site = () => {
     const [tree, setTree] = useState<JSX.Element[]>();
 
     // const url = "https://api.github.com/repos/dldvk9999/portfolio-react-next/contents";
-    const rawURL =
-        "https://raw.githubusercontent.com/dldvk9999/portfolio-react-next/main";
+    const rawURL = "/api";
 
     function makeTree() {
         let result = [];
