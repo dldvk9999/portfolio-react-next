@@ -2,11 +2,13 @@ import { Html, Head, Main, NextScript } from "next/document";
 import Link from "next/link";
 
 export default function MyDocument() {
+    // nav 창 닫음
     function closeNav() {
         let nav = document.querySelector("#nav");
         nav?.classList.remove("active");
     }
 
+    // 접속 가능한 주소 출력
     function routerList() {
         const pageList = ["", "about", "activity", "project", "site", "admin"];
         const pageName = [

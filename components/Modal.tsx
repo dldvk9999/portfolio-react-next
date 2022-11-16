@@ -28,7 +28,7 @@ const Modal = ({
     const headerHeight = 16 * Number(styles.headerHeight.slice(0, -3));
     let scroll: any;
 
-    // modal이 스크롤 할 때 fixed하게 이동시키기
+    // modal이 스크롤 할 때 fixed하게 이동시키기 (root에 스크롤 api를 사용하면서 css의 fixed가 먹히지 않음...)
     function modalScroller() {
         let modal = document.querySelectorAll("." + styles.modalOverlay)[
             index

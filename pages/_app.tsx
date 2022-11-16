@@ -7,6 +7,7 @@ import Scrollbar from "smooth-scrollbar";
 import { useEffect } from "react";
 
 function App({ Component, pageProps }: AppProps) {
+    // 스크롤 업 버튼 - 플로팅 버튼 클릭 시 실행 함수
     function scrollUp() {
         let scroll = Scrollbar.get(
             document.querySelector("#root") as HTMLElement
@@ -14,6 +15,7 @@ function App({ Component, pageProps }: AppProps) {
         if (scroll?.scrollTop !== 0) scroll?.setMomentum(0, -scroll.scrollTop);
     }
 
+    // 최상단에 스크롤 시 플로팅 버튼 사라짐
     function floatingHide(scrollTop: number) {
         let floating = document.querySelector("#floating") as HTMLElement;
         if (scrollTop === 0 || window.innerHeight * 0.9 <= 460) {
@@ -23,6 +25,7 @@ function App({ Component, pageProps }: AppProps) {
         }
     }
 
+    // --vh 변수 값을 만들어서 모바일 브라우저 접속 시 주소창에 의한 viewport 길이 변경을 감지하고 동적 변환
     function setScreenSize() {
         let scroll = Scrollbar.get(
             document.querySelector("#root") as HTMLElement

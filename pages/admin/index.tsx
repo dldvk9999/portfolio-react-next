@@ -17,7 +17,7 @@ const Admin = () => {
     return (
         <main className={styles.main}>
             <h1 id="pageTitle">Admin</h1>
-            <div>This is Admin Page</div>
+            <div>페이지 개발 중</div>
         </main>
     );
 };

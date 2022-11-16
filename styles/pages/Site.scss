@@ -13,6 +13,10 @@
     padding: 1rem;
 }
 
+.siteTreeList ul > * {
+    list-style: none;
+}
+
 .siteTreeList ul li:hover {
     background-color: var(--UL_LI_BACKGROUND_COLOR);
 }

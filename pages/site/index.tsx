@@ -6,14 +6,14 @@ type Tree = {
     [key: string]: string;
 };
 
-// token: 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
 const Site = () => {
     const [data, setData] = useState("");
     const [tree, setTree] = useState<JSX.Element[]>();
 
-    // const url = "https://api.github.com/repos/dldvk9999/portfolio-react-next/contents";
+    // next.config.js에서 /api 주소 프록시
     const rawURL = "/api";
 
+    // 코드가 상당히 길고 난잡해 보이나 Github API의 불필요한 API 요청을 줄임 (token 존재 시 시간당 최대 15000회 가능)
     function makeTree() {
         let result = [];
         result.push(
@@ -239,6 +239,7 @@ const Site = () => {
         setTree(result);
     }
 
+    // !!! TOKEN 값 임의 사용 절대 금지 !!!
     async function rawHTML(path: string) {
         try {
             await axios

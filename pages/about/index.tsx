@@ -84,6 +84,7 @@ const About = () => {
         skillCertification,
     ];
 
+    // 내 인적사항 출력
     function info() {
         let result = [];
 
@@ -98,6 +99,7 @@ const About = () => {
         return result;
     }
 
+    // 인적사항 중 링크 적용 및 나이 자동 계산
     const isLink = (index: number, item: string) => {
         let result = [];
         // 블로그, 깃허브 주소일 경우
@@ -142,6 +144,7 @@ const About = () => {
         return result;
     };
 
+    // 스킬 출력
     function skills() {
         let result = [];
 
@@ -157,6 +160,7 @@ const About = () => {
         return result;
     }
 
+    // 스킬 아이템 출력
     function skillItems(index: number) {
         let result = [];
         for (let i = 0; i < skillArea[index].length; i++) {

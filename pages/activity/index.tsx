@@ -34,6 +34,7 @@ const data = [
 const Activity = () => {
     const [showModal, setShowModal] = useState(new Array(data.length));
 
+    // activity 출력
     function activity() {
         let result = [];
 
@@ -53,6 +54,7 @@ const Activity = () => {
                             setShowModal(tmp);
                         }}
                     />
+                    {/* modal을 함께 출력하여 보여지지만 않게끔 함 */}
                     <Modal
                         onClose={() => {
                             let tmp = [...showModal];

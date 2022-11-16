@@ -6,24 +6,28 @@ const Header = () => {
     const [isDarkMode, setChecked] = useState(true);
     let isOpen = false;
 
+    // nav open
     function openNav() {
         let nav = document.querySelector("#nav");
         nav?.classList.add("active");
         isOpen = true;
     }
 
+    // nav close
     function closeNav() {
         let nav = document.querySelector("#nav");
         nav?.classList.remove("active");
         isOpen = false;
     }
 
+    // nav close button listener
     const navCloseButton = useCallback(async (event: any) => {
         if (event.tagName === "svg" || event.tagName === "path") {
             closeNav();
         }
     }, []);
 
+    // 접속 가능 주소 출력
     function routerList() {
         const pageList = ["", "about", "activity", "project", "site"];
         const pageName = ["Home", "About", "Activity", "Project", "Site"];
@@ -40,6 +44,7 @@ const Header = () => {
         return result;
     }
 
+    // 다크모드 스위치
     function darkmodeSwitch() {
         return (
             <div className={styles.headerDarkmodeSwitch}>
@@ -95,6 +100,7 @@ const Header = () => {
             }
         };
 
+        // nav가 open일 시 바깥영역 클릭해도 닫히지 않게 하기 위해 click 리스너 등록
         window.onclick = (e) => {
             if (isOpen) {
                 const id = e.target as HTMLButtonElement;
