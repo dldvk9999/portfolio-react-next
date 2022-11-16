@@ -37,9 +37,12 @@
 
 .siteTreeCode > textarea {
     resize: none;
+    background-color: var(--TEXTAREA_BACKGROUND_COLOR);
+    transition: color 0.3s ease-in-out, background-color 0.5s ease-in-out;
 }
 
 .siteGithub {
+    min-width: 12.5rem;
     width: 80vw;
     height: 4rem;
     font-size: 2rem;
@@ -59,6 +62,20 @@
     animation: bubblepop 0.3s ease-in-out;
     background-position: 100% 100%;
     color: white;
+}
+
+@media (max-width: 600px) {
+    .site {
+        max-width: 80vw;
+        min-width: 15rem;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 300px) {
+    .siteGithub {
+        font-size: 1.5rem;
+    }
 }
 
 @keyframes bubblepop {

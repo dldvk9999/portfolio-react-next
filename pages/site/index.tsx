@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Scrollbar from "smooth-scrollbar";
 import styles from "../../styles/Home.module.scss";
-
-type Tree = {
-    [key: string]: string;
-};
 
 const Site = () => {
     const [data, setData] = useState("");
     const [tree, setTree] = useState<JSX.Element[]>();
+    const [show, setShow] = useState(0);
 
     // next.config.js에서 /api 주소 프록시
     const rawURL = "/api";
@@ -220,9 +218,7 @@ const Site = () => {
                     <li onClick={() => rawHTML("/.eslintrc.json")}>
                         .eslintrc.json
                     </li>
-                    <li onClick={() => rawHTML("/.gitignore.json")}>
-                        .gitignore.json
-                    </li>
+                    <li onClick={() => rawHTML("/.gitignore")}>.gitignore</li>
                     <li onClick={() => rawHTML("/next.config.js")}>
                         next.config.js
                     </li>
@@ -249,11 +245,27 @@ const Site = () => {
                             "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",
                     },
                 })
-                .then((html) => setData(html.data));
+                .then((html) => {
+                    if (typeof html.data === "object") {
+                        setData(JSON.stringify(html.data, null, 2));
+                    } else {
+                        setData(html.data);
+                    }
+
+                    let scroll = Scrollbar.get(
+                        document.querySelector("#root") as HTMLElement
+                    );
+                    if (scroll?.scrollTop !== 0)
+                        scroll?.setMomentum(0, -scroll.scrollTop);
+                });
         } catch (e) {
             setData("코드를 불러오는데 실패했습니다.");
             console.log(e);
         }
+    }
+
+    function showCode() {
+        setShow(window.innerWidth);
     }
 
     useEffect(() => {
@@ -268,6 +280,11 @@ const Site = () => {
         }, 2000);
 
         makeTree();
+        showCode();
+
+        window.onresize = () => {
+            showCode();
+        };
     }, []);
 
     return (
@@ -283,14 +300,22 @@ const Site = () => {
                     Github로 이동
                 </a>
 
-                <div className={styles.siteTreeCode}>
-                    <div>{tree}</div>
-                    <textarea
-                        className={styles.siteCode}
-                        value={data}
-                        readOnly
-                    />
-                </div>
+                {show >= 800 ? (
+                    <div className={styles.siteTreeCode}>
+                        <div>{tree}</div>
+                        <textarea
+                            className={styles.siteCode}
+                            value={data}
+                            readOnly
+                        />
+                    </div>
+                ) : (
+                    <div>
+                        본 Site의 소스코드 및 트리는 더 넓은 웹뷰 환경에서만
+                        제공됩니다.
+                        <div>현재 width: {show}, 필요 width: 800 이상</div>
+                    </div>
+                )}
             </section>
         </main>
     );
