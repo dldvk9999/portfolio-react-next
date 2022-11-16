@@ -40,7 +40,7 @@ const About = () => {
         "Vue",
         "JQuery",
         "Sass",
-        "Nestjs",
+        "Nextjs",
         "Gatsby",
         "Bootstrap",
     ];
