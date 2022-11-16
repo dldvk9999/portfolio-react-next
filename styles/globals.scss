@@ -168,6 +168,20 @@ button:focus-visible {
     transition: opacity 1s ease-out;
 }
 
+ul,
+li {
+    list-style: none;
+    padding: 0;
+    margin: 5px 5px 5px 1rem;
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+li {
+    cursor: pointer;
+    padding: 10px;
+}
+
 @media (max-width: 600px) or (max-height: 700px) {
     #floating {
         width: 3rem;

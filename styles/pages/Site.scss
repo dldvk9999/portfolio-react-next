@@ -7,7 +7,32 @@
 
 .siteCode {
     width: 80vw;
-    height: calc(100vh - $HEADER_HEIGHT);
+}
+
+.siteTreeList {
+    padding: 1rem;
+}
+
+.siteTreeList ul li:hover {
+    background-color: var(--UL_LI_BACKGROUND_COLOR);
+}
+
+.siteTreeList ul li ul li:hover {
+    background-color: var(--UL_LI_UL_LI_BACKGROUND_COLOR);
+}
+
+.siteTreeList ul li ul li ul li:hover {
+    background-color: var(--UL_LI_UL_LI_UL_LI_BACKGROUND_COLOR);
+}
+
+.siteTreeCode {
+    display: flex;
+    width: 80vw;
+    gap: 1rem;
+}
+
+.siteTreeCode > textarea {
+    resize: none;
 }
 
 .siteGithub {
@@ -22,12 +47,14 @@
     background: linear-gradient(to right, transparent 30%, $HOVER_COLOR 80%);
     background-size: 400% 100%;
     background-position: 0% 100%;
-    transition: background-position 0.5s ease-in-out;
+    transition: background-position 0.5s ease-in-out, color 0.5s ease-in-out;
+    margin: 2rem 0;
 }
 
 .siteGithub:hover {
     animation: bubblepop 0.3s ease-in-out;
     background-position: 100% 100%;
+    color: white;
 }
 
 @keyframes bubblepop {

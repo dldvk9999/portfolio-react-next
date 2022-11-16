@@ -1,16 +1,257 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "../../styles/Home.module.scss";
 
-const Site = () => {
-    const [data, setData] = useState();
+type Tree = {
+    [key: string]: string;
+};
 
-    async function rawHTML() {
+// token: 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
+const Site = () => {
+    const [data, setData] = useState("");
+    const [tree, setTree] = useState<JSX.Element[]>();
+
+    // const url = "https://api.github.com/repos/dldvk9999/portfolio-react-next/contents";
+    const rawURL =
+        "https://raw.githubusercontent.com/dldvk9999/portfolio-react-next/main";
+
+    function makeTree() {
+        let result = [];
+        result.push(
+            <div className={styles.siteTreeList} key={"site-tree"}>
+                root
+                <ul>
+                    <li>
+                        components
+                        <ul>
+                            <li
+                                onClick={() =>
+                                    rawHTML("/components/Header.tsx")
+                                }
+                            >
+                                Header.tsx
+                            </li>
+                            <li
+                                onClick={() =>
+                                    rawHTML("/components/Footer.tsx")
+                                }
+                            >
+                                Footer.tsx
+                            </li>
+                            <li
+                                onClick={() => rawHTML("/components/Modal.tsx")}
+                            >
+                                Modal.tsx
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        pages
+                        <ul>
+                            <li>
+                                about
+                                <ul>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML("/pages/about/index.tsx")
+                                        }
+                                    >
+                                        index.tsx
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                activity
+                                <ul>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML("/pages/activity/index.tsx")
+                                        }
+                                    >
+                                        index.tsx
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                admin
+                                <ul>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML("/pages/admin/index.tsx")
+                                        }
+                                    >
+                                        index.tsx
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                project
+                                <ul>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML("/pages/project/index.tsx")
+                                        }
+                                    >
+                                        index.tsx
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                site
+                                <ul>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML("/pages/site/index.tsx")
+                                        }
+                                    >
+                                        index.tsx
+                                    </li>
+                                </ul>
+                            </li>
+                            <li onClick={() => rawHTML("/pages/_app.tsx")}>
+                                _app.tsx
+                            </li>
+                            <li onClick={() => rawHTML("/pages/_document.tsx")}>
+                                _document.tsx
+                            </li>
+                            <li onClick={() => rawHTML("/pages/index.tsx")}>
+                                index.tsx
+                            </li>
+                        </ul>
+                    </li>
+                    <li onClick={() => setData("이 파일은 공개하지 않습니다.")}>
+                        public
+                    </li>
+                    <li>
+                        styles
+                        <ul>
+                            <li>
+                                components
+                                <ul>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML(
+                                                "/styles/components/Footer.scss"
+                                            )
+                                        }
+                                    >
+                                        Footer.scss
+                                    </li>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML(
+                                                "/styles/components/Header.scss"
+                                            )
+                                        }
+                                    >
+                                        Header.scss
+                                    </li>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML(
+                                                "/styles/components/Modal.scss"
+                                            )
+                                        }
+                                    >
+                                        Modal.scss
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                pages
+                                <ul>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML("/styles/pages/About.scss")
+                                        }
+                                    >
+                                        About.scss
+                                    </li>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML(
+                                                "/styles/pages/Activity.scss"
+                                            )
+                                        }
+                                    >
+                                        Activity.scss
+                                    </li>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML("/styles/pages/Admin.scss")
+                                        }
+                                    >
+                                        Admin.scss
+                                    </li>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML("/styles/pages/Home.scss")
+                                        }
+                                    >
+                                        Home.scss
+                                    </li>
+                                    <li
+                                        onClick={() =>
+                                            rawHTML("/styles/pages/Site.scss")
+                                        }
+                                    >
+                                        Site.scss
+                                    </li>
+                                </ul>
+                            </li>
+                            <li
+                                onClick={() =>
+                                    rawHTML("/styles/_variables.scss")
+                                }
+                            >
+                                _variables.scss
+                            </li>
+                            <li onClick={() => rawHTML("/styles/globals.scss")}>
+                                globals.scss
+                            </li>
+                            <li
+                                onClick={() =>
+                                    rawHTML("/styles/Home.module.scss")
+                                }
+                            >
+                                Home.module.scss
+                            </li>
+                        </ul>
+                    </li>
+                    <li onClick={() => rawHTML("/.eslintrc.json")}>
+                        .eslintrc.json
+                    </li>
+                    <li onClick={() => rawHTML("/.gitignore.json")}>
+                        .gitignore.json
+                    </li>
+                    <li onClick={() => rawHTML("/next.config.js")}>
+                        next.config.js
+                    </li>
+                    <li onClick={() => rawHTML("/package.json")}>
+                        package.json
+                    </li>
+                    <li onClick={() => rawHTML("/README.md")}>README.md</li>
+                    <li onClick={() => rawHTML("/tsconfig.json")}>
+                        tsconfig.json
+                    </li>
+                </ul>
+            </div>
+        );
+        setTree(result);
+    }
+
+    async function rawHTML(path: string) {
         try {
-            return await axios
-                .get("https://portfolio-react-next-dldvk9999.vercel.app/")
+            await axios
+                .get(rawURL + path, {
+                    headers: {
+                        Authorization:
+                            "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",
+                    },
+                })
                 .then((html) => setData(html.data));
         } catch (e) {
+            setData("코드를 불러오는데 실패했습니다.");
             console.log(e);
         }
     }
@@ -26,7 +267,7 @@ const Site = () => {
             pageTitle.style.display = "none";
         }, 2000);
 
-        // rawHTML();
+        makeTree();
     }, []);
 
     return (
@@ -42,19 +283,14 @@ const Site = () => {
                     Github로 이동
                 </a>
 
-                {/* <textarea
-                    className={styles.siteCode}
-                    value={rawHTML()}
-                    readOnly
-                /> */}
-                {/* <div>{data}</div> */}
-                <iframe
-                    frameBorder={0}
-                    className={styles.siteCode}
-                    scrolling="no"
-                    seamless
-                    srcDoc='<html><body><style type="text/css">.gist .gist-data { height: 400px; }</style><script src="https://github.dev/dldvk9999/portfolio-react-next/blob/main/"></script></body></html>'
-                ></iframe>
+                <div className={styles.siteTreeCode}>
+                    <div>{tree}</div>
+                    <textarea
+                        className={styles.siteCode}
+                        value={data}
+                        readOnly
+                    />
+                </div>
             </section>
         </main>
     );

@@ -21,6 +21,9 @@ html.dark {
     --PAGE_TITLE_BACKGROUND_COLOR: black;
     --PAGE_TITLE_COLOR: white;
     --ACTIVITY_ITEM_SHADOW: #3f3f3f;
+    --UL_LI_BACKGROUND_COLOR: #3a316f;
+    --UL_LI_UL_LI_BACKGROUND_COLOR: #5a518f;
+    --UL_LI_UL_LI_UL_LI_BACKGROUND_COLOR: #6a66af;
 }
 
 html.light {
@@ -41,4 +44,7 @@ html.light {
     --PAGE_TITLE_BACKGROUND_COLOR: white;
     --PAGE_TITLE_COLOR: black;
     --ACTIVITY_ITEM_SHADOW: #9f9f9f;
+    --UL_LI_BACKGROUND_COLOR: #fce9da;
+    --UL_LI_UL_LI_BACKGROUND_COLOR: #ffcec7;
+    --UL_LI_UL_LI_UL_LI_BACKGROUND_COLOR: #e098ae;
 }
