@@ -25,6 +25,7 @@ const Modal = ({
     category,
 }: modal) => {
     const [isBrowser, setIsBrowser] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(0);
     const headerHeight = 16 * Number(styles.headerHeight.slice(0, -3));
     let scroll: any;
 
@@ -59,8 +60,8 @@ const Modal = ({
                         src={"/" + category + "/" + images[i] + ".webp"}
                         alt={title + "_" + i}
                         className={styles.modalImage}
-                        width={800}
-                        height={400}
+                        width={windowWidth >= 800 ? 1500 : 1000}
+                        height={windowWidth >= 800 ? 800 : 2000}
                     ></Image>
                 </div>
             );
@@ -70,6 +71,11 @@ const Modal = ({
 
     useEffect(() => {
         setIsBrowser(true);
+        setWindowWidth(window.innerWidth);
+
+        window.onresize = () => {
+            setWindowWidth(window.innerWidth);
+        };
 
         scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
         scroll?.addListener(() => modalScroller());
