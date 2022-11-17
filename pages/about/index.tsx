@@ -1,98 +1,75 @@
 import styles from "../../styles/Home.module.scss";
 import Image from "next/image";
-import { useEffect } from "react";
+import get from "../api/api";
+import { useEffect, useState } from "react";
+
+type skillCategory = {
+    [key: string]: Array<string>;
+};
 
 const About = () => {
-    const header = [
-        "이름",
-        "출생",
-        "최종학력",
-        "경력사항",
-        "Tel",
-        "Email",
-        "블로그",
-        "깃허브",
-    ];
-    const content = [
-        "박종근",
-        "1998.01.05.",
-        "수원대학교 정보보호학과 졸업",
-        "신입",
-        "010-7184-6533",
-        "dldvk9999@naver.com",
-        "https://blog.naver.com/dldvk9999",
-        "https://github.com/dldvk9999",
-    ];
-    const skillLanguage = [
-        "Python",
-        "Javascript",
-        "Typescript",
-        "HTML",
-        "CSS",
-        "Java",
-        "Swift",
-        "C",
-        "C++",
-    ];
-    const skillFrontend = [
-        "React",
-        "Angular",
-        "Vue",
-        "JQuery",
-        "Sass",
-        "Nextjs",
-        "Gatsby",
-        "Bootstrap",
-    ];
-    const skillBackend = ["Nodejs", "Django", "Mysql", "MariaDB", "PostgreSQL"];
-    const skillPlatform = [
-        "PC Software",
-        "Web.Frontend",
-        "Web.Backend",
-        "Chrome Extension",
-        "Android App",
-        "IOS App",
-    ];
-    const skillCommunication = [
-        "Slack",
-        "Jira",
-        "Microsoft Teams",
-        "Zoom",
-        "Figma",
-    ];
-    const skillVersionControl = ["Git", "Github"];
-    const skillDeployment = ["Vercel", "Heroku", "Github"];
-    const skillCertification = ["정보처리기사"];
-    const skillKeys = [
-        "Language",
-        "Frontend",
-        "Backend",
-        "Platform",
-        "Communication",
-        "VersionControl",
-        "Deployment",
-        "Certification",
-    ];
-    const skillArea = [
-        skillLanguage,
-        skillFrontend,
-        skillBackend,
-        skillPlatform,
-        skillCommunication,
-        skillVersionControl,
-        skillDeployment,
-        skillCertification,
-    ];
+    const [information, setInfo] = useState({
+        이름: "",
+        출생: "",
+        최종학력: "",
+        경력사항: "",
+        Tel: "",
+        Email: "",
+        블로그: "",
+        깃허브: "",
+    });
+    const [infoskills, setSkills] = useState<skillCategory>({
+        Language: [],
+        Frontend: [],
+        Backend: [],
+        Platform: [],
+        Communication: [],
+        VersionControl: [],
+        Deployment: [],
+        Certification: [],
+    });
+
+    // DB에서 info 가져오기
+    function getInfo() {
+        get("about").then((res: any) => {
+            let info = res.data.data[0];
+            setInfo({
+                이름: info.name,
+                출생:
+                    new Date(info.birth).getFullYear() +
+                    "." +
+                    (new Date(info.birth).getMonth() + 1) +
+                    "." +
+                    new Date(info.birth).getDate(),
+                최종학력: info.lastgraduate,
+                경력사항: info.isnew === 0 ? "신입" : info.isnew + "년",
+                Tel: info.tel,
+                Email: info.email,
+                블로그: info.blog,
+                깃허브: info.github,
+            });
+            setSkills({
+                Language: info.language.split(","),
+                Frontend: info.frontend.split(","),
+                Backend: info.backend.split(","),
+                Platform: info.platform.split(","),
+                Communication: info.communication.split(","),
+                VersionControl: info.versioncontrol.split(","),
+                Deployment: info.deployment.split(","),
+                Certification: info.certification.split(","),
+            });
+        });
+    }
 
     // 내 인적사항 출력
     function info() {
         let result = [];
 
-        for (let i = 0; i < header.length; i++) {
+        for (let i = 0; i < 8; i++) {
             result.push(
                 <div key={"about-info-" + i}>
-                    <h2>{header[i]}</h2>
-                    <p>{isLink(i, content[i])}</p>
+                    <h2>{Object.keys(information)[i]}</h2>
+                    <p>{isLink(i, Object.values(information)[i])}</p>
                 </div>
             );
         }
@@ -103,7 +80,7 @@ const About = () => {
     const isLink = (index: number, item: string) => {
         let result = [];
         // 블로그, 깃허브 주소일 경우
-        if (index >= header.length - 2) {
+        if (index >= 6) {
             result.push(
                 <a
                     href={item}
@@ -148,11 +125,11 @@ const About = () => {
     function skills() {
         let result = [];
 
-        for (let i = 0; i < skillKeys.length; i++) {
+        for (let i = 0; i < Object.keys(infoskills).length; i++) {
             result.push(
-                <div key={"about-skill-" + i}>
-                    <h2>{skillKeys[i]}</h2>
-                    {skillItems(i)}
+                <div className={styles.skillLayout} key={"about-skill-" + i}>
+                    <h2>{Object.keys(infoskills)[i]}</h2>
+                    {skillItems(Object.keys(infoskills)[i])}
                 </div>
             );
         }
@@ -161,12 +138,12 @@ const About = () => {
     }
 
     // 스킬 아이템 출력
-    function skillItems(index: number) {
+    function skillItems(category: string) {
         let result = [];
-        for (let i = 0; i < skillArea[index].length; i++) {
+        for (let i = 0; i < infoskills[category].length; i++) {
             result.push(
                 <ul key={"about-skillItems-" + i}>
-                    <li>{skillArea[index][i]}</li>
+                    <li>{infoskills[category][i]}</li>
                 </ul>
             );
         }
@@ -183,6 +160,9 @@ const About = () => {
             let pageTitle = document.querySelector("#pageTitle") as HTMLElement;
             pageTitle.style.display = "none";
         }, 2000);
+
+        // DB에서 info 가져오기
+        getInfo();
     }, []);
 
     return (

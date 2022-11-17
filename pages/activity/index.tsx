@@ -2,48 +2,69 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "../../styles/Home.module.scss";
 import dynamic from "next/dynamic";
+import get from "../api/api";
 const Modal = dynamic(() => import("../../components/Modal"), {
     ssr: false,
 });
 
-const data = [
-    {
-        title: "제로베이스",
-        start: "2022. 8. 1.",
-        end: "2023. 1. 31.",
-        introduce:
-            "Frontend 개발의 기초부터 프로젝트 경험까지 한번에 배울 수 있는 교육",
-        position: "수강생",
-        takeway:
-            "HTML, CSS, Javascript의 기초를 다시 잡을 수 있고, Sass 및 SCSS나 Typescript에 대해서도 배울 수 있으며 React나 Vue를 통해 프로젝트를 진행하고 관련 피드백을 받을 수 있었습니다. 또한 주기적인 코딩테스트를 통해 알고리즘 소양을 기를 수 있었으며 특강을 통해 현업에서는 어떤 개발자를 원하는지, 어떤 개발자가 되어야하는지를 배울 수 있었습니다.",
-        image: "zerobase",
-    },
-    {
-        title: "프로젝트제이지 창업",
-        start: "2021. 2. 1.",
-        end: "2021. 12. 31.",
-        introduce:
-            "법인회사와 단기간 계약을 맺어 1차 프로젝트로 할 데모 웹사이트 구축",
-        position: "PM(Project Manager)",
-        takeway:
-            "취업이나 입시를 위해 구글링을 하지 않고도 다양한 활동 및 동아리, 대회, 봉사 등들을 한번에 볼 수 있게 하여 취업준비생이나 입시준비생, 주부 등에게 도움을 주며 해당 활동을 완료한 사람에게도 자문을 구할 수 있는 웹사이트를 개발하였습니다. 처음으로 디자이너 및 백엔드, 프론트엔드 개발자 모두 모여 웹사이트를 구축했던 시간이라 보람찬 시간이였습니다. (계약상 결과물 제공 불가)",
-        image: "wbs",
-    },
-];
-
 const Activity = () => {
-    const [showModal, setShowModal] = useState(new Array(data.length));
+    const [showModal, setShowModal] = useState(new Array());
+    const [act, setAct] = useState([
+        {
+            title: "",
+            start: "",
+            end: "",
+            introduce: "",
+            position: "",
+            takeaway: "",
+            image: "",
+        },
+    ]);
+
+    // DB에서 Activity list 가져오기
+    async function getActivity() {
+        await get("activity").then((res: any) => {
+            let info = res.data.data;
+            let result = [];
+            for (let i = 0; i < info.length / 2; i++) {
+                result.push({
+                    title: info[i].name,
+                    start:
+                        new Date(info[i].start).getFullYear() +
+                        "." +
+                        (new Date(info[i].start).getMonth() + 1) +
+                        "." +
+                        new Date(info[i].start).getDate(),
+                    end:
+                        new Date(info[i].end).getFullYear() +
+                        "." +
+                        (new Date(info[i].end).getMonth() + 1) +
+                        "." +
+                        new Date(info[i].end).getDate(),
+                    introduce: info[i].introduce,
+                    position: info[i].position,
+                    takeaway: info[i].takeaway,
+                    image: info[i].image,
+                });
+            }
+            setAct(result);
+        });
+    }
 
     // activity 출력
     function activity() {
         let result = [];
 
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < act.length; i++) {
             result.push(
                 <div className={styles.activityItem} key={"activity-item-" + i}>
                     <Image
-                        src={"/activity/" + data[i].image + ".webp"}
-                        alt={data[i].image}
+                        src={
+                            act[i].image
+                                ? "/activity/" + act[i].image + ".webp"
+                                : "/loading.gif"
+                        }
+                        alt={act[i].image}
                         width={1000}
                         height={500}
                         priority
@@ -54,7 +75,7 @@ const Activity = () => {
                             setShowModal(tmp);
                         }}
                     />
-                    {/* modal을 함께 출력하여 보여지지만 않게끔 함 */}
+                    {/* modal을 함께 렌더링하여 보여지지만 않게끔 함: 부드러운 fadeInOut 효과 및 fixed 효과를 위함 */}
                     <Modal
                         onClose={() => {
                             let tmp = [...showModal];
@@ -62,24 +83,24 @@ const Activity = () => {
                             setShowModal(tmp);
                         }}
                         show={showModal[i]}
-                        title={data[i].title}
+                        title={act[i].title}
                         index={i}
-                        image={data[i].image}
+                        image={act[i].image}
                         category="activity"
                     >
-                        {data[i].introduce}
+                        {act[i].introduce}
                     </Modal>
                     <div className={styles.activityInfo}>
-                        <h2>{data[i].title}</h2>
+                        <h2>{act[i].title}</h2>
                         <div>
-                            기간 : {data[i].start} - {data[i].end}{" "}
+                            기간 : {act[i].start} - {act[i].end}{" "}
                             {new Date().toLocaleDateString() <
-                                new Date(data[i].end).toLocaleDateString() &&
+                                new Date(act[i].end).toLocaleDateString() &&
                                 "예정"}
                         </div>
-                        <div>소개 : {data[i].introduce}</div>
-                        <div>포지션 : {data[i].position}</div>
-                        <div>배운점 : {data[i].takeway}</div>
+                        <div>소개 : {act[i].introduce}</div>
+                        <div>포지션 : {act[i].position}</div>
+                        <div>배운점 : {act[i].takeaway}</div>
                     </div>
                 </div>
             );
@@ -97,14 +118,17 @@ const Activity = () => {
             let pageTitle = document.querySelector("#pageTitle") as HTMLElement;
             pageTitle.style.display = "none";
         }, 2000);
+
+        // DB에서 Activity list 가져오기
+        getActivity();
     }, []);
 
     useEffect(() => {
         let tmp = [];
-        for (let i = 0; i < data.length; i++) tmp.push(false);
+        for (let i = 0; i < act.length; i++) tmp.push(false);
         if (showModal === tmp) return;
         setShowModal(tmp);
-    }, [data, setShowModal]);
+    }, [setShowModal]);
 
     return (
         <main className={styles.main}>

@@ -57,7 +57,11 @@ const Modal = ({
             result.push(
                 <div key={"modal-images-" + i}>
                     <Image
-                        src={"/" + category + "/" + images[i] + ".webp"}
+                        src={
+                            images[i]
+                                ? "/" + category + "/" + images[i] + ".webp"
+                                : "loading.gif"
+                        }
                         alt={title + "_" + i}
                         className={styles.modalImage}
                         width={windowWidth >= 800 ? 1500 : 1000}
@@ -113,7 +117,11 @@ const Modal = ({
                 <div className={styles.modalContent}>
                     {typeof image === "string" ? (
                         <Image
-                            src={"/" + category + "/" + image + ".webp"}
+                            src={
+                                image
+                                    ? "/" + category + "/" + image + ".webp"
+                                    : "/loading.gif"
+                            }
                             alt={title + " image"}
                             className={styles.modalImage}
                             width={800}
