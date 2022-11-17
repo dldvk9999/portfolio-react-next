@@ -1,6 +1,6 @@
 import styles from "../../styles/Home.module.scss";
 import Image from "next/image";
-import get from "../api/api";
+import { get } from "../api/api";
 import { useEffect, useState } from "react";
 
 type skillCategory = {
@@ -65,7 +65,7 @@ const About = () => {
     function info() {
         let result = [];
 
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < Object.keys(information).length; i++) {
             result.push(
                 <div key={"about-info-" + i}>
                     <h2>{Object.keys(information)[i]}</h2>

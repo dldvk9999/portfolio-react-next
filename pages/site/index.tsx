@@ -1,15 +1,82 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Scrollbar from "smooth-scrollbar";
+import { getKey } from "../api/api";
 import styles from "../../styles/Home.module.scss";
+
+const componentsCode = ["Header", "Footer", "Modal"];
+const pagesCode = ["about", "activity", "admin", "project", "site"];
 
 const Site = () => {
     const [data, setData] = useState("");
     const [tree, setTree] = useState<JSX.Element[]>();
     const [show, setShow] = useState(0);
+    const [key, setKey] = useState("");
 
     // next.config.js에서 /api 주소 프록시
     const rawURL = "/api";
+
+    // components 부분 만들기 - 중복 코드 줄임
+    function makeComponent(type: string) {
+        let result = [];
+        const file = type === "ts" ? ".tsx" : ".scss";
+        const path = type === "ts" ? "" : "/styles";
+        for (let i = 0; i < componentsCode.length; i++) {
+            result.push(
+                <li
+                    onClick={() =>
+                        rawHTML(
+                            path + "/components/" + componentsCode[i] + file
+                        )
+                    }
+                    key={"components-" + type + "-" + i}
+                >
+                    {componentsCode[i] + file}
+                </li>
+            );
+        }
+        return result;
+    }
+
+    // pages 부분 만들기 - 중복 코드 줄임
+    function makePages() {
+        let result = [];
+        for (let i = 0; i < pagesCode.length; i++) {
+            result.push(
+                <li key={"pages-tsx-" + i}>
+                    {pagesCode[i]}
+                    <ul>
+                        <li
+                            onClick={() =>
+                                rawHTML("/pages/" + pagesCode[i] + "/index.tsx")
+                            }
+                        >
+                            index.tsx
+                        </li>
+                    </ul>
+                </li>
+            );
+        }
+        return result;
+    }
+
+    // pages 부분 만들기 - SCSS - 중복 코드 줄임
+    function makePagesSCSS() {
+        let result = [];
+        for (let i = 0; i < pagesCode.length; i++) {
+            let file =
+                pagesCode[i].charAt(0).toUpperCase() + pagesCode[i].slice(1);
+            result.push(
+                <li
+                    onClick={() => rawHTML("/styles/pages/" + file + ".scss")}
+                    key={"pages-scss-" + i}
+                >
+                    {file + ".scss"}
+                </li>
+            );
+        }
+        return result;
+    }
 
     // 코드가 상당히 길고 난잡해 보이나 Github API의 불필요한 API 요청을 줄임 (token 존재 시 시간당 최대 15000회 가능)
     function makeTree() {
@@ -20,91 +87,12 @@ const Site = () => {
                 <ul>
                     <li>
                         components
-                        <ul>
-                            <li
-                                onClick={() =>
-                                    rawHTML("/components/Header.tsx")
-                                }
-                            >
-                                Header.tsx
-                            </li>
-                            <li
-                                onClick={() =>
-                                    rawHTML("/components/Footer.tsx")
-                                }
-                            >
-                                Footer.tsx
-                            </li>
-                            <li
-                                onClick={() => rawHTML("/components/Modal.tsx")}
-                            >
-                                Modal.tsx
-                            </li>
-                        </ul>
+                        <ul>{makeComponent("ts")}</ul>
                     </li>
                     <li>
                         pages
                         <ul>
-                            <li>
-                                about
-                                <ul>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML("/pages/about/index.tsx")
-                                        }
-                                    >
-                                        index.tsx
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                activity
-                                <ul>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML("/pages/activity/index.tsx")
-                                        }
-                                    >
-                                        index.tsx
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                admin
-                                <ul>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML("/pages/admin/index.tsx")
-                                        }
-                                    >
-                                        index.tsx
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                project
-                                <ul>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML("/pages/project/index.tsx")
-                                        }
-                                    >
-                                        index.tsx
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                site
-                                <ul>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML("/pages/site/index.tsx")
-                                        }
-                                    >
-                                        index.tsx
-                                    </li>
-                                </ul>
-                            </li>
+                            {makePages()}
                             <li onClick={() => rawHTML("/pages/_app.tsx")}>
                                 _app.tsx
                             </li>
@@ -124,77 +112,11 @@ const Site = () => {
                         <ul>
                             <li>
                                 components
-                                <ul>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML(
-                                                "/styles/components/Footer.scss"
-                                            )
-                                        }
-                                    >
-                                        Footer.scss
-                                    </li>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML(
-                                                "/styles/components/Header.scss"
-                                            )
-                                        }
-                                    >
-                                        Header.scss
-                                    </li>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML(
-                                                "/styles/components/Modal.scss"
-                                            )
-                                        }
-                                    >
-                                        Modal.scss
-                                    </li>
-                                </ul>
+                                <ul>{makeComponent("scss")}</ul>
                             </li>
                             <li>
                                 pages
-                                <ul>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML("/styles/pages/About.scss")
-                                        }
-                                    >
-                                        About.scss
-                                    </li>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML(
-                                                "/styles/pages/Activity.scss"
-                                            )
-                                        }
-                                    >
-                                        Activity.scss
-                                    </li>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML("/styles/pages/Admin.scss")
-                                        }
-                                    >
-                                        Admin.scss
-                                    </li>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML("/styles/pages/Home.scss")
-                                        }
-                                    >
-                                        Home.scss
-                                    </li>
-                                    <li
-                                        onClick={() =>
-                                            rawHTML("/styles/pages/Site.scss")
-                                        }
-                                    >
-                                        Site.scss
-                                    </li>
-                                </ul>
+                                <ul>{makePagesSCSS()}</ul>
                             </li>
                             <li
                                 onClick={() =>
@@ -235,14 +157,18 @@ const Site = () => {
         setTree(result);
     }
 
-    // !!! TOKEN 값 임의 사용 절대 금지 !!!
+    async function getAPIKey() {
+        let key = await getKey("site");
+        setKey(key);
+    }
+
+    // Github REST API를 이용해 Github내의 소스코드를 raw data로 불러옴
     async function rawHTML(path: string) {
         try {
             await axios
                 .get(rawURL + path, {
                     headers: {
-                        Authorization:
-                            "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",
+                        Authorization: key,
                     },
                 })
                 .then((html) => {
@@ -279,8 +205,12 @@ const Site = () => {
             pageTitle.style.display = "none";
         }, 2000);
 
+        // tree 출력
         makeTree();
+        //code 란 출력
         showCode();
+        // API Key get
+        getAPIKey();
 
         window.onresize = () => {
             showCode();

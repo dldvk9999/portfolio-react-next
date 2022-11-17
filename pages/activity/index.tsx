@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "../../styles/Home.module.scss";
 import dynamic from "next/dynamic";
-import get from "../api/api";
+import { get } from "../api/api";
 const Modal = dynamic(() => import("../../components/Modal"), {
     ssr: false,
 });
