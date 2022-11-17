@@ -1,7 +1,7 @@
 import Axios from "axios";
 
-// const path = "https://portfolio-react-next-backend.herokuapp.com";
-const path = "http://127.0.0.1:8080";
+const path = "https://portfolio-react-next-backend.herokuapp.com";
+// const path = "http://127.0.0.1:8080";
 
 function makeURL(category: string, method: string) {
     switch (method) {
