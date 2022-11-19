@@ -1,0 +1,62 @@
+.adminSection,
+.adminArea {
+    display: flex;
+    align-items: center;
+}
+
+.adminSection {
+    flex-direction: column;
+}
+
+.adminArea {
+    gap: 1rem;
+}
+
+.adminInput {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    column-gap: 1rem;
+    font-size: 1.2rem;
+}
+
+.adminTitle {
+    font-size: 3rem;
+}
+
+.adminTitle > span {
+    padding: 0 1rem;
+}
+
+.adminAreaCustom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+    row-gap: 2rem;
+}
+
+.adminEdit {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+    .adminAreaCustom {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 600px) {
+    .adminTitle {
+        font-size: 1rem;
+    }
+    .adminInput {
+        font-size: 0.8rem;
+    }
+}
+@media (max-width: 300px) {
+    .adminInput {
+        grid-template-columns: none;
+    }
+}
