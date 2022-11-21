@@ -40,6 +40,11 @@
     vertical-align: middle;
     fill: currentColor;
     overflow: hidden;
+    cursor: pointer;
+}
+
+.adminDelete {
+    grid-column: 1 / 3;
 }
 
 @media (max-width: 1024px) {

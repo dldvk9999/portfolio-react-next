@@ -51,7 +51,7 @@ const Admin = () => {
             introduce: "",
             stack: "",
             takeaway: "",
-            image: [],
+            image: "",
         },
     ]);
     const [isEditInfo, setEditInfo] = useState(false);
@@ -98,7 +98,7 @@ const Admin = () => {
         await get("activity").then((res: any) => {
             let info = res.data.data;
             let result = [];
-            for (let i = 0; i < info.length / 2; i++) {
+            for (let i = 0; i < info.length; i++) {
                 result.push({
                     id: info[i].id,
                     name: info[i].name,
@@ -130,7 +130,7 @@ const Admin = () => {
         await get("project").then((res: any) => {
             let info = res.data.data;
             let result = [];
-            for (let i = 0; i < info.length / 2; i++) {
+            for (let i = 0; i < info.length; i++) {
                 result.push({
                     id: info[i].id,
                     name: info[i].name,
@@ -149,7 +149,7 @@ const Admin = () => {
                     introduce: info[i].introduce,
                     stack: info[i].stack,
                     takeaway: info[i].takeaway,
-                    image: info[i].image.split(","),
+                    image: info[i].image,
                 });
             }
             setPro(result);
@@ -206,6 +206,13 @@ const Admin = () => {
         for (let i = 0; i < act.length; i++) {
             result.push(
                 <div className={styles.adminInput} key={"admin-acts-" + i}>
+                    <svg
+                        className={`${styles.adminEdit} ${styles.adminDelete}`}
+                        onClick={() => deleteAct(act[i].id)}
+                        viewBox="0 0 1024 1024"
+                    >
+                        <path d="M0 281.296l0 -68.355q1.953 -37.107 29.295 -62.496t64.449 -25.389l93.744 0l0 -31.248q0 -39.06 27.342 -66.402t66.402 -27.342l312.48 0q39.06 0 66.402 27.342t27.342 66.402l0 31.248l93.744 0q37.107 0 64.449 25.389t29.295 62.496l0 68.355q0 25.389 -18.553 43.943t-43.943 18.553l0 531.216q0 52.731 -36.13 88.862t-88.862 36.13l-499.968 0q-52.731 0 -88.862 -36.13t-36.13 -88.862l0 -531.216q-25.389 0 -43.943 -18.553t-18.553 -43.943zm62.496 0l749.952 0l0 -62.496q0 -13.671 -8.789 -22.46t-22.46 -8.789l-687.456 0q-13.671 0 -22.46 8.789t-8.789 22.46l0 62.496zm62.496 593.712q0 25.389 18.553 43.943t43.943 18.553l499.968 0q25.389 0 43.943 -18.553t18.553 -43.943l0 -531.216l-624.96 0l0 531.216zm62.496 -31.248l0 -406.224q0 -13.671 8.789 -22.46t22.46 -8.789l62.496 0q13.671 0 22.46 8.789t8.789 22.46l0 406.224q0 13.671 -8.789 22.46t-22.46 8.789l-62.496 0q-13.671 0 -22.46 -8.789t-8.789 -22.46zm31.248 0l62.496 0l0 -406.224l-62.496 0l0 406.224zm31.248 -718.704l374.976 0l0 -31.248q0 -13.671 -8.789 -22.46t-22.46 -8.789l-312.48 0q-13.671 0 -22.46 8.789t-8.789 22.46l0 31.248zm124.992 718.704l0 -406.224q0 -13.671 8.789 -22.46t22.46 -8.789l62.496 0q13.671 0 22.46 8.789t8.789 22.46l0 406.224q0 13.671 -8.789 22.46t-22.46 8.789l-62.496 0q-13.671 0 -22.46 -8.789t-8.789 -22.46zm31.248 0l62.496 0l0 -406.224l-62.496 0l0 406.224zm156.24 0l0 -406.224q0 -13.671 8.789 -22.46t22.46 -8.789l62.496 0q13.671 0 22.46 8.789t8.789 22.46l0 406.224q0 13.671 -8.789 22.46t-22.46 8.789l-62.496 0q-13.671 0 -22.46 -8.789t-8.789 -22.46zm31.248 0l62.496 0l0 -406.224l-62.496 0l0 406.224z" />
+                    </svg>
                     <span>이름: </span>
                     <input
                         type="text"
@@ -266,31 +273,61 @@ const Admin = () => {
         for (let i = 0; i < pro.length; i++) {
             result.push(
                 <div className={styles.adminInput} key={"admin-pros-" + i}>
+                    <svg
+                        className={`${styles.adminEdit} ${styles.adminDelete}`}
+                        onClick={() => deletePro(pro[i].id)}
+                        viewBox="0 0 1024 1024"
+                    >
+                        <path d="M0 281.296l0 -68.355q1.953 -37.107 29.295 -62.496t64.449 -25.389l93.744 0l0 -31.248q0 -39.06 27.342 -66.402t66.402 -27.342l312.48 0q39.06 0 66.402 27.342t27.342 66.402l0 31.248l93.744 0q37.107 0 64.449 25.389t29.295 62.496l0 68.355q0 25.389 -18.553 43.943t-43.943 18.553l0 531.216q0 52.731 -36.13 88.862t-88.862 36.13l-499.968 0q-52.731 0 -88.862 -36.13t-36.13 -88.862l0 -531.216q-25.389 0 -43.943 -18.553t-18.553 -43.943zm62.496 0l749.952 0l0 -62.496q0 -13.671 -8.789 -22.46t-22.46 -8.789l-687.456 0q-13.671 0 -22.46 8.789t-8.789 22.46l0 62.496zm62.496 593.712q0 25.389 18.553 43.943t43.943 18.553l499.968 0q25.389 0 43.943 -18.553t18.553 -43.943l0 -531.216l-624.96 0l0 531.216zm62.496 -31.248l0 -406.224q0 -13.671 8.789 -22.46t22.46 -8.789l62.496 0q13.671 0 22.46 8.789t8.789 22.46l0 406.224q0 13.671 -8.789 22.46t-22.46 8.789l-62.496 0q-13.671 0 -22.46 -8.789t-8.789 -22.46zm31.248 0l62.496 0l0 -406.224l-62.496 0l0 406.224zm31.248 -718.704l374.976 0l0 -31.248q0 -13.671 -8.789 -22.46t-22.46 -8.789l-312.48 0q-13.671 0 -22.46 8.789t-8.789 22.46l0 31.248zm124.992 718.704l0 -406.224q0 -13.671 8.789 -22.46t22.46 -8.789l62.496 0q13.671 0 22.46 8.789t8.789 22.46l0 406.224q0 13.671 -8.789 22.46t-22.46 8.789l-62.496 0q-13.671 0 -22.46 -8.789t-8.789 -22.46zm31.248 0l62.496 0l0 -406.224l-62.496 0l0 406.224zm156.24 0l0 -406.224q0 -13.671 8.789 -22.46t22.46 -8.789l62.496 0q13.671 0 22.46 8.789t8.789 22.46l0 406.224q0 13.671 -8.789 22.46t-22.46 8.789l-62.496 0q-13.671 0 -22.46 -8.789t-8.789 -22.46zm31.248 0l62.496 0l0 -406.224l-62.496 0l0 406.224z" />
+                    </svg>
                     <span>이름: </span>
-                    <input type="text" defaultValue={pro[i].name} readOnly />
+                    <input
+                        type="text"
+                        defaultValue={pro[i].name}
+                        onChange={(e) => (pro[i].name = e.target.value)}
+                        readOnly={!isEditPro}
+                    />
                     <span>시작일: </span>
-                    <input type="text" defaultValue={pro[i].start} readOnly />
+                    <input
+                        type="text"
+                        defaultValue={pro[i].start}
+                        onChange={(e) => (pro[i].start = e.target.value)}
+                        readOnly={!isEditPro}
+                    />
                     <span>종료일: </span>
-                    <input type="text" defaultValue={pro[i].end} readOnly />
+                    <input
+                        type="text"
+                        defaultValue={pro[i].end}
+                        onChange={(e) => (pro[i].end = e.target.value)}
+                        readOnly={!isEditPro}
+                    />
                     <span>소개: </span>
                     <input
                         type="text"
                         defaultValue={pro[i].introduce}
-                        readOnly
+                        onChange={(e) => (pro[i].introduce = e.target.value)}
+                        readOnly={!isEditPro}
                     />
                     <span>기술스택: </span>
-                    <input type="text" defaultValue={pro[i].stack} readOnly />
+                    <input
+                        type="text"
+                        defaultValue={pro[i].stack}
+                        onChange={(e) => (pro[i].stack = e.target.value)}
+                        readOnly={!isEditPro}
+                    />
                     <span>배운점: </span>
                     <input
                         type="text"
                         defaultValue={pro[i].takeaway}
-                        readOnly
+                        onChange={(e) => (pro[i].takeaway = e.target.value)}
+                        readOnly={!isEditPro}
                     />
                     <span>이미지: </span>
                     <input
                         type="text"
-                        defaultValue={pro[i].image.toString()}
-                        readOnly
+                        defaultValue={pro[i].image}
+                        onChange={(e) => (pro[i].image = e.target.value)}
+                        readOnly={!isEditPro}
                     />
                 </div>
             );
@@ -368,8 +405,16 @@ const Admin = () => {
         if (confirm("수정하시겠습니까?")) {
             if (key !== "") {
                 let updateResult: boolean[] = [];
+                // 기존 Acts 수정
                 for (let i = 0; i < originAct.length; i++) {
                     await update("activity", act[i], key).then((res) => {
+                        updateResult.push(res);
+                    });
+                }
+
+                // 신규 Acts 생성
+                for (let i = originAct.length; i < act.length; i++) {
+                    await create("activity", act[i], key).then((res) => {
                         updateResult.push(res);
                     });
                 }
@@ -387,6 +432,28 @@ const Admin = () => {
         }
     }
 
+    async function deleteAct(id: number) {
+        if (confirm("삭제하시겠습니까? 삭제 후 복구는 불가합니다.")) {
+            if (key !== "") {
+                await del("activity", id, key)
+                    .then((res) => {
+                        if (res) {
+                            alert("삭제하였습니다.");
+                            getActivity();
+                            setEditAct(false);
+                        } else {
+                            alert("삭제 오류! 콘솔을 확인해주세요.");
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            } else {
+                alert("key 입력은 필수입니다.");
+            }
+        }
+    }
+
     function addPro() {
         setPro([
             ...pro,
@@ -398,7 +465,7 @@ const Admin = () => {
                 introduce: "",
                 stack: "",
                 takeaway: "",
-                image: [],
+                image: "",
             },
         ]);
     }
@@ -414,8 +481,16 @@ const Admin = () => {
         if (confirm("수정하시겠습니까?")) {
             if (key !== "") {
                 let updateResult: boolean[] = [];
+                // 기존 Pros 수정
                 for (let i = 0; i < originPro.length; i++) {
                     await update("project", pro[i], key).then((res) => {
+                        updateResult.push(res);
+                    });
+                }
+
+                // 신규 Pros 생성
+                for (let i = originPro.length; i < pro.length; i++) {
+                    await create("project", pro[i], key).then((res) => {
                         updateResult.push(res);
                     });
                 }
@@ -427,6 +502,29 @@ const Admin = () => {
                 } else {
                     alert("수정에 실패했습니다. 콘솔을 확인 바랍니다.");
                 }
+            } else {
+                alert("key 입력은 필수입니다.");
+            }
+        }
+    }
+
+    async function deletePro(id: number) {
+        if (confirm("삭제하시겠습니까? 삭제 후 복구는 불가합니다.")) {
+            if (key !== "") {
+                await del("project", id, key)
+                    .then((res) => {
+                        if (res) {
+                            alert("삭제하였습니다.");
+                            getProject();
+                            setEditPro(false);
+                        } else {
+                            alert("삭제 오류! 콘솔을 확인해주세요.");
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        alert("삭제 오류! 콘솔을 확인해주세요.");
+                    });
             } else {
                 alert("key 입력은 필수입니다.");
             }

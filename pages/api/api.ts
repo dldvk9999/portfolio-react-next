@@ -76,7 +76,11 @@ async function create(category: string, create: any, key: string = master) {
 
 async function del(category: string, id: number, key: string = master) {
     let result: boolean = false;
-    await Axios.post(makeURL(category, "delete"), { id: id, key: key }, header)
+    console.log(makeURL(category, "delete") + id.toString());
+    await Axios.delete(makeURL(category, "delete") + id.toString(), {
+        ...header,
+        data: { key: key },
+    })
         .then((_) => (result = true))
         .catch((err) => console.log(err));
     return result;
