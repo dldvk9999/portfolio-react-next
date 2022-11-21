@@ -3,6 +3,14 @@ import Axios from "axios";
 const path = "https://portfolio-react-next-backend.herokuapp.com";
 // const path = "http://127.0.0.1:8080";
 const master = "Whdrms6533@";
+const header = {
+    withCredentials: false, // 쿠키 cors 통신 설정
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        Accept: "Token",
+        "Access-Control-Allow-Origin": "*",
+    },
+};
 
 function makeURL(category: string, method: string) {
     switch (method) {
@@ -11,6 +19,9 @@ function makeURL(category: string, method: string) {
         }
         case "update": {
             return path + "/" + category + "/change";
+        }
+        case "create": {
+            return path + "/" + category + "/create";
         }
         case "delete": {
             return path + "/" + category + "/";
@@ -28,15 +39,7 @@ async function get(category: string, key: string = master) {
         {
             key: key,
         },
-        {
-            withCredentials: false, // 쿠키 cors 통신 설정
-            headers: {
-                "Content-Type":
-                    "application/x-www-form-urlencoded; charset=UTF-8",
-                Accept: "Token",
-                "Access-Control-Allow-Origin": "*",
-            },
-        }
+        header
     )
         .then((res) => {
             result = res;
@@ -44,6 +47,38 @@ async function get(category: string, key: string = master) {
         .catch((err) => {
             console.log(err.response.data);
         });
+    return result;
+}
+
+async function update(category: string, update: any, key: string = master) {
+    let result: boolean = false;
+    await Axios.post(
+        makeURL(category, "update"),
+        { ...update, key: key },
+        header
+    )
+        .then((_) => (result = true))
+        .catch((err) => console.log(err));
+    return result;
+}
+
+async function create(category: string, create: any, key: string = master) {
+    let result: boolean = false;
+    await Axios.post(
+        makeURL(category, "create"),
+        { ...create, key: key },
+        header
+    )
+        .then((_) => (result = true))
+        .catch((err) => console.log(err));
+    return result;
+}
+
+async function del(category: string, id: number, key: string = master) {
+    let result: boolean = false;
+    await Axios.post(makeURL(category, "delete"), { id: id, key: key }, header)
+        .then((_) => (result = true))
+        .catch((err) => console.log(err));
     return result;
 }
 
@@ -62,15 +97,7 @@ async function getKey(category: string, key: string = master) {
         {
             key: key,
         },
-        {
-            withCredentials: false, // 쿠키 cors 통신 설정
-            headers: {
-                "Content-Type":
-                    "application/x-www-form-urlencoded; charset=UTF-8",
-                Accept: "Token",
-                "Access-Control-Allow-Origin": "*",
-            },
-        }
+        header
     )
         .then((res) => {
             result = res;
@@ -81,4 +108,4 @@ async function getKey(category: string, key: string = master) {
     return result.data.data[0].token;
 }
 
-export { get, getKey };
+export { get, update, create, del, getKey };

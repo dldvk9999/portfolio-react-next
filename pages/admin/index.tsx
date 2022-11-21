@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { get } from "../api/api";
+import { get, update, del } from "../api/api";
 import styles from "../../styles/Home.module.scss";
 
 type skillCategory = {
@@ -29,7 +29,8 @@ const Admin = () => {
     });
     const [act, setAct] = useState([
         {
-            title: "",
+            id: 0,
+            name: "",
             start: "",
             end: "",
             introduce: "",
@@ -40,7 +41,8 @@ const Admin = () => {
     ]);
     const [pro, setPro] = useState([
         {
-            title: "",
+            id: 0,
+            name: "",
             start: "",
             end: "",
             introduce: "",
@@ -52,6 +54,8 @@ const Admin = () => {
     const [isEditInfo, setEditInfo] = useState(false);
     const [isEditAct, setEditAct] = useState(false);
     const [isEditPro, setEditPro] = useState(false);
+    const [originAct, setOriginAct] = useState(act);
+    const [originPro, setOriginPro] = useState(pro);
 
     // DB에서 info 가져오기
     function getInfo() {
@@ -92,7 +96,8 @@ const Admin = () => {
             let result = [];
             for (let i = 0; i < info.length / 2; i++) {
                 result.push({
-                    title: info[i].name,
+                    id: info[i].id,
+                    name: info[i].name,
                     start:
                         new Date(info[i].start).getFullYear() +
                         "." +
@@ -112,6 +117,7 @@ const Admin = () => {
                 });
             }
             setAct(result);
+            setOriginAct(result);
         });
     }
 
@@ -122,7 +128,8 @@ const Admin = () => {
             let result = [];
             for (let i = 0; i < info.length / 2; i++) {
                 result.push({
-                    title: info[i].name,
+                    id: info[i].id,
+                    name: info[i].name,
                     start:
                         new Date(info[i].start).getFullYear() +
                         "." +
@@ -142,6 +149,7 @@ const Admin = () => {
                 });
             }
             setPro(result);
+            setOriginPro(result);
         });
     }
 
@@ -191,43 +199,50 @@ const Admin = () => {
                     <span>이름: </span>
                     <input
                         type="text"
-                        defaultValue={act[i].title}
+                        defaultValue={act[i].name}
+                        onChange={(e) => (act[i].name = e.target.value)}
                         readOnly={!isEditAct}
                     />
                     <span>시작일: </span>
                     <input
                         type="text"
                         defaultValue={act[i].start}
+                        onChange={(e) => (act[i].start = e.target.value)}
                         readOnly={!isEditAct}
                     />
                     <span>종료일: </span>
                     <input
                         type="text"
                         defaultValue={act[i].end}
+                        onChange={(e) => (act[i].end = e.target.value)}
                         readOnly={!isEditAct}
                     />
                     <span>소개: </span>
                     <input
                         type="text"
                         defaultValue={act[i].introduce}
+                        onChange={(e) => (act[i].introduce = e.target.value)}
                         readOnly={!isEditAct}
                     />
                     <span>포지션: </span>
                     <input
                         type="text"
                         defaultValue={act[i].position}
+                        onChange={(e) => (act[i].position = e.target.value)}
                         readOnly={!isEditAct}
                     />
                     <span>배운점: </span>
                     <input
                         type="text"
                         defaultValue={act[i].takeaway}
+                        onChange={(e) => (act[i].takeaway = e.target.value)}
                         readOnly={!isEditAct}
                     />
                     <span>이미지: </span>
                     <input
                         type="text"
                         defaultValue={act[i].image}
+                        onChange={(e) => (act[i].image = e.target.value)}
                         readOnly={!isEditAct}
                     />
                 </div>
@@ -242,7 +257,7 @@ const Admin = () => {
             result.push(
                 <div className={styles.adminInput} key={"admin-pros-" + i}>
                     <span>이름: </span>
-                    <input type="text" defaultValue={pro[i].title} readOnly />
+                    <input type="text" defaultValue={pro[i].name} readOnly />
                     <span>시작일: </span>
                     <input type="text" defaultValue={pro[i].start} readOnly />
                     <span>종료일: </span>
@@ -289,7 +304,8 @@ const Admin = () => {
         setAct([
             ...act,
             {
-                title: "",
+                id: 0,
+                name: "",
                 start: "",
                 end: "",
                 introduce: "",
@@ -307,11 +323,22 @@ const Admin = () => {
         }
     }
 
-    function updateAct() {
+    async function updateAct() {
         if (confirm("수정하시겠습니까?")) {
-            alert("수정되었습니다.");
-            getActivity();
-            setEditAct(false);
+            let updateResult: boolean[] = [];
+            for (let i = 0; i < originAct.length; i++) {
+                await update("activity", act[i]).then((res) => {
+                    updateResult.push(res);
+                });
+            }
+
+            if (updateResult.every((x) => x)) {
+                alert("수정되었습니다.");
+                getActivity();
+                setEditAct(false);
+            } else {
+                alert("수정에 실패했습니다. 콘솔을 확인 바랍니다.");
+            }
         }
     }
 
@@ -319,7 +346,8 @@ const Admin = () => {
         setPro([
             ...pro,
             {
-                title: "",
+                id: 0,
+                name: "",
                 start: "",
                 end: "",
                 introduce: "",
@@ -337,11 +365,22 @@ const Admin = () => {
         }
     }
 
-    function updatePro() {
+    async function updatePro() {
         if (confirm("수정하시겠습니까?")) {
-            alert("수정되었습니다.");
-            getProject();
-            setEditPro(false);
+            let updateResult: boolean[] = [];
+            for (let i = 0; i < originPro.length; i++) {
+                await update("project", pro[i]).then((res) => {
+                    updateResult.push(res);
+                });
+            }
+
+            if (updateResult.every((x) => x)) {
+                alert("수정되었습니다.");
+                getProject();
+                setEditPro(false);
+            } else {
+                alert("수정에 실패했습니다. 콘솔을 확인 바랍니다.");
+            }
         }
     }
 
