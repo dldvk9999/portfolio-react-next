@@ -60,7 +60,7 @@ const Modal = ({
                         src={
                             images[i]
                                 ? "/" + category + "/" + images[i] + ".webp"
-                                : "loading.gif"
+                                : "/loading.gif"
                         }
                         alt={title + "_" + i}
                         className={styles.modalImage}
@@ -144,16 +144,18 @@ const Modal = ({
                             showStatus={false}
                             interval={4000}
                             stopOnHover
-                            onClickItem={(index) =>
-                                window.open(
-                                    "/" +
-                                        category +
-                                        "/" +
-                                        image[index] +
-                                        ".webp",
-                                    "_blank"
-                                )
-                            }
+                            onClickItem={(index) => {
+                                image[index]
+                                    ? window.open(
+                                          "/" +
+                                              category +
+                                              "/" +
+                                              image[index] +
+                                              ".webp",
+                                          "_blank"
+                                      )
+                                    : window.open("/loading.gif");
+                            }}
                             className={styles.modalCarousel}
                         >
                             {imageSlider(category, image, title)}
