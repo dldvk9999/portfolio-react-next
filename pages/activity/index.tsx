@@ -26,7 +26,7 @@ const Activity = () => {
         await get("activity").then((res: any) => {
             let info = res.data.data;
             let result = [];
-            for (let i = 0; i < info.length / 2; i++) {
+            for (let i = 0; i < info.length; i++) {
                 result.push({
                     title: info[i].name,
                     start:
