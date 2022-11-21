@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
-import { get, update, del } from "../api/api";
+import { get, update, create, del } from "../api/api";
 import styles from "../../styles/Home.module.scss";
 
+type infoCategory = {
+    [key: string]: string;
+};
 type skillCategory = {
     [key: string]: Array<string>;
 };
 
 const Admin = () => {
-    const [information, setInfo] = useState({
-        이름: "",
-        출생: "",
-        최종학력: "",
-        경력사항: "",
-        Tel: "",
-        Email: "",
-        블로그: "",
-        깃허브: "",
+    const [information, setInfo] = useState<infoCategory>({
+        name: "",
+        birth: "",
+        lastgraduate: "",
+        isnew: "",
+        tel: "",
+        email: "",
+        blog: "",
+        github: "",
     });
     const [infoskills, setSkills] = useState<skillCategory>({
         Language: [],
@@ -56,25 +59,26 @@ const Admin = () => {
     const [isEditPro, setEditPro] = useState(false);
     const [originAct, setOriginAct] = useState(act);
     const [originPro, setOriginPro] = useState(pro);
+    const [key, setKey] = useState("");
 
     // DB에서 info 가져오기
     function getInfo() {
         get("about").then((res: any) => {
             let info = res.data.data[0];
             setInfo({
-                이름: info.name,
-                출생:
+                name: info.name,
+                birth:
                     new Date(info.birth).getFullYear() +
                     "." +
                     (new Date(info.birth).getMonth() + 1) +
                     "." +
                     new Date(info.birth).getDate(),
-                최종학력: info.lastgraduate,
-                경력사항: info.isnew === 0 ? "신입" : info.isnew + "년",
-                Tel: info.tel,
-                Email: info.email,
-                블로그: info.blog,
-                깃허브: info.github,
+                lastgraduate: info.lastgraduate,
+                isnew: info.isnew === 0 ? "신입" : info.isnew + "년",
+                tel: info.tel,
+                email: info.email,
+                blog: info.blog,
+                github: info.github,
             });
             setSkills({
                 Language: info.language.split(","),
@@ -164,6 +168,9 @@ const Admin = () => {
                     <input
                         type="text"
                         defaultValue={values[i]}
+                        onChange={(e) =>
+                            (information[keys[i]] = e.target.value)
+                        }
                         readOnly={!isEditInfo}
                     />
                 </div>
@@ -183,6 +190,9 @@ const Admin = () => {
                     <input
                         type="text"
                         defaultValue={values[i].toString()}
+                        onChange={(e) =>
+                            (infoskills[keys[i]] = e.target.value.split(","))
+                        }
                         readOnly={!isEditInfo}
                     />
                 </div>
@@ -288,10 +298,41 @@ const Admin = () => {
         return result;
     }
 
-    function updateInfo() {
+    async function updateInfo() {
         if (confirm("수정하시겠습니까?")) {
-            alert("수정되었습니다.");
-            setEditInfo(false);
+            let data = {
+                name: information.name,
+                birth: information.birth,
+                lastgraduate: information.lastgraduate,
+                isnew:
+                    information.isnew === "신입"
+                        ? 0
+                        : Number(information.isnew.slice(0, -1)),
+                tel: information.tel,
+                email: information.email,
+                blog: information.blog,
+                github: information.github,
+                language: infoskills.Language.toString(),
+                frontend: infoskills.Frontend.toString(),
+                backend: infoskills.Backend.toString(),
+                platform: infoskills.Platform.toString(),
+                communication: infoskills.Communication.toString(),
+                versioncontrol: infoskills.VersionControl.toString(),
+                deployment: infoskills.Deployment.toString(),
+                certification: infoskills.Certification.toString(),
+            };
+            if (key !== "") {
+                await update("about", data, key).then((res) => {
+                    if (res) {
+                        alert("수정되었습니다.");
+                        setEditInfo(false);
+                    } else {
+                        alert("입력된 key가 올바르지 않습니다.");
+                    }
+                });
+            } else {
+                alert("key 입력은 필수입니다.");
+            }
         }
     }
 
@@ -325,19 +366,23 @@ const Admin = () => {
 
     async function updateAct() {
         if (confirm("수정하시겠습니까?")) {
-            let updateResult: boolean[] = [];
-            for (let i = 0; i < originAct.length; i++) {
-                await update("activity", act[i]).then((res) => {
-                    updateResult.push(res);
-                });
-            }
+            if (key !== "") {
+                let updateResult: boolean[] = [];
+                for (let i = 0; i < originAct.length; i++) {
+                    await update("activity", act[i], key).then((res) => {
+                        updateResult.push(res);
+                    });
+                }
 
-            if (updateResult.every((x) => x)) {
-                alert("수정되었습니다.");
-                getActivity();
-                setEditAct(false);
+                if (updateResult.every((x) => x)) {
+                    alert("수정되었습니다.");
+                    getActivity();
+                    setEditAct(false);
+                } else {
+                    alert("수정에 실패했습니다. 콘솔을 확인 바랍니다.");
+                }
             } else {
-                alert("수정에 실패했습니다. 콘솔을 확인 바랍니다.");
+                alert("key 입력은 필수입니다.");
             }
         }
     }
@@ -367,19 +412,23 @@ const Admin = () => {
 
     async function updatePro() {
         if (confirm("수정하시겠습니까?")) {
-            let updateResult: boolean[] = [];
-            for (let i = 0; i < originPro.length; i++) {
-                await update("project", pro[i]).then((res) => {
-                    updateResult.push(res);
-                });
-            }
+            if (key !== "") {
+                let updateResult: boolean[] = [];
+                for (let i = 0; i < originPro.length; i++) {
+                    await update("project", pro[i], key).then((res) => {
+                        updateResult.push(res);
+                    });
+                }
 
-            if (updateResult.every((x) => x)) {
-                alert("수정되었습니다.");
-                getProject();
-                setEditPro(false);
+                if (updateResult.every((x) => x)) {
+                    alert("수정되었습니다.");
+                    getProject();
+                    setEditPro(false);
+                } else {
+                    alert("수정에 실패했습니다. 콘솔을 확인 바랍니다.");
+                }
             } else {
-                alert("수정에 실패했습니다. 콘솔을 확인 바랍니다.");
+                alert("key 입력은 필수입니다.");
             }
         }
     }
@@ -436,6 +485,11 @@ const Admin = () => {
                             >
                                 <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z" />
                             </svg>
+                            <input
+                                type="password"
+                                placeholder="password"
+                                onChange={(e) => setKey(e.target.value)}
+                            />
                         </span>
                     )}
                 </h2>
@@ -490,6 +544,11 @@ const Admin = () => {
                             >
                                 <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z" />
                             </svg>
+                            <input
+                                type="password"
+                                placeholder="password"
+                                onChange={(e) => setKey(e.target.value)}
+                            />
                         </span>
                     )}
                 </h2>
@@ -541,6 +600,11 @@ const Admin = () => {
                             >
                                 <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z" />
                             </svg>
+                            <input
+                                type="password"
+                                placeholder="password"
+                                onChange={(e) => setKey(e.target.value)}
+                            />
                         </span>
                     )}
                 </h2>
