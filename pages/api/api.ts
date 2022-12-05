@@ -1,6 +1,7 @@
 import Axios from "axios";
 
-const path = "https://portfolio-react-next-backend.herokuapp.com";
+const path = "https://portfolio-react-backend.vercel.app";
+// const path = "https://portfolio-react-next-backend.herokuapp.com";
 // const path = "http://127.0.0.1:8080";
 const master = "Whdrms6533@";
 const header = {
@@ -52,11 +53,7 @@ async function get(category: string, key: string = master) {
 
 async function update(category: string, update: any, key: string = master) {
     let result: boolean = false;
-    await Axios.post(
-        makeURL(category, "update"),
-        { ...update, key: key },
-        header
-    )
+    await Axios.post(makeURL(category, "update"), { ...update, key: key }, header)
         .then((_) => (result = true))
         .catch((err) => console.log(err));
     return result;
@@ -64,11 +61,7 @@ async function update(category: string, update: any, key: string = master) {
 
 async function create(category: string, create: any, key: string = master) {
     let result: boolean = false;
-    await Axios.post(
-        makeURL(category, "create"),
-        { ...create, key: key },
-        header
-    )
+    await Axios.post(makeURL(category, "create"), { ...create, key: key }, header)
         .then((_) => (result = true))
         .catch((err) => console.log(err));
     return result;
