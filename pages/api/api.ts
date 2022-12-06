@@ -1,7 +1,6 @@
 import Axios from "axios";
 
-const path = "https://portfolio-react-backend.vercel.app";
-// const path = "https://portfolio-react-next-backend.herokuapp.com";
+const path = "https://portfolio-react-next-backend.herokuapp.com";
 // const path = "http://127.0.0.1:8080";
 const master = "Whdrms6533@";
 const header = {
@@ -9,7 +8,6 @@ const header = {
     headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         Accept: "Token",
-        "Access-Control-Allow-Origin": "*",
     },
 };
 
