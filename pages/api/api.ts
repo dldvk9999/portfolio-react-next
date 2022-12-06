@@ -4,10 +4,15 @@ const path = "https://portfolio-react-next-backend.herokuapp.com";
 // const path = "http://127.0.0.1:8080";
 const master = "Whdrms6533@";
 const header = {
-    withCredentials: false, // 쿠키 cors 통신 설정
+    withCredentials: true, // 쿠키 cors 통신 설정
     headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         Accept: "Token",
+        "Access-Control-Allow-Origin": "https://portfolio-react-next-dldvk9999.vercel.app/",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, POST, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": 86400,
+        "Access-Control-Allow-Credentials": "true"
     },
 };
 
