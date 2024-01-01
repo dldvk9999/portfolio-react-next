@@ -1,14 +1,18 @@
 import Axios from "axios";
 
-const path = "https://portfolio-next-backend.vercel.app/";
+const path = "https://portfolio-next-backend.vercel.app/api";
 // const path = "http://127.0.0.1:8080";
 const master = "Whdrms6533@";
 const header = {
-    withCredentials: false, // 쿠키 cors 통신 설정
+    withCredentials: true, // 쿠키 cors 통신 설정
     headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         Accept: "Token",
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Methods": "GET,DELETE,POST",
+        "Access-Control-Allow-Headers":
+            "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
     },
 };
 
