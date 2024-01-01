@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const path = "https://portfolio-react-next-backend.herokuapp.com";
+const path = "https://portfolio-next-backend.vercel.app/";
 // const path = "http://127.0.0.1:8080";
 const master = "Whdrms6533@";
 const header = {
