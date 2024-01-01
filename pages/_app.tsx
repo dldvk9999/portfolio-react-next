@@ -9,9 +9,7 @@ import { useEffect } from "react";
 function App({ Component, pageProps }: AppProps) {
     // 스크롤 업 버튼 - 플로팅 버튼 클릭 시 실행 함수
     function scrollUp() {
-        let scroll = Scrollbar.get(
-            document.querySelector("#root") as HTMLElement
-        );
+        let scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
         if (scroll?.scrollTop !== 0) scroll?.setMomentum(0, -scroll.scrollTop);
     }
 
@@ -27,17 +25,9 @@ function App({ Component, pageProps }: AppProps) {
 
     // --vh 변수 값을 만들어서 모바일 브라우저 접속 시 주소창에 의한 viewport 길이 변경을 감지하고 동적 변환
     function setScreenSize() {
-        let scroll = Scrollbar.get(
-            document.querySelector("#root") as HTMLElement
-        );
-        if (
-            scroll!.size.content.height <
-            window.innerHeight + scroll!.scrollTop
-        ) {
-            scroll?.setMomentum(
-                0,
-                scroll!.size.content.height - window.innerHeight
-            );
+        let scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
+        if (scroll!.size.content.height < window.innerHeight + scroll!.scrollTop) {
+            scroll?.setMomentum(0, scroll!.size.content.height - window.innerHeight);
         }
         let vh = window.innerHeight;
         document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -52,9 +42,7 @@ function App({ Component, pageProps }: AppProps) {
         Scrollbar.init(document.querySelector("#root") as HTMLElement);
 
         // ScrollBar 이벤트 리스너 등록
-        let scroll = Scrollbar.get(
-            document.querySelector("#root") as HTMLElement
-        );
+        let scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
         scroll?.addListener(() => floatingHide(scroll!.scrollTop));
         scroll?.scrollTo(0, 0, 1);
 
@@ -87,6 +75,7 @@ function App({ Component, pageProps }: AppProps) {
                     name="keywords"
                     content="portfolio,frontend,frontend,frontend,nextjs,activity,project,site,react"
                 />
+                <meta name="referrer" content="no-referrer-when-downgrade" />
             </Head>
 
             <Header />
