@@ -56,9 +56,7 @@ const Header = () => {
                     readOnly
                 />
                 <svg
-                    className={`${styles.headerIconDarkmode} ${
-                        isDarkMode ? styles.turnOnSun : styles.turnOffSun
-                    }
+                    className={`${styles.headerIconDarkmode} ${isDarkMode ? styles.turnOnSun : styles.turnOffSun}
                     `}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -68,9 +66,7 @@ const Header = () => {
                     <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"></path>
                 </svg>
                 <svg
-                    className={`${styles.headerIconDarkmode} ${
-                        isDarkMode ? styles.turnOffMoon : styles.turnOnMoon
-                    }`}
+                    className={`${styles.headerIconDarkmode} ${isDarkMode ? styles.turnOffMoon : styles.turnOnMoon}`}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     onClick={(e) => checkHandler(e)}
@@ -90,8 +86,9 @@ const Header = () => {
 
     useEffect(() => {
         // dark mode 설정. localstorage 값으로 초기화
-        if (localStorage.getItem("darkmode") === null)
+        if (localStorage.getItem("darkmode") === null) {
             localStorage.setItem("darkmode", "true");
+        }
         setChecked(localStorage.getItem("darkmode") === "true");
 
         window.onresize = () => {
@@ -123,33 +120,22 @@ const Header = () => {
 
     useEffect(() => {
         // close button 이벤트 리스너 설정
-        document
-            .querySelector("#navClose")!
-            .addEventListener("click", (e) => navCloseButton(e.target!));
+        document.querySelector("#navClose")!.addEventListener("click", (e) => navCloseButton(e.target!));
 
         return () => {
-            document
-                .querySelector("#navClose")!
-                .removeEventListener("click", (e) => navCloseButton(e.target!));
+            document.querySelector("#navClose")!.removeEventListener("click", (e) => navCloseButton(e.target!));
         };
     }, [navCloseButton]);
 
     useEffect(() => {
         // dark mode 적용
-        document
-            .getElementsByTagName("html")[0]
-            .setAttribute("class", isDarkMode ? "dark" : "light");
+        document.getElementsByTagName("html")[0].setAttribute("class", isDarkMode ? "dark" : "light");
     });
 
     return (
         <header className={styles.header}>
             <div className={styles.menudarkmode}>
-                <button
-                    id="navMenu"
-                    className={styles.menu}
-                    onClick={openNav}
-                    aria-label="menu"
-                >
+                <button id="navMenu" className={styles.menu} onClick={openNav} aria-label="menu">
                     <svg
                         id="navMenuSvg"
                         xmlns="http://www.w3.org/2000/svg"
@@ -169,9 +155,9 @@ const Header = () => {
                 <div className={styles.headerRouters}>{routerList()}</div>
                 <div className={styles.headerAdmin}>
                     {darkmodeSwitch()}
-                    <Link href="/admin">
+                    {/* <Link href="/admin">
                         <a onClick={closeNav}>Admin</a>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </header>

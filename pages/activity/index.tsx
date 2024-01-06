@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "../../styles/Home.module.scss";
 import dynamic from "next/dynamic";
-import { get } from "../api/api";
-const Modal = dynamic(() => import("../../components/Modal"), {
+import { useEffect, useState } from "react";
+import styles from "@styles/Home.module.scss";
+import { get } from "@api/api";
+import type { infoCategory } from "@type/activity/type";
+
+const Modal = dynamic(() => import("@components/Modal"), {
     ssr: false,
 });
 
 const Activity = () => {
-    const [showModal, setShowModal] = useState(new Array());
-    const [act, setAct] = useState([
+    const [showModal, setShowModal] = useState<Array<boolean>>([]);
+    const [act, setAct] = useState<Array<infoCategory>>([
         {
+            id: 0,
             title: "",
             start: "",
             end: "",
@@ -24,27 +27,29 @@ const Activity = () => {
     // DB에서 Activity list 가져오기
     async function getActivity() {
         await get("activity").then((res: any) => {
-            let info = res.data.data;
+            // let infos = res.data.data;
+            const infos = res;
             let result = [];
-            for (let i = 0; i < info.length; i++) {
+            for (const info of infos) {
                 result.push({
-                    title: info[i].name,
+                    id: info.id,
+                    title: info.name,
                     start:
-                        new Date(info[i].start).getFullYear() +
+                        new Date(info.start).getFullYear() +
                         "." +
-                        (new Date(info[i].start).getMonth() + 1) +
+                        (new Date(info.start).getMonth() + 1) +
                         "." +
-                        new Date(info[i].start).getDate(),
+                        new Date(info.start).getDate(),
                     end:
-                        new Date(info[i].end).getFullYear() +
+                        new Date(info.end).getFullYear() +
                         "." +
-                        (new Date(info[i].end).getMonth() + 1) +
+                        (new Date(info.end).getMonth() + 1) +
                         "." +
-                        new Date(info[i].end).getDate(),
-                    introduce: info[i].introduce,
-                    position: info[i].position,
-                    takeaway: info[i].takeaway,
-                    image: info[i].image,
+                        new Date(info.end).getDate(),
+                    introduce: info.introduce,
+                    position: info.position,
+                    takeaway: info.takeaway,
+                    image: info.image,
                 });
             }
             setAct(result);
@@ -55,23 +60,19 @@ const Activity = () => {
     function activity() {
         let result = [];
 
-        for (let i = 0; i < act.length; i++) {
+        for (const ac of act) {
             result.push(
-                <div className={styles.activityItem} key={"activity-item-" + i}>
+                <div className={styles.activityItem} key={"activity-item-" + ac.id}>
                     <Image
-                        src={
-                            act[i].image
-                                ? "/activity/" + act[i].image + ".webp"
-                                : "/loading.gif"
-                        }
-                        alt={act[i].image}
+                        src={ac.image ? "/activity/" + ac.image + ".webp" : "/loading.gif"}
+                        alt={ac.image}
                         width={1000}
                         height={500}
                         priority
                         className={styles.activityImage}
                         onClick={() => {
                             let tmp = [...showModal];
-                            tmp[i] = true;
+                            tmp[ac.id - 1] = true;
                             setShowModal(tmp);
                         }}
                     />
@@ -79,28 +80,26 @@ const Activity = () => {
                     <Modal
                         onClose={() => {
                             let tmp = [...showModal];
-                            tmp[i] = false;
+                            tmp[ac.id - 1] = false;
                             setShowModal(tmp);
                         }}
-                        show={showModal[i]}
-                        title={act[i].title}
-                        index={i}
-                        image={act[i].image}
+                        show={showModal[ac.id - 1]}
+                        title={ac.title}
+                        index={ac.id - 1}
+                        image={ac.image}
                         category="activity"
                     >
-                        {act[i].introduce}
+                        {ac.introduce}
                     </Modal>
                     <div className={styles.activityInfo}>
-                        <h2>{act[i].title}</h2>
+                        <h2>{ac.title}</h2>
                         <div>
-                            기간 : {act[i].start} - {act[i].end}{" "}
-                            {new Date().toLocaleDateString() <
-                                new Date(act[i].end).toLocaleDateString() &&
-                                "예정"}
+                            기간 : {ac.start} - {ac.end}{" "}
+                            {new Date().toLocaleDateString() < new Date(ac.end).toLocaleDateString() && "예정"}
                         </div>
-                        <div>소개 : {act[i].introduce}</div>
-                        <div>포지션 : {act[i].position}</div>
-                        <div>배운점 : {act[i].takeaway}</div>
+                        <div>소개 : {ac.introduce}</div>
+                        <div>포지션 : {ac.position}</div>
+                        <div>배운점 : {ac.takeaway}</div>
                     </div>
                 </div>
             );
@@ -124,8 +123,7 @@ const Activity = () => {
     }, []);
 
     useEffect(() => {
-        let tmp = [];
-        for (let i = 0; i < act.length; i++) tmp.push(false);
+        const tmp = Array.from({ length: act.length }, () => false);
         if (showModal === tmp) return;
         setShowModal(tmp);
     }, [setShowModal]);

@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import { get, update, create, del } from "../api/api";
-import styles from "../../styles/Home.module.scss";
-
-type infoCategory = {
-    [key: string]: string;
-};
-type skillCategory = {
-    [key: string]: Array<string>;
-};
+import { get, update, create, del } from "@api/api";
+import styles from "@styles/Home.module.scss";
+import type { infoCategory, skillCategory } from "@type/admin/type";
 
 const Admin = () => {
     const [information, setInfo] = useState<infoCategory>({
@@ -168,9 +162,7 @@ const Admin = () => {
                     <input
                         type="text"
                         defaultValue={values[i]}
-                        onChange={(e) =>
-                            (information[keys[i]] = e.target.value)
-                        }
+                        onChange={(e) => (information[keys[i]] = e.target.value)}
                         readOnly={!isEditInfo}
                     />
                 </div>
@@ -190,9 +182,7 @@ const Admin = () => {
                     <input
                         type="text"
                         defaultValue={values[i].toString()}
-                        onChange={(e) =>
-                            (infoskills[keys[i]] = e.target.value.split(","))
-                        }
+                        onChange={(e) => (infoskills[keys[i]] = e.target.value.split(","))}
                         readOnly={!isEditInfo}
                     />
                 </div>
@@ -341,10 +331,7 @@ const Admin = () => {
                 name: information.name,
                 birth: information.birth,
                 lastgraduate: information.lastgraduate,
-                isnew:
-                    information.isnew === "신입"
-                        ? 0
-                        : Number(information.isnew.slice(0, -1)),
+                isnew: information.isnew === "신입" ? 0 : Number(information.isnew.slice(0, -1)),
                 tel: information.tel,
                 email: information.email,
                 blog: information.blog,
@@ -576,18 +563,10 @@ const Admin = () => {
                                     <path d="M3172 2967 l-1542 -1542 -608 608 c-334 334 -612 607 -617 607 -6 0 -100 -90 -210 -200 l-200 -200 810 -810 c445 -446 814 -810 820 -810 6 0 794 784 1753 1743 l1742 1742 -203 203 -202 202 -1543 -1543z" />
                                 </g>
                             </svg>
-                            <svg
-                                className={styles.adminEdit}
-                                onClick={() => cancelInfo()}
-                                viewBox="0 0 50 50"
-                            >
+                            <svg className={styles.adminEdit} onClick={() => cancelInfo()} viewBox="0 0 50 50">
                                 <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z" />
                             </svg>
-                            <input
-                                type="password"
-                                placeholder="password"
-                                onChange={(e) => setKey(e.target.value)}
-                            />
+                            <input type="password" placeholder="password" onChange={(e) => setKey(e.target.value)} />
                         </span>
                     )}
                 </h2>
@@ -601,11 +580,7 @@ const Admin = () => {
                 <h2 className={styles.adminTitle}>
                     Activity
                     {!isEditAct ? (
-                        <svg
-                            onClick={() => setEditAct(true)}
-                            className={styles.adminEdit}
-                            viewBox="0 0 1024 1024"
-                        >
+                        <svg onClick={() => setEditAct(true)} className={styles.adminEdit} viewBox="0 0 1024 1024">
                             <path d="M834.3 705.7c0 82.2-66.8 149-149 149H325.9c-82.2 0-149-66.8-149-149V346.4c0-82.2 66.8-149 149-149h129.8v-42.7H325.9c-105.7 0-191.7 86-191.7 191.7v359.3c0 105.7 86 191.7 191.7 191.7h359.3c105.7 0 191.7-86 191.7-191.7V575.9h-42.7v129.8z" />
                             <path d="M889.7 163.4c-22.9-22.9-53-34.4-83.1-34.4s-60.1 11.5-83.1 34.4L312 574.9c-16.9 16.9-27.9 38.8-31.2 62.5l-19 132.8c-1.6 11.4 7.3 21.3 18.4 21.3 0.9 0 1.8-0.1 2.7-0.2l132.8-19c23.7-3.4 45.6-14.3 62.5-31.2l411.5-411.5c45.9-45.9 45.9-120.3 0-166.2zM362 585.3L710.3 237 816 342.8 467.8 691.1 362 585.3zM409.7 730l-101.1 14.4L323 643.3c1.4-9.5 4.8-18.7 9.9-26.7L436.3 720c-8 5.2-17.1 8.7-26.6 10z m449.8-430.7l-13.3 13.3-105.7-105.8 13.3-13.3c14.1-14.1 32.9-21.9 52.9-21.9s38.8 7.8 52.9 21.9c29.1 29.2 29.1 76.7-0.1 105.8z" />
                         </svg>
@@ -635,18 +610,10 @@ const Admin = () => {
                                     <path d="M3172 2967 l-1542 -1542 -608 608 c-334 334 -612 607 -617 607 -6 0 -100 -90 -210 -200 l-200 -200 810 -810 c445 -446 814 -810 820 -810 6 0 794 784 1753 1743 l1742 1742 -203 203 -202 202 -1543 -1543z" />
                                 </g>
                             </svg>
-                            <svg
-                                className={styles.adminEdit}
-                                onClick={() => cancelAct()}
-                                viewBox="0 0 50 50"
-                            >
+                            <svg className={styles.adminEdit} onClick={() => cancelAct()} viewBox="0 0 50 50">
                                 <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z" />
                             </svg>
-                            <input
-                                type="password"
-                                placeholder="password"
-                                onChange={(e) => setKey(e.target.value)}
-                            />
+                            <input type="password" placeholder="password" onChange={(e) => setKey(e.target.value)} />
                         </span>
                     )}
                 </h2>
@@ -657,11 +624,7 @@ const Admin = () => {
                 <h2 className={styles.adminTitle}>
                     Project
                     {!isEditPro ? (
-                        <svg
-                            onClick={() => setEditPro(true)}
-                            className={styles.adminEdit}
-                            viewBox="0 0 1024 1024"
-                        >
+                        <svg onClick={() => setEditPro(true)} className={styles.adminEdit} viewBox="0 0 1024 1024">
                             <path d="M834.3 705.7c0 82.2-66.8 149-149 149H325.9c-82.2 0-149-66.8-149-149V346.4c0-82.2 66.8-149 149-149h129.8v-42.7H325.9c-105.7 0-191.7 86-191.7 191.7v359.3c0 105.7 86 191.7 191.7 191.7h359.3c105.7 0 191.7-86 191.7-191.7V575.9h-42.7v129.8z" />
                             <path d="M889.7 163.4c-22.9-22.9-53-34.4-83.1-34.4s-60.1 11.5-83.1 34.4L312 574.9c-16.9 16.9-27.9 38.8-31.2 62.5l-19 132.8c-1.6 11.4 7.3 21.3 18.4 21.3 0.9 0 1.8-0.1 2.7-0.2l132.8-19c23.7-3.4 45.6-14.3 62.5-31.2l411.5-411.5c45.9-45.9 45.9-120.3 0-166.2zM362 585.3L710.3 237 816 342.8 467.8 691.1 362 585.3zM409.7 730l-101.1 14.4L323 643.3c1.4-9.5 4.8-18.7 9.9-26.7L436.3 720c-8 5.2-17.1 8.7-26.6 10z m449.8-430.7l-13.3 13.3-105.7-105.8 13.3-13.3c14.1-14.1 32.9-21.9 52.9-21.9s38.8 7.8 52.9 21.9c29.1 29.2 29.1 76.7-0.1 105.8z" />
                         </svg>
@@ -691,18 +654,10 @@ const Admin = () => {
                                     <path d="M3172 2967 l-1542 -1542 -608 608 c-334 334 -612 607 -617 607 -6 0 -100 -90 -210 -200 l-200 -200 810 -810 c445 -446 814 -810 820 -810 6 0 794 784 1753 1743 l1742 1742 -203 203 -202 202 -1543 -1543z" />
                                 </g>
                             </svg>
-                            <svg
-                                className={styles.adminEdit}
-                                onClick={() => cancelPro()}
-                                viewBox="0 0 50 50"
-                            >
+                            <svg className={styles.adminEdit} onClick={() => cancelPro()} viewBox="0 0 50 50">
                                 <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z" />
                             </svg>
-                            <input
-                                type="password"
-                                placeholder="password"
-                                onChange={(e) => setKey(e.target.value)}
-                            />
+                            <input type="password" placeholder="password" onChange={(e) => setKey(e.target.value)} />
                         </span>
                     )}
                 </h2>

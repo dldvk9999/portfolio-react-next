@@ -1,14 +1,11 @@
-import styles from "../../styles/Home.module.scss";
 import Image from "next/image";
-import { get } from "../api/api";
 import { useEffect, useState } from "react";
-
-type skillCategory = {
-    [key: string]: Array<string>;
-};
+import styles from "@styles/Home.module.scss";
+import { get } from "@api/api";
+import type { infoCategory, skillCategory } from "@type/about/type";
 
 const About = () => {
-    const [information, setInfo] = useState({
+    const [information, setInfo] = useState<infoCategory>({
         이름: "",
         출생: "",
         최종학력: "",
@@ -32,7 +29,8 @@ const About = () => {
     // DB에서 info 가져오기
     function getInfo() {
         get("about").then((res: any) => {
-            let info = res.data.data[0];
+            // let info = res.data.data[0];
+            const info = res;
             setInfo({
                 이름: info.name,
                 출생:
@@ -63,13 +61,12 @@ const About = () => {
 
     // 내 인적사항 출력
     function info() {
-        let result = [];
-
-        for (let i = 0; i < Object.keys(information).length; i++) {
+        const result = [];
+        for (const key in information) {
             result.push(
-                <div key={"about-info-" + i}>
-                    <h2>{Object.keys(information)[i]}</h2>
-                    <p>{isLink(i, Object.values(information)[i])}</p>
+                <div key={"about-info-" + key}>
+                    <h2>{key}</h2>
+                    <p>{isLink(key, information[key])}</p>
                 </div>
             );
         }
@@ -77,73 +74,63 @@ const About = () => {
     }
 
     // 인적사항 중 링크 적용 및 나이 자동 계산
-    const isLink = (index: number, item: string) => {
-        let result = [];
-        // 블로그, 깃허브 주소일 경우
-        if (index >= 6) {
-            result.push(
-                <a
-                    href={item}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    key={"about-info-blog-" + index}
-                >
-                    {item}
-                </a>
-            );
-        }
-        // 이메일 주소일 경우
-        else if (index === 5) {
-            result.push(
-                <a href={"mailto:" + item} key={"about-info-email-" + index}>
-                    {item}
-                </a>
-            );
-        }
-        // 전화번호일 경우
-        else if (index === 4) {
-            result.push(
-                <a href={"tel:" + item} key={"about-info-tel-" + index}>
-                    {item}
-                </a>
-            );
-        }
-        // 출생일 경우 (끝에 현재 나이 추가)
-        else if (index === 1) {
-            const age = new Date().getFullYear() - Number(item.slice(0, 4)) + 1;
-            item = item + " (" + age.toString() + "세)";
-            result.push(item);
-        }
-        // 그 외
-        else {
-            result.push(item);
+    const isLink = (key: string, item: string) => {
+        const result = [];
+        switch (key) {
+            case "블로그":
+            case "깃허브":
+                result.push(
+                    <a href={item} target="_blank" rel="noopener noreferrer nofollow" key={"about-info-blog-" + key}>
+                        {item}
+                    </a>
+                );
+                break;
+            case "Email":
+                result.push(
+                    <a href={"mailto:" + item} key={"about-info-email-" + key}>
+                        {item}
+                    </a>
+                );
+                break;
+            case "Tel":
+                result.push(
+                    <a href={"tel:" + item} key={"about-info-tel-" + key}>
+                        {item}
+                    </a>
+                );
+                break;
+            case "출생":
+                const age = new Date().getFullYear() - Number(item.slice(0, 4));
+                item = item + " (" + age.toString() + "세)";
+                result.push(item);
+                break;
+            default:
+                result.push(item);
         }
         return result;
     };
 
     // 스킬 출력
     function skills() {
-        let result = [];
-
-        for (let i = 0; i < Object.keys(infoskills).length; i++) {
+        const result = [];
+        for (const key in infoskills) {
             result.push(
-                <div className={styles.skillLayout} key={"about-skill-" + i}>
-                    <h2>{Object.keys(infoskills)[i]}</h2>
-                    {skillItems(Object.keys(infoskills)[i])}
+                <div className={styles.skillLayout} key={"about-skill-" + key}>
+                    <h2>{key}</h2>
+                    {skillItems(key)}
                 </div>
             );
         }
-
         return result;
     }
 
     // 스킬 아이템 출력
     function skillItems(category: string) {
-        let result = [];
-        for (let i = 0; i < infoskills[category].length; i++) {
+        const result = [];
+        for (const value of infoskills[category]) {
             result.push(
-                <ul key={"about-skillItems-" + i}>
-                    <li>{infoskills[category][i]}</li>
+                <ul key={"about-skillItems-" + value}>
+                    <li>{value}</li>
                 </ul>
             );
         }
@@ -153,11 +140,11 @@ const About = () => {
     useEffect(() => {
         // 각 페이지에 최초로 출력되는 타이틀 자동으로 숨겨지게 처리
         setTimeout(() => {
-            let pageTitle = document.querySelector("#pageTitle") as HTMLElement;
+            const pageTitle = document.querySelector("#pageTitle") as HTMLElement;
             pageTitle.style.opacity = "0";
         }, 1000);
         setTimeout(() => {
-            let pageTitle = document.querySelector("#pageTitle") as HTMLElement;
+            const pageTitle = document.querySelector("#pageTitle") as HTMLElement;
             pageTitle.style.display = "none";
         }, 2000);
 

@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { data } from "../data/data";
 
 const path = "https://portfolio-next-backend.vercel.app/api";
 // const path = "http://127.0.0.1:8080";
@@ -36,6 +37,7 @@ function makeURL(category: string, method: string) {
     }
 }
 
+/* 
 async function get(category: string, key: string = master) {
     let result = {};
     await Axios.post(
@@ -52,6 +54,11 @@ async function get(category: string, key: string = master) {
             console.log(err.response.data);
         });
     return result;
+}
+ */
+
+async function get(category: "about" | "activity" | "project") {
+    return data[category];
 }
 
 async function update(category: string, update: any, key: string = master) {
@@ -103,7 +110,7 @@ async function getKey(category: string, key: string = master) {
             result = res;
         })
         .catch((err) => {
-            console.log(err.response.data);
+            console.log(err);
         });
     return result.data.data[0].token;
 }

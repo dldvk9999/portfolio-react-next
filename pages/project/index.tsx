@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "../../styles/Home.module.scss";
 import dynamic from "next/dynamic";
-import { get } from "../api/api";
-const Modal = dynamic(() => import("../../components/Modal"), {
+import { useEffect, useState } from "react";
+import styles from "@styles/Home.module.scss";
+import { get } from "@api/api";
+import type { infoCategory } from "@type/project/type";
+
+const Modal = dynamic(() => import("@components/Modal"), {
     ssr: false,
 });
 
 const Project = () => {
-    const [showModal, setShowModal] = useState(new Array());
-    const [pro, setPro] = useState([
+    const [showModal, setShowModal] = useState<Array<boolean>>([]);
+    const [pro, setPro] = useState<Array<infoCategory>>([
         {
+            id: 0,
             title: "",
             start: "",
             end: "",
@@ -24,27 +27,29 @@ const Project = () => {
     // DB에서 Project list 가져오기
     async function getProject() {
         await get("project").then((res: any) => {
-            let info = res.data.data;
-            let result = [];
-            for (let i = 0; i < info.length; i++) {
+            // let infos = res.data.data;
+            const infos = res;
+            const result = [];
+            for (const info of infos) {
                 result.push({
-                    title: info[i].name,
+                    id: info.id,
+                    title: info.name,
                     start:
-                        new Date(info[i].start).getFullYear() +
+                        new Date(info.start).getFullYear() +
                         "." +
-                        (new Date(info[i].start).getMonth() + 1) +
+                        (new Date(info.start).getMonth() + 1) +
                         "." +
-                        new Date(info[i].start).getDate(),
+                        new Date(info.start).getDate(),
                     end:
-                        new Date(info[i].end).getFullYear() +
+                        new Date(info.end).getFullYear() +
                         "." +
-                        (new Date(info[i].end).getMonth() + 1) +
+                        (new Date(info.end).getMonth() + 1) +
                         "." +
-                        new Date(info[i].end).getDate(),
-                    introduce: info[i].introduce,
-                    stack: info[i].stack,
-                    takeaway: info[i].takeaway,
-                    image: info[i].image.split(","),
+                        new Date(info.end).getDate(),
+                    introduce: info.introduce,
+                    stack: info.stack,
+                    takeaway: info.takeaway,
+                    image: info.image.split(","),
                 });
             }
             setPro(result);
@@ -53,25 +58,20 @@ const Project = () => {
 
     // Project 출력
     function Project() {
-        let result = [];
-
-        for (let i = 0; i < pro.length; i++) {
+        const result = [];
+        for (const project of pro) {
             result.push(
-                <div className={styles.activityItem} key={"activity-item-" + i}>
+                <div className={styles.activityItem} key={"activity-item-" + project.id}>
                     <Image
-                        src={
-                            pro[i].image[0]
-                                ? "/project/" + pro[i].image[0] + ".webp"
-                                : "/loading.gif"
-                        }
-                        alt={pro[i].title}
+                        src={project.image[0] ? "/project/" + project.image[0] + ".webp" : "/loading.gif"}
+                        alt={project.title}
                         width={1000}
                         height={500}
                         priority
                         className={styles.activityImage}
                         onClick={() => {
                             let tmp = [...showModal];
-                            tmp[i] = true;
+                            tmp[project.id - 1] = true;
                             setShowModal(tmp);
                         }}
                     />
@@ -79,28 +79,26 @@ const Project = () => {
                     <Modal
                         onClose={() => {
                             let tmp = [...showModal];
-                            tmp[i] = false;
+                            tmp[project.id - 1] = false;
                             setShowModal(tmp);
                         }}
-                        show={showModal[i]}
-                        title={pro[i].title}
-                        index={i}
-                        image={pro[i].image}
+                        show={showModal[project.id - 1]}
+                        title={project.title}
+                        index={project.id - 1}
+                        image={project.image}
                         category="project"
                     >
-                        {pro[i].introduce}
+                        {project.introduce}
                     </Modal>
                     <div className={styles.activityInfo}>
-                        <h2>{pro[i].title}</h2>
+                        <h2>{project.title}</h2>
                         <div>
-                            기간 : {pro[i].start} - {pro[i].end}{" "}
-                            {new Date().toLocaleDateString() <
-                                new Date(pro[i].end).toLocaleDateString() &&
-                                "예정"}
+                            기간 : {project.start} - {project.end}{" "}
+                            {new Date().toLocaleDateString() < new Date(project.end).toLocaleDateString() && "예정"}
                         </div>
-                        <div>소개 : {pro[i].introduce}</div>
-                        <div>기술스택 : {pro[i].stack}</div>
-                        <div>배운점 : {pro[i].takeaway}</div>
+                        <div>소개 : {project.introduce}</div>
+                        <div>기술스택 : {project.stack}</div>
+                        <div>배운점 : {project.takeaway}</div>
                     </div>
                 </div>
             );
@@ -124,8 +122,7 @@ const Project = () => {
     }, []);
 
     useEffect(() => {
-        let tmp = [];
-        for (let i = 0; i < pro.length; i++) tmp.push(false);
+        const tmp = Array.from({ length: pro.length }, () => false);
         if (showModal === tmp) return;
         setShowModal(tmp);
     }, [setShowModal]);
