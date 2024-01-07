@@ -28,11 +28,7 @@
     opacity: 1;
     transform: translateY(0);
     transition: background-color 0.5s ease-in-out;
-    background: linear-gradient(
-        to bottom,
-        var(--MAIN_BACKGROUND_COLOR),
-        transparent
-    );
+    background: linear-gradient(to bottom, var(--MAIN_BACKGROUND_COLOR), transparent);
 }
 
 .titleSub,
@@ -93,6 +89,15 @@
     margin: 4rem 0;
     line-height: 1.5;
     font-size: 1.5rem;
+}
+
+.homeInstall {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    opacity: 0.6;
+    cursor: pointer;
 }
 
 /* Main */

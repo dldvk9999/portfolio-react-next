@@ -1,0 +1,17 @@
+{
+    "name": "JongGeun's site",
+    "short_name": "portfolio",
+    "description": "박종근 - Frontend Developer",
+    "theme_color": "#d5ccfb",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/main.jpg",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

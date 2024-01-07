@@ -17,6 +17,27 @@ const pageDesc = [
 const Home: NextPage = () => {
     const [titleSub, setTitleSub] = useState<boolean>(false);
     const [downButton, setDownButton] = useState<boolean>(false);
+    const [deferredPrompt, setDeferredPrompt] = useState<any>();
+
+    const handleInstall = () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+
+            deferredPrompt.userChoice.then((choiceResult: { outcome: string }) => {
+                if (choiceResult.outcome === "accepted") {
+                    // console.log("사용자가 앱 설치를 동의했습니다.");
+                } else {
+                    // console.log("사용자가 앱 설치를 동의하지 않았습니다.");
+                }
+                setDeferredPrompt(null);
+            });
+        }
+    };
+
+    const handleBeforeInstallPrompt = (e: Event) => {
+        e.preventDefault();
+        setDeferredPrompt(e);
+    };
 
     // ScrollBar 리스너 => 특정 스크롤에 도달하면 layout slide in 처리.
     const scrollBarListener = useCallback((scrollBar: any, index: number, maxLength: number) => {
@@ -93,6 +114,12 @@ const Home: NextPage = () => {
         setTimeout(() => {
             setDownButton(true);
         }, 2000);
+
+        window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+
+        return () => {
+            window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+        };
     }, []);
 
     useEffect(() => {
@@ -135,6 +162,12 @@ const Home: NextPage = () => {
                             - by <i>Carol A. Turkington</i>
                         </p>
                     </div>
+
+                    {deferredPrompt && (
+                        <i className={styles.homeInstall} onClick={handleInstall}>
+                            Install
+                        </i>
+                    )}
 
                     <div className={`${styles.downArrow} ${downButton && styles.show}`}>
                         <button onClick={downArrow} aria-label="scroll down button">
