@@ -78,7 +78,7 @@ const Home: NextPage = () => {
                             src={"/home/" + pageList[i] + ".webp"}
                             width={1000}
                             height={1000}
-                            loading="lazy"
+                            priority
                         />
                         <div className={styles.cardContents}>
                             <h2>{pageName[i]} &rarr;</h2>
@@ -164,9 +164,9 @@ const Home: NextPage = () => {
                     </div>
 
                     {deferredPrompt && (
-                        <i className={styles.homeInstall} onClick={handleInstall}>
+                        <button className={`${styles.downArrow} ${downButton && styles.show}`} onClick={handleInstall}>
                             Install
-                        </i>
+                        </button>
                     )}
 
                     <div className={`${styles.downArrow} ${downButton && styles.show}`}>
