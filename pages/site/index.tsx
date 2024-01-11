@@ -12,8 +12,10 @@ const Site = () => {
     const [tree, setTree] = useState<JSX.Element[]>();
     const [show, setShow] = useState<number>(0);
     const [key, setKey] = useState<string>("");
+    const [commit, setCommit] = useState<string>("");
+    const [commitDate, setCommitDate] = useState<string>("");
 
-    // next.config.js에서 /api 주소 프록시
+    // next.config.js에서 주소 프록시
     const rawURL = "/api";
 
     // components 부분 만들기 - 중복 코드 줄임
@@ -140,6 +142,19 @@ const Site = () => {
         }
     }
 
+    async function getCommits() {
+        try {
+            await axios.get("https://api.github.com/repos/dldvk9999/portfolio-react-next/commits").then((html) => {
+                console.log(html);
+
+                setCommit(html.data[0].commit.message);
+                setCommitDate(html.data[0].commit.committer.date);
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     function showCode() {
         setShow(window.innerWidth);
     }
@@ -161,6 +176,8 @@ const Site = () => {
         showCode();
         // API Key get
         getAPIKey();
+        // commit 출력
+        getCommits();
 
         window.onresize = () => {
             showCode();
@@ -179,6 +196,14 @@ const Site = () => {
                 >
                     Github로 이동
                 </a>
+
+                <div className={styles.commit}>
+                    <p>최근 커밋 : </p>
+                    <p>
+                        <b>{commit}</b>
+                    </p>
+                    <p>{new Date(commitDate).toLocaleString()}</p>
+                </div>
 
                 {show >= 800 ? (
                     <div className={styles.siteTreeCode}>
