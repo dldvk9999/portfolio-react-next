@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Scrollbar from "smooth-scrollbar";
+import { getScrollbar } from "pages/common";
 import styles from "../styles/Home.module.scss";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
@@ -15,15 +16,7 @@ type modal = {
     category: "activity" | "project";
 };
 
-const Modal = ({
-    show,
-    onClose,
-    children = "",
-    image = "",
-    title = "",
-    index,
-    category,
-}: modal) => {
+const Modal = ({ show, onClose, children = "", image = "", title = "", index, category }: modal) => {
     const [isBrowser, setIsBrowser] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const headerHeight = 16 * Number(styles.headerHeight.slice(0, -3));
@@ -31,13 +24,9 @@ const Modal = ({
 
     // modal이 스크롤 할 때 fixed하게 이동시키기 (root에 스크롤 api를 사용하면서 css의 fixed가 먹히지 않음...)
     function modalScroller() {
-        let modal = document.querySelectorAll("." + styles.modalOverlay)[
-            index
-        ] as HTMLElement;
-        if (modal && scroll!.scrollTop >= headerHeight)
-            modal.style.top = scroll!.scrollTop + "px";
-        else if (modal && scroll!.scrollTop < headerHeight)
-            modal.style.top = headerHeight + "px";
+        let modal = document.querySelectorAll("." + styles.modalOverlay)[index] as HTMLElement;
+        if (modal && scroll!.scrollTop >= headerHeight) modal.style.top = scroll!.scrollTop + "px";
+        else if (modal && scroll!.scrollTop < headerHeight) modal.style.top = headerHeight + "px";
     }
 
     // modal close handler
@@ -47,21 +36,13 @@ const Modal = ({
     };
 
     // image가 배열로 들어올 경우 image를 carousel로 구현
-    function imageSlider(
-        category: string,
-        images: Array<string>,
-        title: string
-    ) {
+    function imageSlider(category: string, images: Array<string>, title: string) {
         let result = [];
         for (let i = 0; i < images.length; i++) {
             result.push(
                 <div key={"modal-images-" + i}>
                     <Image
-                        src={
-                            images[i]
-                                ? "/" + category + "/" + images[i] + ".webp"
-                                : "/loading.gif"
-                        }
+                        src={images[i] ? "/" + category + "/" + images[i] + ".webp" : "/loading.gif"}
                         alt={title + "_" + i}
                         className={styles.modalImage}
                         width={windowWidth >= 800 ? 1500 : 1000}
@@ -81,23 +62,18 @@ const Modal = ({
             setWindowWidth(window.innerWidth);
         };
 
-        scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
+        scroll = getScrollbar();
         scroll?.addListener(() => modalScroller());
         return scroll?.removeListener(() => modalScroller());
     }, []);
 
     const modalContent = (
-        <div
-            className={`${styles.modalOverlay} ${show ? styles.modalShow : ""}`}
-        >
+        <div className={`${styles.modalOverlay} ${show ? styles.modalShow : ""}`}>
             <div className={styles.modal}>
                 <div className={styles.modalHead}>
                     <div className={styles.modalHeader}>
                         <h3>{title}</h3>
-                        <button
-                            className={styles.modalClose}
-                            onClick={handleCloseClick}
-                        >
+                        <button className={styles.modalClose} onClick={handleCloseClick}>
                             <svg
                                 fill="#000000"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -110,28 +86,17 @@ const Modal = ({
                         </button>
                     </div>
                     <div className={styles.modalBody}>{children}</div>
-                    <div className={styles.modalDesc}>
-                        * 이미지를 클릭하시면 새 탭에서 크게 보실 수 있습니다.
-                    </div>
+                    <div className={styles.modalDesc}>* 이미지를 클릭하시면 새 탭에서 크게 보실 수 있습니다.</div>
                 </div>
                 <div className={styles.modalContent}>
                     {typeof image === "string" ? (
                         <Image
-                            src={
-                                image
-                                    ? "/" + category + "/" + image + ".webp"
-                                    : "/loading.gif"
-                            }
+                            src={image ? "/" + category + "/" + image + ".webp" : "/loading.gif"}
                             alt={title + " image"}
                             className={styles.modalImage}
                             width={800}
                             height={400}
-                            onClick={() =>
-                                window.open(
-                                    "/" + category + "/" + image + ".webp",
-                                    "_blank"
-                                )
-                            }
+                            onClick={() => window.open("/" + category + "/" + image + ".webp", "_blank")}
                         ></Image>
                     ) : (
                         <Carousel
@@ -146,14 +111,7 @@ const Modal = ({
                             stopOnHover
                             onClickItem={(index) => {
                                 image[index]
-                                    ? window.open(
-                                          "/" +
-                                              category +
-                                              "/" +
-                                              image[index] +
-                                              ".webp",
-                                          "_blank"
-                                      )
+                                    ? window.open("/" + category + "/" + image[index] + ".webp", "_blank")
                                     : window.open("/loading.gif");
                             }}
                             className={styles.modalCarousel}

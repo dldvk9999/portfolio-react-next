@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import styles from "../styles/Home.module.scss";
