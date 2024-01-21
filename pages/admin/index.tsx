@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { get, update, create, del } from "@api/api";
 import styles from "@styles/Home.module.scss";
-import { scrollUp, hideTitle } from "pages/common";
+import scrollUp, { hideTitle } from "pages/common";
 import type { infoCategory, skillCategory } from "@type/admin/type";
 
 const Admin = () => {

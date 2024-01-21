@@ -1,7 +1,7 @@
 import Scrollbar from "smooth-scrollbar";
 
 // 스크롤 업 버튼 - 플로팅 버튼 클릭 시 실행 함수
-export function scrollUp() {
+export default function scrollUp() {
     const scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
     if (scroll?.scrollTop !== 0) scroll?.setMomentum(0, -scroll.scrollTop);
 }

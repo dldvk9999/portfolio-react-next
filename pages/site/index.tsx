@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Scrollbar from "smooth-scrollbar";
 import styles from "@styles/Home.module.scss";
 import { getKey } from "@api/api";
-import { scrollUp, hideTitle } from "pages/common";
+import scrollUp, { hideTitle } from "pages/common";
 
 const componentsCode = ["Header", "Footer", "Modal"];
 const pagesCode = ["about", "activity", "project", "site"];

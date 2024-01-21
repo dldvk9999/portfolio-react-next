@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "@styles/Home.module.scss";
 import { get } from "@api/api";
-import { scrollUp, hideTitle } from "pages/common";
+import scrollUp, { hideTitle } from "pages/common";
 import type { infoCategory, skillCategory } from "@type/about/type";
 
 const About = () => {

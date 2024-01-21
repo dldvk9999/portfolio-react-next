@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import styles from "@styles/Home.module.scss";
 import { get } from "@api/api";
-import { scrollUp, hideTitle } from "pages/common";
+import scrollUp, { hideTitle } from "pages/common";
 import type { infoCategory } from "@type/project/type";
 
 const Modal = dynamic(() => import("@components/Modal"), {
