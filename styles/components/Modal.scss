@@ -67,6 +67,7 @@
     top: $HEADER_HEIGHT;
     z-index: -1;
     opacity: 0;
+    left: 0;
     background-color: rgba(0, 0, 0, 0.5);
     transition: opacity 0.5s ease-in-out, z-index 0.5s ease-in-out;
 }

@@ -151,12 +151,11 @@
     @include view(flex, normal, center);
     @include area(40vw, 30vh);
     @include min-area(11rem, 10rem);
-    color: white;
+    @include bcolor(rgba(0, 0, 0, 0.4), white);
     position: absolute;
     padding: 2rem 1.5rem;
     border: $HOVER_BORDER_WIDTH solid transparent;
     margin: 1rem;
-    background-color: rgba(0, 0, 0, 0.4);
     flex-direction: column;
     transition: all 0.5s ease-in-out;
 }

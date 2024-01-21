@@ -24,8 +24,8 @@
 .header a:focus,
 .header a:hover,
 .header a:active {
+    @include bcolor($HOVER_COLOR, white);
     border-color: $HOVER_COLOR;
-    background-color: $HOVER_COLOR;
 }
 
 .menudarkmode {
