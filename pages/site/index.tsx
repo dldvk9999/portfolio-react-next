@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Scrollbar from "smooth-scrollbar";
 import styles from "@styles/Home.module.scss";
 import { getKey } from "@api/api";
+import { scrollUp } from "pages/common";
 
 const componentsCode = ["Header", "Footer", "Modal"];
 const pagesCode = ["about", "activity", "project", "site"];
@@ -160,6 +161,8 @@ const Site = () => {
     }
 
     useEffect(() => {
+        scrollUp();
+
         // 각 페이지에 최초로 출력되는 타이틀 자동으로 숨겨지게 처리
         setTimeout(() => {
             const pageTitle = document.querySelector("#pageTitle") as HTMLElement;

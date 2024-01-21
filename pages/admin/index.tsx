@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { get, update, create, del } from "@api/api";
 import styles from "@styles/Home.module.scss";
+import { scrollUp } from "pages/common";
 import type { infoCategory, skillCategory } from "@type/admin/type";
 
 const Admin = () => {
@@ -519,6 +520,8 @@ const Admin = () => {
     }
 
     useEffect(() => {
+        scrollUp();
+
         // 각 페이지에 최초로 출력되는 타이틀 자동으로 숨겨지게 처리
         setTimeout(() => {
             let pageTitle = document.querySelector("#pageTitle") as HTMLElement;

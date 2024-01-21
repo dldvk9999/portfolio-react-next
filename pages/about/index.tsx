@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "@styles/Home.module.scss";
 import { get } from "@api/api";
+import { scrollUp } from "pages/common";
 import type { infoCategory, skillCategory } from "@type/about/type";
 
 const About = () => {
@@ -138,6 +139,8 @@ const About = () => {
     }
 
     useEffect(() => {
+        scrollUp();
+
         // 각 페이지에 최초로 출력되는 타이틀 자동으로 숨겨지게 처리
         setTimeout(() => {
             const pageTitle = document.querySelector("#pageTitle") as HTMLElement;

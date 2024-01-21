@@ -192,10 +192,10 @@
 }
 
 .LeftInit {
-    transform: translateX(-102%);
+    transform: translateX(-120%);
 }
 .RightInit {
-    transform: translateX(102%);
+    transform: translateX(120%);
 }
 .LeftToRight {
     animation: leftSlide 0.75s ease-out;

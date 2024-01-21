@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import Scrollbar from "smooth-scrollbar";
 import Image from "next/image";
+import { getScrollbar } from "./common";
 import styles from "@styles/Home.module.scss";
 
 const pageList = ["about", "activity", "project", "site"];
@@ -19,6 +19,7 @@ const Home: NextPage = () => {
     const [downButton, setDownButton] = useState<boolean>(false);
     const [deferredPrompt, setDeferredPrompt] = useState<any>();
 
+    // PWA 설치
     const handleInstall = () => {
         if (deferredPrompt) {
             deferredPrompt.prompt();
@@ -47,19 +48,30 @@ const Home: NextPage = () => {
                 (window.innerHeight + window.innerHeight * (Math.trunc(index / 2) / maxLength)) * 0.6
             ) {
                 setStateItemsFunc(index);
+            } else {
+                setStateItemsFunc(index, true);
             }
         } else {
             if (Number(scrollBar!.scrollTop) >= (window.innerHeight + window.innerHeight * (index / maxLength)) * 0.8) {
                 setStateItemsFunc(index);
+            } else {
+                setStateItemsFunc(index, true);
             }
         }
     }, []);
 
     // querySelector를 이용한 className 교체 (useState는 적용이 안됨)
-    function setStateItemsFunc(index: number) {
+    function setStateItemsFunc(index: number, isReverse: boolean = false) {
         const card = document.querySelector("#card-" + index);
-        const init = index % 2 === 0 ? "LeftInit" : "RightInit";
-        const appear = index % 2 === 0 ? "LeftToRight" : "RightToLeft";
+        let init = "";
+        let appear = "";
+        if (!isReverse) {
+            init = index % 2 === 0 ? "LeftInit" : "RightInit";
+            appear = index % 2 === 0 ? "LeftToRight" : "RightToLeft";
+        } else {
+            appear = index % 2 === 0 ? "LeftInit" : "RightInit";
+            init = index % 2 === 0 ? "LeftToRight" : "RightToLeft";
+        }
         card?.classList.remove(styles[`${init}`]);
         card?.classList.add(styles[`${appear}`]);
     }
@@ -93,7 +105,7 @@ const Home: NextPage = () => {
 
     // 아래 스크롤 버튼 클릭 시 이벤트 처리
     const downArrow = () => {
-        const scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
+        const scroll = getScrollbar();
         scroll?.setMomentum(0, window.innerHeight);
     };
 
@@ -101,7 +113,7 @@ const Home: NextPage = () => {
     const scrollBarListenerAsync = useCallback(
         (i: number) => {
             setTimeout(() => {
-                const scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
+                const scroll = getScrollbar();
                 scroll!.addListener(() => scrollBarListener(scroll, i, pageList.length));
             }, 500);
         },
@@ -124,7 +136,7 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         // ScrollBar 리스너 등록
-        const scroll = Scrollbar.get(document.querySelector("#root") as HTMLElement);
+        const scroll = getScrollbar();
         for (let i = 0; i < pageList.length; i++) {
             if (scroll) {
                 scroll.addListener(() => scrollBarListener(scroll, i, pageList.length));
