@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { get, update, create, del } from "@api/api";
 import styles from "@styles/Home.module.scss";
-import { scrollUp } from "pages/common";
+import { scrollUp, hideTitle } from "pages/common";
 import type { infoCategory, skillCategory } from "@type/admin/type";
 
 const Admin = () => {
@@ -520,18 +520,11 @@ const Admin = () => {
     }
 
     useEffect(() => {
+        // 스크롤 상단 위치
         scrollUp();
-
-        // 각 페이지에 최초로 출력되는 타이틀 자동으로 숨겨지게 처리
-        setTimeout(() => {
-            let pageTitle = document.querySelector("#pageTitle") as HTMLElement;
-            pageTitle.style.opacity = "0";
-        }, 1000);
-        setTimeout(() => {
-            let pageTitle = document.querySelector("#pageTitle") as HTMLElement;
-            pageTitle.style.display = "none";
-        }, 2000);
-
+        // 타이틀 숨김
+        hideTitle();
+        // 정보 수집
         getInfo();
         getActivity();
         getProject();
