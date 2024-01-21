@@ -13,8 +13,8 @@ const Site = () => {
     const [tree, setTree] = useState<JSX.Element[]>();
     const [show, setShow] = useState<number>(0);
     const [key, setKey] = useState<string>("");
-    const [commit, setCommit] = useState<string>("");
-    const [commitDate, setCommitDate] = useState<string>("");
+    const [commits, setCommit] = useState<Array<any>>([]);
+    const [commitLength, setCommitLength] = useState<number>(0);
 
     // next.config.js에서 주소 프록시
     const rawURL = "/api";
@@ -143,17 +143,34 @@ const Site = () => {
         }
     }
 
+    // 커밋 로그 가져오기
     async function getCommits() {
         try {
             await axios.get("https://api.github.com/repos/dldvk9999/portfolio-react-next/commits").then((html) => {
-                console.log(html);
-
-                setCommit(html.data[0].commit.message);
-                setCommitDate(html.data[0].commit.committer.date);
+                setCommit(html.data.slice(0, 5));
+                setCommitLength(html.data.length);
             });
         } catch (e) {
             console.log(e);
         }
+    }
+
+    // 커밋 로그 출력
+    function printCommits() {
+        const result = [];
+        for (let i = 0; i < commits.length; i += 1) {
+            result.push(
+                <tr key={commits[i].sha}>
+                    <td>{commitLength - i}</td>
+                    <td>
+                        <b>{commits[i].commit.message}</b>
+                    </td>
+                    <td>{new Date(commits[i].commit.committer.date).toLocaleString()}</td>
+                </tr>
+            );
+        }
+
+        return result;
     }
 
     function showCode() {
@@ -195,18 +212,21 @@ const Site = () => {
                     href="https://github.com/dldvk9999/portfolio-react-next"
                     className={styles.siteGithub}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer nofollow"
                 >
                     Github로 이동
                 </a>
 
-                <div className={styles.commit}>
-                    <p>최근 커밋 : </p>
-                    <p>
-                        <b>{commit}</b>
-                    </p>
-                    <p>{new Date(commitDate).toLocaleString()}</p>
-                </div>
+                <table className={styles.commit}>
+                    <thead>
+                        <tr>
+                            <th>커밋 번호</th>
+                            <th>커밋 메시지</th>
+                            <th>커밋 시간</th>
+                        </tr>
+                    </thead>
+                    <tbody>{printCommits()}</tbody>
+                </table>
 
                 {show >= 800 ? (
                     <div className={styles.siteTreeCode}>
