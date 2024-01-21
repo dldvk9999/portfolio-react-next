@@ -39,7 +39,11 @@ export function scrollbarInit() {
 
 // ScrollBar return
 export function getScrollbar() {
-    return Scrollbar.get(document.querySelector("#root") as HTMLElement);
+    if (document) {
+        return Scrollbar.get(document.querySelector("#root") as HTMLElement);
+    } else {
+        return null;
+    }
 }
 
 export function hideTitle() {
