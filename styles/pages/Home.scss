@@ -1,14 +1,11 @@
 /* Main */
 /* Section 1 - title, desc, downButton */
 .main {
-    min-height: 100vh;
-    padding: 4.4rem 0 4rem 0;
+    @include view(flex, center, center);
+    @include min-area(15rem, 100vh);
     flex: 1;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-width: 15rem;
+    padding: 4.4rem 0 4rem 0;
 }
 
 .show {
@@ -21,10 +18,9 @@
 }
 
 .titleSubArrow {
+    @include view(flex, normal, center);
     height: calc(100vh - $HEADER_HEIGHT);
-    display: flex;
     flex-direction: column;
-    justify-content: center;
     opacity: 1;
     transform: translateY(0);
     transition: background-color 0.5s ease-in-out;
@@ -39,17 +35,13 @@
 }
 
 .downArrow {
-    display: flex;
-    justify-content: center;
+    @include view(flex, normal, center);
 }
 
 .downArrow button {
-    border-radius: 50%;
+    @include view(flex, center, center);
+    @include border-radius(0, 50%);
     background-color: transparent;
-    border: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .downArrow button svg {
@@ -94,27 +86,24 @@
 /* Main */
 /* Section 2 - grid, card, cardContents */
 .grid {
+    @include view(grid, center);
     min-height: 100vh;
     width: 100%;
-    display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
     flex-wrap: wrap;
-    padding: 4rem 0;
+    padding: 4rem 5rem;
     overflow: hidden;
+    gap: 2rem;
 }
 
 .card {
+    @include view(flex, center, center);
+    @include border-radius(1px solid $BORDER_COLOR, 10px);
     text-align: left;
     color: inherit;
     text-decoration: none;
-    border: 1px solid $BORDER_COLOR;
-    border-radius: 10px;
     height: 40vh;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     transition: all 0.5s ease-out 0.2s;
     transition: transform 0.2s ease-out;
 }
@@ -148,12 +137,10 @@
 }
 
 .cardImage {
+    @include area(100%, 100%);
+    @include min-area(11rem, 10rem);
     transition: filter 0.3s ease;
     filter: blur(5px) brightness(var(--CARD_IMAGE_BRIGHTNESS));
-    width: 100%;
-    height: 100%;
-    min-width: 11rem;
-    min-height: 10rem;
 }
 
 .card:hover > .cardImage {
@@ -161,19 +148,16 @@
 }
 
 .cardContents {
+    @include view(flex, normal, center);
+    @include area(40vw, 30vh);
+    @include min-area(11rem, 10rem);
     color: white;
     position: absolute;
     padding: 2rem 1.5rem;
     border: $HOVER_BORDER_WIDTH solid transparent;
     margin: 1rem;
     background-color: rgba(0, 0, 0, 0.4);
-    height: 30vh;
-    min-height: 10rem;
-    width: 40vw;
-    min-width: 11rem;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
     transition: all 0.5s ease-in-out;
 }
 
@@ -183,11 +167,10 @@
 
 .card > .cardContents:before,
 .card > .cardContents:after {
+    @include area(10px, $HOVER_BORDER_WIDTH);
     content: "";
     position: absolute;
     display: block;
-    width: 10px;
-    height: $HOVER_BORDER_WIDTH;
     background-color: transparent;
     transition: all 0.5s ease-in-out 0.2s;
 }

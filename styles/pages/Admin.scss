@@ -1,7 +1,6 @@
 .adminSection,
 .adminArea {
-    display: flex;
-    align-items: center;
+    @include view(flex, center);
 }
 
 .adminSection {
@@ -35,8 +34,7 @@
 }
 
 .adminEdit {
-    width: 1em;
-    height: 1em;
+    @include area(1em, 1em);
     vertical-align: middle;
     fill: currentColor;
     overflow: hidden;

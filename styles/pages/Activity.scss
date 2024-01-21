@@ -10,10 +10,8 @@
 }
 
 .activityItem {
-    display: grid;
+    @include view(grid, center, center);
     grid-template-columns: 1fr 2fr;
-    justify-items: center;
-    align-items: center;
     padding: 2rem 3rem;
     margin-bottom: 3rem;
     box-shadow: 10px 10px 20px 3px var(--ACTIVITY_ITEM_SHADOW);

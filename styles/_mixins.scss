@@ -1,0 +1,25 @@
+@mixin view($display, $align-items: normal, $justify-content: normal) {
+    display: $display;
+    align-items: $align-items;
+    justify-content: $justify-content;
+}
+
+@mixin area($width, $height: auto) {
+    width: $width;
+    height: $height;
+}
+
+@mixin bcolor($background-color, $color) {
+    background-color: $background-color;
+    color: $color;
+}
+
+@mixin border-radius($border, $border-radius) {
+    border: $border;
+    border-radius: $border-radius;
+}
+
+@mixin min-area($min-width, $min-height) {
+    min-width: $min-width;
+    min-height: $min-height;
+}

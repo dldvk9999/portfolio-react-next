@@ -6,8 +6,8 @@ html,
 body {
     padding: 0;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+        Helvetica Neue, sans-serif;
     overflow-y: hidden;
 }
 
@@ -177,7 +177,7 @@ li {
 }
 
 li {
-    cursor: pointer;
+    cursor: default;
 }
 
 @media (max-width: 600px) or (max-height: 700px) {

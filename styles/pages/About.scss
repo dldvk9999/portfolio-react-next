@@ -6,13 +6,11 @@
 }
 
 .profile {
-    height: calc(100vh - $HEADER_HEIGHT);
-    width: 100vw;
-    display: grid;
-    justify-items: center;
-    align-items: center;
+    @include view(grid, center, center);
+    @include area(100vw, calc(100vh - $HEADER_HEIGHT));
     grid-template-columns: 1fr 1fr;
     padding: 5rem;
+    justify-items: center;
 }
 
 .profileImage {
@@ -36,17 +34,16 @@
 }
 
 .skills {
+    @include view(grid, normal, center);
     height: 100vh;
-    display: grid;
-    justify-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     padding: 0 10rem;
+    justify-items: center;
 }
 
 .skillLayout {
-    display: flex;
+    @include view(flex, flex-start);
     flex-direction: column;
-    align-items: flex-start;
 }
 
 @media (max-width: 1024px) {

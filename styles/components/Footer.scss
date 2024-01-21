@@ -1,24 +1,19 @@
 /* Footer */
 .footer {
-    display: flex;
+    @include view(flex, center, center);
+    gap: 1rem;
     flex: 1;
     padding: 2rem 0;
     border-top: 1px solid $BORDER_COLOR;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
     min-width: 13rem;
 }
 
 .footer a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include view(flex, center, center);
 }
 
 .footerItem {
-    display: flex;
-    align-items: center;
+    @include view(flex, center);
     gap: 0.5rem;
 }
 
