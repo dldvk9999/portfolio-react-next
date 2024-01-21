@@ -61,9 +61,15 @@
 }
 
 .commit {
-    margin: 1rem 0;
+    margin: 1rem 0 2rem;
     width: 45%;
     text-align: center;
+    border-spacing: 0;
+    > thead > tr > th {
+        border: 1px double $HOVER_COLOR;
+        border-left: 0;
+        border-right: 0;
+    }
 }
 
 @media (max-width: 600px) {
