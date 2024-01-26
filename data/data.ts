@@ -1,5 +1,6 @@
 export const data = {
     about: {
+        notion: "https://www.notion.so/jonggeun-frontend-developer/React-FE-eef0274b847147e1bce608264b348aea?pvs=4",
         github: "https://github.com/dldvk9999",
         blog: "https://blog.naver.com/dldvk9999",
         email: "dldvk9999@naver.com",

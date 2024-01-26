@@ -15,6 +15,7 @@ const About = () => {
         Email: "",
         블로그: "",
         깃허브: "",
+        노션: "",
     });
     const [infoskills, setSkills] = useState<skillCategory>({
         Language: [],
@@ -46,6 +47,7 @@ const About = () => {
                 Email: info.email,
                 블로그: info.blog,
                 깃허브: info.github,
+                노션: info.notion,
             });
             setSkills({
                 Language: info.language.split(","),
@@ -78,6 +80,7 @@ const About = () => {
     const isLink = (key: string, item: string) => {
         const result = [];
         switch (key) {
+            case "노션":
             case "블로그":
             case "깃허브":
                 result.push(
