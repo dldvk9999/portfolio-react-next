@@ -15,7 +15,6 @@ const Site = () => {
     const [show, setShow] = useState<number>(0);
     const [key, setKey] = useState<string>("");
     const [commits, setCommit] = useState<Array<any>>([]);
-    const [commitLength, setCommitLength] = useState<number>(0);
 
     // next.config.js에서 주소 프록시
     const rawURL = "/api";
@@ -149,7 +148,6 @@ const Site = () => {
         try {
             await axios.get("https://api.github.com/repos/dldvk9999/portfolio-react-next/commits").then((html) => {
                 setCommit(html.data.slice(0, 5));
-                setCommitLength(html.data.length);
             });
         } catch (e) {
             console.log(e);
@@ -162,7 +160,7 @@ const Site = () => {
         for (let i = 0; i < commits.length; i += 1) {
             result.push(
                 <tr key={commits[i].sha}>
-                    <td>{commitLength - i}</td>
+                    <td>{i + 1}</td>
                     <td>
                         <b>{commits[i].commit.message}</b>
                     </td>
@@ -213,7 +211,7 @@ const Site = () => {
                 <table className={styles.commit}>
                     <thead>
                         <tr>
-                            <th>커밋 번호</th>
+                            <th>최근 커밋</th>
                             <th>커밋 메시지</th>
                             <th>커밋 시간</th>
                         </tr>
