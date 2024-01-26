@@ -72,11 +72,26 @@
     }
 }
 
+@media (max-width: 1200px) {
+    .commit {
+        width: 80%;
+    }
+}
+
+@media (max-width: 700px) {
+    .commit {
+        font-size: 0.75rem;
+    }
+}
+
 @media (max-width: 600px) {
     .site {
         max-width: 80vw;
         min-width: 15rem;
         padding: 2rem;
+    }
+    .commit {
+        width: 100%;
     }
 }
 
