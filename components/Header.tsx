@@ -4,21 +4,21 @@ import { useCallback, useEffect, useState } from "react";
 import styles from "../styles/Home.module.scss";
 
 const Header = () => {
-    const [isDarkMode, setChecked] = useState(true);
-    let isOpen = false;
+    const [isDarkMode, setChecked] = useState<boolean>(true);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     // nav open
     function openNav() {
         let nav = document.querySelector("#nav");
         nav?.classList.add("active");
-        isOpen = true;
+        setIsOpen(true);
     }
 
     // nav close
     function closeNav() {
         let nav = document.querySelector("#nav");
         nav?.classList.remove("active");
-        isOpen = false;
+        setIsOpen(false);
     }
 
     // nav close button listener
@@ -97,27 +97,19 @@ const Header = () => {
                 closeNav();
             }
         };
+    }, []);
 
-        // nav가 open일 시 바깥영역 클릭해도 닫히지 않게 하기 위해 click 리스너 등록
+    useEffect(() => {
+        const nav = ["nav", "navClose", "navFooter", "navList", "nav-hr", "navMenu", "navMenuSvg", "navMenuPath"];
+
         window.onclick = (e) => {
-            if (isOpen) {
-                const id = e.target as HTMLButtonElement;
-                const nav = [
-                    "nav",
-                    "navClose",
-                    "navFooter",
-                    "navList",
-                    "nav-hr",
-                    "navMenu",
-                    "navMenuSvg",
-                    "navMenuPath",
-                ];
-                if (nav.indexOf(id.id) === -1) {
-                    closeNav();
-                }
+            const id = e.target as HTMLButtonElement;
+
+            if (isOpen && !nav.includes(id.id)) {
+                closeNav();
             }
         };
-    }, []);
+    }, [isOpen]);
 
     useEffect(() => {
         // close button 이벤트 리스너 설정

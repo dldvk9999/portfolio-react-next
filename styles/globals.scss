@@ -44,7 +44,7 @@ nav {
     width: 100vw;
     min-width: 100px;
     max-width: 300px;
-    background: var(--NAV_BACKGROUND);
+    backdrop-filter: blur(30px);
     z-index: 999;
 }
 

@@ -20,7 +20,9 @@ export default function MyDocument() {
             // }
             result.push(
                 <Link href={"/" + pageList[i]} key={"nav-router-" + i}>
-                    <a onClick={closeNav}>{pageName[i]}</a>
+                    <a onClick={closeNav}>
+                        <b>{pageName[i]}</b>
+                    </a>
                 </Link>
             );
         }
